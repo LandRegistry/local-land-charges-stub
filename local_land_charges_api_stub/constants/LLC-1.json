@@ -1,0 +1,39 @@
+{
+    "item": {
+        "charge-creation-date": "2017-01-12",
+        "charge-geographic-description": "Varying as LA Admin",
+        "charge-type": "Planning",
+        "expiry-date": "2025-01-01",
+        "further-information-location": "room 101, Council Office",
+        "further-information-reference": "AB1212",
+        "geometry": {
+            "features": [
+                {
+                    "crs": {
+                        "properties": {
+                            "name": "urn:ogc:def:crs:EPSG::27700"
+                        },
+                        "type": "name"
+                    },
+                    "geometry": {
+                        "coordinates": [
+                            294300,
+                            97054
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "id": 411
+                    },
+                    "type": "Feature"
+                }
+            ],
+            "type": "FeatureCollection"
+        },
+        "instrument": "Deed",
+        "originating-authority": "Place City Council",
+        "registration-date": "2017-01-11",
+        "statutory-provision": "Town and Country Planning Act 1990"
+    },
+    "version-id": 59
+}
