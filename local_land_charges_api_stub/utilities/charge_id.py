@@ -3,10 +3,6 @@ from local_land_charges_api_stub.exceptions import ApplicationError
 import re
 
 
-# TODO(unknown): This service is duplicated in the search-api any changes here should be mirrored there.
-# TODO(unknown): Once the infrastructure is in place this service should be moved into a module and
-# TODO(unknown): imported into this project.
-
 def is_valid_charge_id(charge_id):
     """Returns true if the given charge_id has a valid format, false otherwise."""
     return re.match(ChargeId.IS_VALID_REGEX, charge_id)

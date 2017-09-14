@@ -199,7 +199,6 @@
             "type": "object",
             "required": [
                 "full-name",
-                "email",
                 "organisation"
             ],
             "properties": {

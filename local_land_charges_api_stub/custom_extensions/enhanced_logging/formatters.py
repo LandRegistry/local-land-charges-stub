@@ -11,7 +11,6 @@ class JsonFormatter(logging.Formatter):
         else:
             exc = None
 
-        # Timestamp must be first (webops request)
         log_entry = collections.OrderedDict(
             [('timestamp', self.formatTime(record)),
              ('level', record.levelname),
@@ -24,7 +23,6 @@ class JsonFormatter(logging.Formatter):
 
 class JsonAuditFormatter(logging.Formatter):
     def format(self, record):
-        # Timestamp must be first (webops request)
         log_entry = collections.OrderedDict(
             [('timestamp', self.formatTime(record)),
              ('level', 'AUDIT'),
