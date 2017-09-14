@@ -1,0 +1,42 @@
+{
+    "item": {
+        "charge-creation-date": "2017-01-12",
+        "charge-geographic-description": "The Street, Mytown",
+        "charge-type": "s52 Land Compensation Charge",
+        "expiry-date": "2025-01-01",
+        "further-information-location": "Room 101, Council Offices",
+        "further-information-reference": "AB1212",
+        "geometry": {
+            "features": [
+                {
+                    "crs": {
+                        "properties": {
+                            "name": "urn:ogc:def:crs:EPSG::27700"
+                        },
+                        "type": "name"
+                    },
+                    "geometry": {
+                        "coordinates": [
+                            294300,
+                            97054
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "id": 411
+                    },
+                    "type": "Feature"
+                }
+            ],
+            "type": "FeatureCollection"
+        },
+        "instrument": "Deed",
+        "originating-authority": "Place City Council",
+        "registration-date": "2017-01-11",
+        "statutory-provision": "Land Compensation Act 1973 section 52",
+        "end-date": "2020-01-31",
+        "land-capacity-description": "land owner",
+        "land-compensation-paid": "£5000"
+    },
+    "version-id": 46
+}

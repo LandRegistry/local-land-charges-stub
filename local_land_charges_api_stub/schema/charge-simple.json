@@ -1,0 +1,319 @@
+{
+    "id": "",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "geometry": {
+            "$ref": "file:feature_collection.json#",
+            "description": "FeatureCollection identifing the Charge extent."
+        },
+        "supplier-charge-identifier": {
+            "description": "Identifier of the Charge issued by the migration supplier.",
+            "type": "string",
+            "minLength": 1
+        },
+        "local-land-charge": {
+            "description": "Identifier of the Charge issued by Land Registry.",
+            "type": "integer"
+        },
+        "registration-date": {
+            "description": "Date the item was entered into the register.",
+            "$ref": "#/definitions/date"
+        },
+        "incumbent-system-identifier": {
+            "description": "Identifier of the Charge as it is held in an incumbent supplier system.",
+            "type": "string",
+            "minLength": 1
+        },
+        "charge-type": {
+            "description": "The general category of the Charge (e.g. Planning, Financial)",
+            "type": "string",
+            "minLength": 1
+        },
+        "charge-geographic-description": {
+            "description": "A description of the land affected by the Charge.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+        },
+        "charge-creation-date": {
+            "description": "The date the Charge comes into effect.",
+            "$ref": "#/definitions/date"
+        },
+        "instrument": {
+            "description": "The document giving rise to the Charge (e.g. charge, deed)",
+            "type": "string",
+            "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice", 
+                     "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
+        },
+        "statutory-provision": {
+            "type": "string",
+            "description": "The statutory provision(s) under which the Charge has arisen.",
+            "minLength": 1
+        },
+        "further-information-location": {
+            "type": "string",
+            "description": "The location - physical or virtual - where relevant documents may be inspected.",
+            "minLength": 1,
+            "maxLength": 475
+        },
+        "further-information-reference": {
+            "type": "string",
+            "description": "The location - physical or virtual - where relevant documents may be inspected.",
+            "minLength": 1,
+            "maxLength": 255
+        },
+        "retained-land-description": {
+            "description": "A textual description of the land adjoining the land compulsorily purchased for public works.",
+            "type": "string",
+            "minLength": 1
+        },
+        "land-works-particulars": {
+            "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
+            "type": "string",
+            "minLength": 1
+        },
+        "land-capacity-description": {
+            "description": "A description of the capacity in which the land was acquired; e.g. freehold.",
+            "type": "string",
+            "minLength": 1
+        },
+        "land-compensation-paid": {
+            "description": "Amount already paid to the landowner from which the land was acquired.",
+            "type": "string",
+            "minLength": 1
+        },
+        "unique-property-reference-numbers": {
+            "description": "Unique Property Reference Number, a unique number issued by GeoPlace for every Basic Land & Property Unit (BLPU) which reconciles different property gazetteers.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "old-register-part": {
+            "description": "The part of the LLC register on which a charge was recorded by a local authority prior to migration. Only required for migrated Charges.",
+            "type": "string",
+            "enum": ["1", "2", "3b", "4", "6a", "6b", "7", "8", "9", "10", "11", "12"]
+        },
+        "originating-authority": {
+            "description": "The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence.",
+            "type": "string",
+            "minLength": 1
+        },
+        "migrating-authority": {
+            "description": "The Charge migrating Registering Authority name.",
+            "type": "string",
+            "minLength": 1
+        },
+        "migration-supplier": {
+            "description": "The name of the migration supplier for the Charge.",
+            "type": "string",
+            "minLength": 1
+        },
+        "expiry-date": {
+            "description": "The date on which a Land Interest in respect of a local land charge ceases to exist.",
+            "$ref": "#/definitions/date"
+        },
+        "expiry-text": {
+            "description": "Description of when a Land Interest in respect of a local land charge ceases to exist.",
+            "type": "string",
+            "maxLength": 500
+        },
+        "supplementary-information": {
+            "type": "string"
+        },
+        "amount-originally-secured": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+        },
+        "rate-of-interest": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+        },
+        "end-date": {
+            "description": "The date the charge Item is cancelled on the register.",
+            "$ref": "#/definitions/date"
+        },
+        "start-date": {
+            "description": "The date the charge Item is added to the register.",
+            "$ref": "#/definitions/date"
+        },
+        "author": {
+            "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
+            "$ref": "#/definitions/author"
+        },
+        "applicant-name": {
+            "description": "The name of the individual or organisation applying for the light obstruction notice",
+            "type": "string",
+            "minLength": 1
+        },
+        "applicant-address": {
+            "description": "The address of the applicant",
+            "$ref": "#/definitions/applicant-address"
+        },
+        "servient-land-interest-description": {
+            "description": "The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land)",
+            "type": "string",
+            "enum": ["Owner", "Tenant", "Lender"]
+        },
+        "structure-position-and-dimension": {
+            "description": "The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge).",
+            "type": "string",
+            "minLength": 1
+        },
+        "tribunal-definitive-certificate-date": {
+            "description": "The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal.",
+            "$ref": "#/definitions/date"
+        },
+        "documents-filed": {
+            "description": "The documents lodged to support the LON registration",
+            "$ref": "#/definitions/documents-filed"
+        },
+        "tribunal-temporary-certificate-date": {
+            "description": "The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal",
+            "$ref": "#/definitions/date"
+        },
+        "tribunal-temporary-certificate-expiry-date": {
+            "description": "The date a temporary Lands Tribunal certificate expires, this is a maximum of 6 months after the date of registration",
+            "$ref": "#/definitions/date"
+        }
+    },
+    "required": [
+        "geometry",
+        "charge-type",
+        "further-information-location",
+        "charge-geographic-description",
+        "originating-authority"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "format": "date"
+        },
+        "author": {
+            "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
+            "type": "object",
+            "required": [
+                "full-name",
+                "organisation"
+            ],
+            "properties": {
+                "full-name": {
+                    "description": "The full name of the author, computed by first name + second name",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "email": {
+                    "description": "The email of the author",
+                    "type": "string",
+                    "format": "email",
+                    "minLength": 1
+                },
+                "organisation": {
+                    "description": "The organisation of the author",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "applicant-address": {
+            "description": "The address of the applicant",
+            "type": "object",
+            "required": [
+                "street",
+                "town",
+                "postcode",
+                "country"
+            ],
+            "properties": {
+                "street": {
+                    "description": "The street of the applicant address",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "town": {
+                    "description": "The town of the applicant address",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "county": {
+                    "description": "The county of the applicant address",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "postcode": {
+                    "description": "The postcode of the applicant address",
+                    "type": "string",
+                    "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
+                    "format": "postcode",
+                    "minLength": 1
+                },
+                "country": {
+                    "description": "The country of the applicant address",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "documents-filed": {
+            "description": "The documents lodged to support the LON registration",
+            "type": "object",
+            "required": [
+                "form-a",
+                "colour-plan"
+            ],
+            "properties": {
+                "form-a": {
+                    "description": "Form A document in support of LON.",
+                    "ref": "#/definitions/lon-documents"
+                },
+                "colour-plan": {
+                    "description": "Colour Plan document in support of LON.",
+                    "ref": "#/definitions/lon-documents"
+                },
+                "temporary-lon-certificate": {
+                    "description": "Temporary LON Certificate in support of LON",
+                    "ref": "#/definitions/lon-documents"
+                },
+                "definitive-certificate": {
+                    "description": "Definitive LON Certificate in support of LON",
+                    "ref": "#/definitions/lon-documents"
+                }
+            }
+        },
+        "lon-documents": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["bucket", "file_id", "reference"],
+                "properties": {
+                    "bucket": {
+                        "description": "Directory below the main container in the file path, e.g. /lon/",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "file_id": {
+                        "description": "The id of the file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "reference": {
+                        "description": "The path to file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "subdirectory": {
+                        "description": "The sub directory path to file.",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
+        }
+    }
+}
