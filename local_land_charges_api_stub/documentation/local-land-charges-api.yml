@@ -66,8 +66,6 @@ paths:
                   $ref: '#/definitions/further-information-location'
                 further-information-reference:
                   $ref: '#/definitions/further-information-reference'
-                retained-land-description:
-                  $ref: '#/definitions/retained-land-description'
                 land-works-particulars:
                   $ref: '#/definitions/land-works-particulars'
                 land-capacity-description:
@@ -199,8 +197,6 @@ paths:
                     $ref: '#/definitions/further-information-location'
                   further-information-reference:
                     $ref: '#/definitions/further-information-reference'
-                  retained-land-description:
-                    $ref: '#/definitions/retained-land-description'
                   land-works-particulars:
                     $ref: '#/definitions/land-works-particulars'
                   land-capacity-description:
@@ -341,8 +337,6 @@ paths:
                   $ref: '#/definitions/further-information-location'
                 further-information-reference:
                   $ref: '#/definitions/further-information-reference'
-                retained-land-description:
-                  $ref: '#/definitions/retained-land-description'
                 land-works-particulars:
                   $ref: '#/definitions/land-works-particulars'
                 land-capacity-description:
@@ -609,11 +603,6 @@ definitions:
     minLength: 1
     maxLength: 255
     example: 'REF: 123'
-  retained-land-description:
-    description: "A textual description of the land adjoining the land compulsorily purchased for public works. Valid only when 'charge-type' is 's8 Land Compensation Charge'"
-    type: string
-    minLength: 1
-    example: 'Land to the south of High Street, Exeter'
   land-works-particulars:
     description: "Description of the extent of and the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 's8 Land Compensation Charge'"
     type: string

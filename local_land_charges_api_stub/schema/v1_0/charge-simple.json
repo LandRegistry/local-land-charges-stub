@@ -7,11 +7,6 @@
             "$ref": "file:feature_collection.json#",
             "description": "FeatureCollection identifing the Charge extent."
         },
-        "supplier-charge-identifier": {
-            "description": "Identifier of the Charge issued by the migration supplier.",
-            "type": "string",
-            "minLength": 1
-        },
         "local-land-charge": {
             "description": "Identifier of the Charge issued by Land Registry.",
             "type": "integer"
@@ -20,8 +15,8 @@
             "description": "Date the item was entered into the register.",
             "$ref": "#/definitions/date"
         },
-        "incumbent-system-identifier": {
-            "description": "Identifier of the Charge as it is held in an incumbent supplier system.",
+        "originating-authority-charge-identifier": {
+            "description": "The ID of the charge form (i) if an existing digital system -the ID within that system, (ii) if paper/electronic - where one is currently allocated by LA use as currently exists within LA if not allocated by the first supplier to handle the records and agreed with the LA.",
             "type": "string",
             "minLength": 1
         },
@@ -62,11 +57,6 @@
             "description": "The location - physical or virtual - where relevant documents may be inspected.",
             "minLength": 1,
             "maxLength": 255
-        },
-        "retained-land-description": {
-            "description": "A textual description of the land adjoining the land compulsorily purchased for public works.",
-            "type": "string",
-            "minLength": 1
         },
         "land-works-particulars": {
             "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
@@ -269,19 +259,19 @@
             "properties": {
                 "form-a": {
                     "description": "Form A document in support of LON.",
-                    "ref": "#/definitions/lon-documents"
+                    "$ref": "#/definitions/lon-documents"
                 },
                 "colour-plan": {
                     "description": "Colour Plan document in support of LON.",
-                    "ref": "#/definitions/lon-documents"
+                    "$ref": "#/definitions/lon-documents"
                 },
                 "temporary-lon-certificate": {
                     "description": "Temporary LON Certificate in support of LON",
-                    "ref": "#/definitions/lon-documents"
+                    "$ref": "#/definitions/lon-documents"
                 },
                 "definitive-certificate": {
                     "description": "Definitive LON Certificate in support of LON",
-                    "ref": "#/definitions/lon-documents"
+                    "$ref": "#/definitions/lon-documents"
                 }
             }
         },
