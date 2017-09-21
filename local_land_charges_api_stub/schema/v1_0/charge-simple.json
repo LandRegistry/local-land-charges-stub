@@ -276,28 +276,32 @@
             }
         },
         "lon-documents": {
-            "type": "object",
-            "required": ["bucket", "file_id", "reference"],
-            "properties": {
-                "bucket": {
-                    "description": "Directory below the main container in the file path, e.g. /lon/",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "file_id": {
-                    "description": "The id of the file.",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "reference": {
-                    "description": "The path to file.",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "subdirectory": {
-                    "description": "The sub directory path to file.",
-                    "type": "string",
-                    "minLength": 1
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["bucket", "file_id", "reference"],
+                "properties": {
+                    "bucket": {
+                        "description": "Directory below the main container in the file path, e.g. /lon/",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "file_id": {
+                        "description": "The id of the file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "reference": {
+                        "description": "The path to file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "subdirectory": {
+                        "description": "The sub directory path to file.",
+                        "type": "string",
+                        "minLength": 1
+                    }
                 }
             }
         }
