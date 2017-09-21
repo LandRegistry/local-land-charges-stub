@@ -9,7 +9,6 @@ s52_extra_fields = [
 
 s8_extra_fields = [
     'land-works-particulars',
-    'retained-land-description'
 ]
 
 financial_extra_fields = [
@@ -18,7 +17,6 @@ financial_extra_fields = [
 ]
 
 migration_required_fields = [
-    'supplier-charge-identifier',
     'old-register-part',
     'migrating-authority',
     'migration-supplier'

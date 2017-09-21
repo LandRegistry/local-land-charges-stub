@@ -17,18 +17,13 @@
                     "$ref": "file:feature_collection.json#",
                     "description": "FeatureCollection identifying the Charge extent."
                 },
-                "supplier-charge-identifier": {
-                    "description": "Identifier of the Charge issued by the migration supplier.",
-                    "type": "string",
-                    "minLength": 1
-                },
                 "migration-supplier": {
                     "description": "Identifier of the Charge issued by the migration supplier.",
                     "type": "string",
                     "minLength": 1
                 },
-                "incumbent-system-identifier": {
-                    "description": "Identifier of the Charge as it is held in an incumbent supplier system.",
+                "originating-authority-charge-identifier": {
+                    "description": "The ID of the charge form (i) if an existing digital system -the ID within that system, (ii) if paper/electronic - where one is currently allocated by LA use as currently exists within LA if not allocated by the first supplier to handle the records and agreed with the LA.",
                     "type": "string",
                     "minLength": 1
                 },
@@ -138,8 +133,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -181,8 +175,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -224,8 +217,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -252,11 +244,6 @@
                         "end-date": {},
                         "author": {},
                         "originating-authority": {},
-                        "retained-land-description": {
-                            "description": "A textual description of the land adjoining the land compulsorily purchased for public works.",
-                            "type": "string",
-                            "minLength": 1
-                        },
                         "land-works-particulars": {
                             "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
                             "type": "string",
@@ -278,8 +265,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -360,8 +346,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -414,8 +399,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
