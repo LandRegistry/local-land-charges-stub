@@ -25,26 +25,35 @@
             "type": "string",
             "minLength": 1
         },
+        "charge-sub-category": {
+            "description": "The specific sub-category of the Charge.",
+            "type": "string",
+            "minLength": 1
+        },
         "charge-geographic-description": {
             "description": "A description of the land affected by the Charge.",
             "type": "string",
             "minLength": 1,
             "maxLength": 1000
         },
-        "charge-creation-date": {
-            "description": "The date the Charge comes into effect.",
-            "$ref": "#/definitions/date"
+        "charge-address": {
+            "description": "The postal address of the land affected by the charge.",
+            "ref": "#/definitions/address"
         },
         "instrument": {
             "description": "The document giving rise to the Charge (e.g. charge, deed)",
             "type": "string",
-            "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice", 
+            "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice",
                      "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
         },
         "statutory-provision": {
             "type": "string",
             "description": "The statutory provision(s) under which the Charge has arisen.",
             "minLength": 1
+        },
+        "charge-creation-date": {
+            "description": "The date the Charge comes into effect.",
+            "$ref": "#/definitions/date"
         },
         "further-information-location": {
             "type": "string",
@@ -73,13 +82,6 @@
             "type": "string",
             "minLength": 1
         },
-        "unique-property-reference-numbers": {
-            "description": "Unique Property Reference Number, a unique number issued by GeoPlace for every Basic Land & Property Unit (BLPU) which reconciles different property gazetteers.",
-            "type": "array",
-            "items": {
-                "type": "integer"
-            }
-        },
         "old-register-part": {
             "description": "The part of the LLC register on which a charge was recorded by a local authority prior to migration. Only required for migrated Charges.",
             "type": "string",
@@ -103,11 +105,6 @@
         "expiry-date": {
             "description": "The date on which a Land Interest in respect of a local land charge ceases to exist.",
             "$ref": "#/definitions/date"
-        },
-        "expiry-text": {
-            "description": "Description of when a Land Interest in respect of a local land charge ceases to exist.",
-            "type": "string",
-            "maxLength": 500
         },
         "supplementary-information": {
             "type": "string"
@@ -146,12 +143,18 @@
         "servient-land-interest-description": {
             "description": "The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land)",
             "type": "string",
-            "enum": ["Owner", "Tenant", "Lender"]
+            "enum": [
+                "Owner",
+                "Tenant",
+                "Lender",
+                "Freehold owner",
+                "Tenant for a term of which over 7 years remain unexpired",
+                "Mortgagee in possession"
+            ]
         },
         "structure-position-and-dimension": {
-            "description": "The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge).",
-            "type": "string",
-            "minLength": 1
+            "description": "The description of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land.",
+            "ref": "#/definitions/structure-position-and-dimension"
         },
         "tribunal-definitive-certificate-date": {
             "description": "The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal.",
@@ -172,21 +175,63 @@
     },
     "required": [
         "geometry",
+        "local-land-charge",
+        "registration-date",
         "charge-type",
         "further-information-location",
-        "charge-geographic-description",
-        "originating-authority"
+        "originating-authority",
+        "start-date"
     ],
     "additionalProperties": false,
     "definitions": {
+        "address": {
+            "type": "object",
+            "required": ["line-1", "postcode"],
+            "additionalProperties": false,
+            "properties": {
+                "line-1": {
+                    "type": "string"
+                },
+                "line-2": {
+                    "type": "string"
+                },
+                "line-3": {
+                    "type": "string"
+                },
+                "line-4": {
+                    "type": "string"
+                },
+                "line-5": {
+                    "type": "string"
+                },
+                "line-6": {
+                    "type": "string"
+                },
+                "unique-property-reference-number": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "description": "The postcode of the address",
+                    "$ref": "#/definitions/postcode"
+                }
+            }
+        },
         "date": {
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "format": "date"
         },
+        "postcode": {
+            "description": "The postcode of an address",
+            "type": "string",
+            "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
+            "format": "postcode",
+            "minLength": 1
+        },
         "author": {
             "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
             "type": "object",
+            "additionalProperties": false,
             "required": [
                 "full-name",
                 "organisation"
@@ -213,6 +258,7 @@
         "applicant-address": {
             "description": "The address of the applicant",
             "type": "object",
+            "additionalProperties": false,
             "required": [
                 "street",
                 "town",
@@ -237,10 +283,7 @@
                 },
                 "postcode": {
                     "description": "The postcode of the applicant address",
-                    "type": "string",
-                    "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
-                    "format": "postcode",
-                    "minLength": 1
+                    "$ref": "#/definitions/postcode"
                 },
                 "country": {
                     "description": "The country of the applicant address",
@@ -253,16 +296,11 @@
             "description": "The documents lodged to support the LON registration",
             "type": "object",
             "required": [
-                "form-a",
-                "colour-plan"
+                "form-a"
             ],
             "properties": {
                 "form-a": {
                     "description": "Form A document in support of LON.",
-                    "$ref": "#/definitions/lon-documents"
-                },
-                "colour-plan": {
-                    "description": "Colour Plan document in support of LON.",
                     "$ref": "#/definitions/lon-documents"
                 },
                 "temporary-lon-certificate": {
@@ -271,6 +309,14 @@
                 },
                 "definitive-certificate": {
                     "description": "Definitive LON Certificate in support of LON",
+                    "$ref": "#/definitions/lon-documents"
+                },
+                "court-order": {
+                    "description": "Court order to vary or cancel LON",
+                    "$ref": "#/definitions/lon-documents"
+                },
+                "form-b": {
+                    "description": "Form B document to vary or cancel LON",
                     "$ref": "#/definitions/lon-documents"
                 }
             }
@@ -281,6 +327,7 @@
             "items": {
                 "type": "object",
                 "required": ["bucket", "file_id", "reference"],
+                "additionalProperties": false,
                 "properties": {
                     "bucket": {
                         "description": "Directory below the main container in the file path, e.g. /lon/",
@@ -289,6 +336,11 @@
                     },
                     "file_id": {
                         "description": "The id of the file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "external_reference": {
+                        "description": "The URI of a file.",
                         "type": "string",
                         "minLength": 1
                     },
@@ -302,6 +354,32 @@
                         "type": "string",
                         "minLength": 1
                     }
+                }
+            }
+        },
+        "structure-position-and-dimension": {
+            "type": "object",
+            "required": ["height", "extent-covered"],
+            "additionalProperties": false,
+            "properties": {
+                "height": {
+                    "type": "string",
+                    "pattern": "^(Unlimited height)|(\\d+(\\.\\d+)?)$"
+                },
+                "units": {
+                    "type": "string",
+                    "description": "Not allowed if height is 'Unlimited height'."
+                },
+                "extent-covered": {
+                    "type": "string",
+                    "enum": [
+                        "All of the extent",
+                        "Part of the extent"
+                    ]
+                },
+                "part-explanatory-text": {
+                    "type": "string",
+                    "description": "Not allowed if extent-covered is 'All of the extent'."
                 }
             }
         }
