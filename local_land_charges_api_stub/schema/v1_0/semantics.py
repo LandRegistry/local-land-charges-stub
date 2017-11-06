@@ -149,6 +149,47 @@ def geometry_extent_count(item):
     return errors
 
 
+def lon_servient_land_field(item):
+    errors = []
+    is_lon = 'charge-type' in item and item['charge-type'] in ['Light Obstruction Notice']
+    if is_lon:
+        servient_land = item['structure-position-and-dimension']
+        if servient_land['height'] != 'Unlimited height' and 'units' not in servient_land:
+            errors.append({'error_message': 'Units required for limited height',
+                           'location': '$.structure-position-and-dimension'})
+
+        if servient_land['height'] == 'Unlimited height' and 'units' in servient_land:
+            errors.append({'error_message': 'Units must not be supplied for limited height',
+                           'location': '$.structure-position-and-dimension'})
+
+        if servient_land['extent-covered'] == "All of the extent" and 'part-explanatory-text' in servient_land:
+            errors.append({'error_message': 'part-explanatory-text is not permitted when extent-covered '
+                                            'is "All of the extent"',
+                           'location': '$.structure-position-and-dimension'})
+
+        if servient_land['extent-covered'] == "Part of the extent" \
+                and 'part-explanatory-text' not in servient_land:
+            errors.append({'error_message': 'part-explanatory-text is required when extent-covered is'
+                                            ' "Part of the extent"',
+                           'location': '$.structure-position-and-dimension'})
+    return errors
+
+
+def only_one_address(item):
+    geo = 'charge-geographic-description' in item
+    address = 'charge-address' in item
+    errors = []
+    if geo and address:
+        errors.append({'error_message': 'Must not have both charge-geographic-description and charge-address',
+                       'location': '$.'})
+
+    if not geo and not address:
+        errors.append({'error_message': 'Must have one of charge-geographic-description or charge-address',
+                       'location': '$.'})
+
+    return errors
+
+
 validation_rules = [
     s52_required_fields,
     s8_required_fields,
@@ -157,5 +198,7 @@ validation_rules = [
     migrated_charge_fields,
     only_one_expiry_field,
     lon_charge_required_fields,
-    geometry_extent_count
+    geometry_extent_count,
+    lon_servient_land_field,
+    only_one_address
 ]

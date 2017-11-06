@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "Local Land Charges API for external systems. Allows authorised external services to Add, Amend and Retrieve Local Land Charges held by HM Land Registry."
-  version: "0.0.3"
+  version: "0.0.4"
   title: "Local Land Charges"
   #termsOfService: "http://LLC/terms/"
   #contact:
@@ -44,7 +44,7 @@ paths:
               properties:
                 geometry:
                   type: object
-                  description: "GeoJSON FeatureCollection of the LLC extent"
+                  description: GeoJSON FeatureCollection of the LLC extent
                   properties:
                     features:
                       type: array
@@ -54,8 +54,14 @@ paths:
                       type: string
                 charge-type:
                   $ref: '#/definitions/charge-type'
+                charge-sub-category:
+                  $ref: '#/definitions/charge-sub-category'
                 charge-geographic-description:
                   $ref: '#/definitions/charge-geographic-description'
+                charge-addresss:
+                  $ref: '#/definitions/charge-address'
+                registration-date:
+                  $ref: '#/definitions/registration-date'
                 charge-creation-date:
                   $ref: '#/definitions/charge-creation-date'
                 instrument:
@@ -89,12 +95,10 @@ paths:
                 - geometry
                 - registration-date
                 - charge-type
-                - charge-geographic-description
                 - further-information-location
                 - originating-authority
           additionalProperties: false
           required:
-            - full-name
             - item
       responses:
         201:
@@ -162,7 +166,7 @@ paths:
         type: "string"
       responses:
         200:
-          description: "Search Successful"
+          description: Search Successful
           schema:
             type: object
             properties:
@@ -185,8 +189,12 @@ paths:
                     $ref: '#/definitions/registration-date'
                   charge-type:
                     $ref: '#/definitions/charge-type'
+                  charge-sub-category:
+                    $ref: '#/definitions/charge-sub-category'
                   charge-geographic-description:
                     $ref: '#/definitions/charge-geographic-description'
+                  charge-addresss:
+                    $ref: '#/definitions/charge-address'
                   charge-creation-date:
                     $ref: '#/definitions/charge-creation-date'
                   instrument:
@@ -238,7 +246,6 @@ paths:
                   - geometry
                   - registration-date
                   - charge-type
-                  - charge-geographic-description
                   - further-information-location
                   - originating-authority
             additionalProperties: false
@@ -325,8 +332,12 @@ paths:
                   $ref: '#/definitions/registration-date'
                 charge-type:
                   $ref: '#/definitions/charge-type'
+                charge-sub-category:
+                  $ref: '#/definitions/charge-sub-category'
                 charge-geographic-description:
                   $ref: '#/definitions/charge-geographic-description'
+                charge-addresss:
+                  $ref: '#/definitions/charge-address'
                 charge-creation-date:
                   $ref: '#/definitions/charge-creation-date'
                 instrument:
@@ -362,12 +373,10 @@ paths:
                 - geometry
                 - registration-date
                 - charge-type
-                - charge-geographic-description
                 - further-information-location
                 - originating-authority
           additionalProperties: false
           required:
-            - full-name
             - item
       responses:
         201:
@@ -569,12 +578,39 @@ definitions:
     type: string
     example: 'Specific financial charge'
     minLength: 1
+  charge-sub-category:
+    type: string
+    description: 'The specific sub-category of the Charge.'
   charge-geographic-description:
-    description: 'A description of the land affected by the Charge'
+    description: 'A description of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.'
     type: string
     minLength: 1
     maxLength: 1000
     example: "'1 High Street, Exeter EX1 1AA', 'Land to the north of Church Lane, Exeter'"
+  charge-address:
+    description: 'Structured address of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.'
+    type: object
+    properties:
+      line-1:
+        type: string
+      line-2:
+        type: string
+      line-3:
+        type: string
+      line-4:
+        type: string
+      line-5:
+        type: string
+      line-6:
+        type: string
+      postcode:
+        type: string
+      unique-property-reference-number:
+        type: string
+    required:
+      - line-1
+      - postcode
+      - unique-property-reference-number
   charge-creation-date:
     description: 'The date the Charge comes into effect'
     type: string
@@ -582,12 +618,12 @@ definitions:
     format: date
     example: '2017-01-04'
   instrument:
-    description: "The document giving rise to the Charge (e.g. Transfer, Deed). Must be present if 'statutory-provision' is not supplied."
+    description: The document giving rise to the Charge (e.g. charge, deed). Must be present if 'statutory-provision' is not supplied.
     type: string
     enum: ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice",
      "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
   statutory-provision:
-    description: "The statutory provision under which the Charge has arisen. Must be present if 'instrument' is not supplied."
+    description: The statutory provision under which the Charge has arisen. Must be present if 'instrument' is not supplied.
     type: string
     minLength: 1
     example: 'Planning (Listed Buildings and Conservation Areas) Act 1990 2(2)'
@@ -609,12 +645,12 @@ definitions:
     minLength: 1
     example: 'Land to the south east of High Street, Exeter for the building of the A999 bypass'
   land-capacity-description:
-    description: "A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 's52 Land Compensation Charge'"
+    description: A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 's52 Land Compensation Charge'
     type: string
     minLength: 1
-    example: "'Freehold','Leasehold'"
+    example: "'Freehold', 'Leasehold'"
   land-compensation-paid:
-    description: "Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 's52 Land Compensation Charge'"
+    description: Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 's52 Land Compensation Charge'
     type: string
     minLength: 1
     example: "'£1,000,000', '£500,000 being 90% of the compensation (including surveyors fees for £2,000)'"
@@ -630,60 +666,75 @@ definitions:
     minLength: 1
     example: 'Exeter City Council'
   expiry-date:
-    description: "The date on which a Land Interest in respect of a local land charge ceases to exist or on which cancellation of the charge is to be reviewed. (Cannot be used with 'expiry-text')"
+    description: The date on which a Land Interest in respect of a local land charge ceases to exist. (Cannot be used with 'expiry-text')
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
-  expiry-text:
-    description: "Description of when a Land Interest in respect of a local land charge ceases to exist or on which cancellation of the charge is to be reviewed. (Cannot be used with 'expiry-date')"
-    type: string
-    maxLength: 500
-    example: '5 years from date charge registered'
   amount-originally-secured:
-    description: "The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'"
+    description: The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
     minLength: 1
-    example: '£1000.00'
+    example: "£1,000"
   rate-of-interest:
-    description: "The rate of interest as a percentage payable on the amount secured. Valid only when 'charge-type' is 'Specific Financial Charge'"
+    description: The rate of interest as a percentage payable on the amount secured. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
     minLength: 1
     example: '5% per year'
   applicant-name:
-    description: "The name of the individual or organisation applying for the light obstruction notice. Valid only when 'charge-type' is 'Light Obstruction Notice'"
+    description: The name of the individual or organisation applying for the light obstruction notice. Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
     minLength: 1
     example: 'A Name'
   applicant-address:
-    description: "The address of the applicant. Valid only when 'charge-type' is 'Light Obstruction Notice'"
+    description: The address of the applicant. Valid only when 'charge-type' is 'Light Obstruction Notice'
     $ref: '#/definitions/applicant-address-structure'
   servient-land-interest-description:
-    description: "The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land). Valid only when 'charge-type' is 'Light Obstruction Notice'"
+    description: The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land). Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
-    enum: ["Owner", "Tenant", "Lender"]
+    enum: ["Freehold owner", "Tenant for a term of which over 7 years remain unexpired", "Mortgagee in possession"]
   structure-position-and-dimension:
-    description: "The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge). Valid only when 'charge-type' is 'Light Obstruction Notice'"
-    type: string
+    description: The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge). Valid only when 'charge-type' is 'Light Obstruction Notice'
+    type: object
     minLength: 1
-    example: "'All of the boundaries of the servient land','The land marked by a red line between points A and B on the attached plan'"
+    properties:
+      height:
+        type: string
+        pattern: '^(Unlimited height)|(\d+(\.\d+)?)$'
+      units:
+        type: string
+        description: The unit of measurement of the structure height. Must be provided if height is not 'Unlimited height'
+        enum:
+          - Metres
+          - Feet
+      extent-covered:
+        type: string
+        enum:
+          - All of the extent
+          - Part of the extent
+      part-explanatory-text:
+        type: string
+        description: The part of the extent covered by the structure. Must be provided if extent-covered is 'Part of the extent'
+    required:
+      - height
+      - extent-covered
   tribunal-definitive-certificate-date:
-    description: "The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light Obstruction Notice' and documents-filed includes a definitive-land-certificate"
+    description: The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
   documents-filed:
-    description: "The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'"
-    enum: ["form-a", "colour-plan", "definitive-certificate"]
+    description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
+    enum: ["form-a", "colour-plan", "definitive-certificate", "temporary-lon-certificate", "form-b", "court-order"]
   tribunal-temporary-certificate-date:
-    description: "The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light Obstruction Notice'"
+    description: The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
   tribunal-temporary-certificate-expiry-date:
-    description: "The date a temporary Lands Tribunal certificate expires, this is a maximum of 6 months after the date of registration. Valid only when 'charge-type' is 'Light Obstruction Notice'"
+    description: The date a temporary Lands Tribunal certificate expires, this is a maximum of 6 months after the date of registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
@@ -737,3 +788,4 @@ definitions:
 #externalDocs:
 #  description: "Find out more about Swagger"
 #  url: "http://swagger.io"
+
