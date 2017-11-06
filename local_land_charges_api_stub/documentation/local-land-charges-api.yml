@@ -726,7 +726,7 @@ definitions:
     example: '2017-01-04'
   documents-filed:
     description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
-    $ref: '#/definitions/documents-filed-structure'
+    enum: ["form-a", "colour-plan", "definitive-certificate", "temporary-lon-certificate", "form-b", "court-order"]
   tribunal-temporary-certificate-date:
     description: The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
@@ -774,56 +774,6 @@ definitions:
      description: "The country of the applicant address"
      type: string
      minLength: 1
-  documents-filed-structure:
-   description: "The documents lodged to support the LON registration"
-   type: object
-   required:
-    -
-     form-a
-    -
-     colour-plan
-   properties:
-    form-a:
-     description: "Form A document in support of LON."
-     $ref: "#/definitions/lon-documents"
-    colour-plan:
-     description: "Colour Plan document in support of LON."
-     $ref: "#/definitions/lon-documents"
-    temporary-lon-certificate:
-     description: "Temporary LON Certificate in support of LON"
-     $ref: "#/definitions/lon-documents"
-    definitive-certificate:
-     description: "Definitive LON Certificate in support of LON"
-     $ref: "#/definitions/lon-documents"
-  lon-documents:
-   type: array
-   minItems: 1
-   items:
-    type: object
-    required:
-     -
-      bucket
-     -
-      file_id
-     -
-      reference
-    properties:
-     bucket:
-      description: "Directory below the main container in the file path, e.g. /lon/"
-      type: string
-      minLength: 1
-     file_id:
-      description: "The id of the file."
-      type: string
-      minLength: 1
-     reference:
-      description: "The path to file."
-      type: string
-      minLength: 1
-     subdirectory:
-      description: "The sub directory path to file."
-      type: string
-      minLength: 1
   end-date:
     description: 'The date on which Local Land Charge record is cancelled'
     type: string
