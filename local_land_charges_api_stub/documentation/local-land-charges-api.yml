@@ -664,18 +664,13 @@ definitions:
     description: 'The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence'
     type: string
     minLength: 1
-    example: 'City of Exeter'
+    example: 'Exeter City Council'
   expiry-date:
     description: The date on which a Land Interest in respect of a local land charge ceases to exist. (Cannot be used with 'expiry-text')
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
-  expiry-text:
-    description: Description of when a Land Interest in respect of a local land charge ceases to exist. (Cannot be used with 'expiry-date')
-    type: string
-    maxLength: 500
-    example: '5 years from date charge registered'
   amount-originally-secured:
     description: The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
