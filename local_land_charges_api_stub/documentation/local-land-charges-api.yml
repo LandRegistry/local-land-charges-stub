@@ -576,7 +576,7 @@ definitions:
   charge-type:
     description: 'The general category of the Charge (e.g. Planning, Financial)'
     type: string
-    example: 'Planning'
+    example: 'Specific financial charge'
     minLength: 1
   charge-sub-category:
     type: string
@@ -586,7 +586,7 @@ definitions:
     type: string
     minLength: 1
     maxLength: 1000
-    example: '1 High Street, Exeter'
+    example: "'1 High Street, Exeter EX1 1AA', 'Land to the north of Church Lane, Exeter'"
   charge-address:
     description: 'Structured address of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.'
     type: object
@@ -626,7 +626,7 @@ definitions:
     description: The statutory provision under which the Charge has arisen. Must be present if 'instrument' is not supplied.
     type: string
     minLength: 1
-    example: 'Planning Act 2008 section 205'
+    example: 'Planning (Listed Buildings and Conservation Areas) Act 1990 2(2)'
   further-information-location:
     description: 'The location - physical or virtual - where relevant documents may be inspected'
     type: string
@@ -640,7 +640,7 @@ definitions:
     maxLength: 255
     example: 'REF: 123'
   land-works-particulars:
-    description: Description of the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 's8 Land Compensation Charge'
+    description: "Description of the extent of and the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 's8 Land Compensation Charge'"
     type: string
     minLength: 1
     example: 'Land to the south east of High Street, Exeter for the building of the A999 bypass'
@@ -653,7 +653,7 @@ definitions:
     description: Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 's52 Land Compensation Charge'
     type: string
     minLength: 1
-    example: '£1,000,000'
+    example: "'£1,000,000', '£500,000 being 90% of the compensation (including surveyors fees for £2,000)'"
   unique-property-reference-numbers:
     description: 'Unique Property Reference Number, a unique number issued by GeoPlace for every Basic Land & Property Unit (BLPU) which reconciles different property gazetteers'
     type: array
@@ -675,7 +675,7 @@ definitions:
     description: The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
     minLength: 1
-    example: "'£1,000,000', '£500,000 being 90% of the compensation (including surveyors fees for £2,000)'"
+    example: "£1,000"
   rate-of-interest:
     description: The rate of interest as a percentage payable on the amount secured. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
