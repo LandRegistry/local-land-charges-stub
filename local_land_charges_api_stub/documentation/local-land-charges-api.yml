@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "Local Land Charges API for external systems. Allows authorised external services to Add, Amend and Retrieve Local Land Charges held by HM Land Registry."
-  version: "0.0.2"
+  version: "0.0.4"
   title: "Local Land Charges"
   #termsOfService: "http://LLC/terms/"
   #contact:
@@ -632,7 +632,7 @@ definitions:
     type: string
     minLength: 1
     maxLength: 475
-    example: 'Council Offices, Exeter'
+    example: 'Council Offices, Main Road, Exeter EX1 3ZZ'
   further-information-reference:
     description: 'The official reference of relevant documents'
     type: string
@@ -643,12 +643,12 @@ definitions:
     description: Description of the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 's8 Land Compensation Charge'
     type: string
     minLength: 1
-    example: 'Building a new motorway'
+    example: 'Land to the south east of High Street, Exeter for the building of the A999 bypass'
   land-capacity-description:
     description: A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 's52 Land Compensation Charge'
     type: string
     minLength: 1
-    example: 'Description of the capacity'
+    example: "'Freehold', 'Leasehold'"
   land-compensation-paid:
     description: Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 's52 Land Compensation Charge'
     type: string
@@ -675,7 +675,7 @@ definitions:
     description: The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
     minLength: 1
-    example: '£1000.00'
+    example: "'£1,000,000', '£500,000 being 90% of the compensation (including surveyors fees for £2,000)'"
   rate-of-interest:
     description: The rate of interest as a percentage payable on the amount secured. Valid only when 'charge-type' is 'Specific Financial Charge'
     type: string
@@ -692,7 +692,7 @@ definitions:
   servient-land-interest-description:
     description: The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land). Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: string
-    enum: ["Owner", "Tenant", "Lender"]
+    enum: ["Freehold owner", "Tenant for a term of which over 7 years remain unexpired", "Mortgagee in possession"]
   structure-position-and-dimension:
     description: The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge). Valid only when 'charge-type' is 'Light Obstruction Notice'
     type: object
