@@ -1,5 +1,4 @@
 from local_land_charges_api_stub.app import app
-from local_land_charges_api_stub.validation.semantics import validation_rules
 from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.extensions import schema_extension
 
@@ -27,11 +26,19 @@ def _check_for_errors(data, schema, resolver):
     return errors
 
 
-def get_item_errors(data):
+def get_item_errors(data, version):
     app.logger.info("Validating against full schema")
-    errors = _check_for_errors(data, schema_extension.simple_schema, schema_extension.simple_resolver)
+    errors = []
+    error_check = _check_for_errors(data, schema_extension.inherited_schema[version],
+                                    schema_extension.inherited_resolver[version])
 
-    for rule in validation_rules:
+    if error_check:
+        app.logger.warning("Errors found - checking simplified schema")
+        # Simple schema produces clearer errors for returning to calling app.
+        errors = _check_for_errors(data, schema_extension.simple_schema[version],
+                                   schema_extension.simple_resolver[version])
+    # Dynamically load module for semantic validation
+    for rule in schema_extension.semantic_validators[version]:
         rule_errors = rule(data)
 
         for re in rule_errors:

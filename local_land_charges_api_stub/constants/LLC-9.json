@@ -1,7 +1,12 @@
 {
     "item": {
         "charge-creation-date": "2017-01-12",
-        "charge-geographic-description": "The Street, Mytown",
+        "charge-address": {
+            "line-1": "The Street",
+            "line-2": "Mytown",
+            "postcode": "AA1 1AA",
+            "unique-property-reference-number": "001122334455"
+        },
         "charge-type": "Light Obstruction Notice",
         "expiry-date": "2025-01-01",
         "further-information-location": "Room 101, Council Offices",
@@ -41,8 +46,13 @@
             "postcode": "MY1 1ZX",
             "country": "England"
         },
+        "structure-position-and-dimension": {
+            "height": "40",
+            "units": "Feet",
+            "extent-covered": "Part of the extent",
+            "part-explanatory-text": "40X20X20 feet extending from north wall"
+        },
         "servient-land-interest-description": "Owner",
-        "structure-position-and-dimension": "6X20X20 feet extending from north wall",
         "tribunal-definitive-certificate-date": "2016-11-23",
         "documents-filed": [
             "form-a",

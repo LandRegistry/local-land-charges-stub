@@ -67,20 +67,33 @@
             "minLength": 1,
             "maxLength": 255
         },
+        "land-sold-description": {
+            "description": "Description of the land adjoining the retained land that was compulsorily acquired.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+        },
         "land-works-particulars": {
             "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 400
         },
         "land-capacity-description": {
-            "description": "A description of the capacity in which the land was acquired; e.g. freehold.",
+            "description": "A description of the capacity in which the land was acquired; e.g. Freehold.",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 400
         },
         "land-compensation-paid": {
             "description": "Amount already paid to the landowner from which the land was acquired.",
             "type": "string",
             "minLength": 1
+        },
+        "land-compensation-amount-type": {
+            "description": "Description of the amount paid to the landowner.",
+            "type": "string",
+            "enum": ["Agreed amount", "Estimated amount"]
         },
         "old-register-part": {
             "description": "The part of the LLC register on which a charge was recorded by a local authority prior to migration. Only required for migrated Charges.",
@@ -107,7 +120,8 @@
             "$ref": "#/definitions/date"
         },
         "supplementary-information": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
         },
         "amount-originally-secured": {
             "description": "",
