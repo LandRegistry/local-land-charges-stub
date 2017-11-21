@@ -17,18 +17,13 @@
                     "$ref": "file:feature_collection.json#",
                     "description": "FeatureCollection identifying the Charge extent."
                 },
-                "supplier-charge-identifier": {
-                    "description": "Identifier of the Charge issued by the migration supplier.",
-                    "type": "string",
-                    "minLength": 1
-                },
                 "migration-supplier": {
                     "description": "Identifier of the Charge issued by the migration supplier.",
                     "type": "string",
                     "minLength": 1
                 },
-                "incumbent-system-identifier": {
-                    "description": "Identifier of the Charge as it is held in an incumbent supplier system.",
+                "originating-authority-charge-identifier": {
+                    "description": "The ID of the charge form (i) if an existing digital system -the ID within that system, (ii) if paper/electronic - where one is currently allocated by LA use as currently exists within LA if not allocated by the first supplier to handle the records and agreed with the LA.",
                     "type": "string",
                     "minLength": 1
                 },
@@ -47,19 +42,13 @@
                     "$ref": "#/definitions/date",
                     "type": "string"
                 },
-                "instrument": {
-                    "description": "The document giving rise to the Charge (e.g. charge, deed)",
-                    "type": "string",
-                    "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice", 
-                     "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
-                },
-                "statutory-provision": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "The statutory provision under which the Charge has arisen."
-                },
                 "charge-type": {
                     "description": "The general category of the Charge (e.g. Planning, Financial)",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "charge-sub-category": {
+                    "description": "The specific sub-category of the Charge.",
                     "type": "string",
                     "minLength": 1
                 },
@@ -73,18 +62,26 @@
                     "type": "string",
                     "enum": ["1", "2", "3b", "4", "6a", "6b", "7", "8", "9", "10", "11", "12"]
                 },
-                "unique-property-reference-numbers": {
-                    "description": "Unique Property Reference Number, a unique number issued by GeoPlace for every Basic Land & Property Unit (BLPU) which reconciles different property gazetteers.",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
                 "charge-geographic-description": {
                     "description": "A description of the land affected by the Charge.",
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 1000
+                },
+                "charge-address": {
+                    "description": "The postal address of the land affected by the charge.",
+                    "ref": "#/definitions/address"
+                },
+                "instrument": {
+                    "description": "The document giving rise to the Charge (e.g. charge, deed)",
+                    "type": "string",
+                    "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice",
+                             "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
+                },
+                "statutory-provision": {
+                    "type": "string",
+                    "description": "The statutory provision(s) under which the Charge has arisen.",
+                    "minLength": 1
                 },
                 "further-information-location": {
                     "type": "string",
@@ -101,11 +98,6 @@
                 "expiry-date": {
                     "description": "The date on which a Land Interest in respect of a local land charge ceases to exist.",
                     "$ref": "#/definitions/date"
-                },
-                "expiry-text": {
-                    "description": "Description of when a Land Interest in respect of a local land charge ceases to exist.",
-                    "type": "string",
-                    "maxLength": 500
                 },
                 "supplementary-information": {
                     "type": "string"
@@ -127,7 +119,6 @@
                 "geometry",
                 "originating-authority",
                 "charge-type",
-                "charge-geographic-description",
                 "further-information-location"
             ]
         },
@@ -138,8 +129,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -154,7 +144,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -181,8 +170,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -194,7 +182,8 @@
                                 "enum": [
                                     "s8 Land Compensation Charge",
                                     "s52 Land Compensation Charge",
-                                    "Specific Financial Charge"
+                                    "Specific Financial Charge",
+                                    "Light obstruction notice"
                                 ]
                             }
                         },
@@ -203,7 +192,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -224,8 +212,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -244,7 +231,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -252,11 +238,6 @@
                         "end-date": {},
                         "author": {},
                         "originating-authority": {},
-                        "retained-land-description": {
-                            "description": "A textual description of the land adjoining the land compulsorily purchased for public works.",
-                            "type": "string",
-                            "minLength": 1
-                        },
                         "land-works-particulars": {
                             "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
                             "type": "string",
@@ -264,8 +245,7 @@
                         }
                     },
                     "required": [
-                        "land-works-particulars",
-                        "retained-land-description"
+                        "land-works-particulars"
                     ],
                     "additionalProperties": false
                 }
@@ -278,8 +258,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -290,7 +269,7 @@
                             "description": "The general category of the Charge (e.g. Planning, Financial)",
                             "type": "string",
                             "enum": [
-                                "Light Obstruction Notice"
+                                "Light obstruction notice"
                             ]
                         },
                         "migrating-authority": {},
@@ -298,7 +277,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -318,12 +296,15 @@
                         "servient-land-interest-description": {
                             "description": "The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land)",
                             "type": "string",
-                            "enum": ["Owner", "Tenant", "Lender"]
+                            "enum": [
+                                "Freehold owner",
+                                "Tenant for a term of which over 7 years remain unexpired",
+                                "Mortgagee in possession"
+                            ]
                         },
                         "structure-position-and-dimension": {
-                            "description": "The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge).",
-                            "type": "string",
-                            "minLength": 1
+                            "description": "The description of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land.",
+                            "ref": "#/definitions/structure-position-and-dimension"
                         },
                         "tribunal-definitive-certificate-date": {
                             "description": "The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal.",
@@ -360,8 +341,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -380,7 +360,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -414,8 +393,7 @@
                     "type": "object",
                     "properties": {
                         "geometry": {},
-                        "supplier-charge-identifier": {},
-                        "incumbent-system-identifier": {},
+                        "originating-authority-charge-identifier": {},
                         "registration-date": {},
                         "local-land-charge": {},
                         "charge-creation-date": {},
@@ -426,7 +404,7 @@
                             "description": "The general category of the Charge (e.g. Planning, Financial)",
                             "type": "string",
                             "enum": [
-                                "Specific Financial Charge"
+                                "Financial"
                             ]
                         },
                         "migrating-authority": {},
@@ -434,7 +412,6 @@
                         "further-information-location": {},
                         "further-information-reference": {},
                         "old-register-part": {},
-                        "unique-property-reference-numbers": {},
                         "expiry-date": {},
                         "expiry-text": {},
                         "supplementary-information": {},
@@ -453,19 +430,54 @@
                             "minLength": 1
                         }
                     },
-                    "required": [
-                        "amount-originally-secured",
-                        "rate-of-interest"
-                    ],
                     "additionalProperties": false
                 }
             ]
 
         },
+        "address": {
+            "type": "object",
+            "required": ["line-1", "postcode"],
+            "additionalProperties": false,
+            "properties": {
+                "line-1": {
+                    "type": "string"
+                },
+                "line-2": {
+                    "type": "string"
+                },
+                "line-3": {
+                    "type": "string"
+                },
+                "line-4": {
+                    "type": "string"
+                },
+                "line-5": {
+                    "type": "string"
+                },
+                "line-6": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "description": "The postcode of the address",
+                    "$ref": "#/definitions/postcode"
+                },
+                "unique-property-reference-number": {
+                    "type": "string"
+                }
+            }
+        },
         "date": {
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "format": "date"
+        },
+        "postcode": {
+            "description": "The postcode of an address",
+            "type": "string",
+            "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
+            "format": "postcode",
+            "minLength": 1
         },
         "author": {
             "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
@@ -474,6 +486,7 @@
                 "full-name",
                 "organisation"
             ],
+            "additionalProperties": false,
             "properties": {
                 "full-name": {
                     "description": "The full name of the author, computed by first name + second name",
@@ -502,6 +515,7 @@
                 "postcode",
                 "country"
             ],
+            "additionalProperties": false,
             "properties": {
                 "street": {
                     "description": "The street of the applicant address",
@@ -520,10 +534,7 @@
                 },
                 "postcode": {
                     "description": "The postcode of the applicant address",
-                    "type": "string",
-                    "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
-                    "format": "postcode",
-                    "minLength": 1
+                    "$ref": "#/definitions/postcode"
                 },
                 "country": {
                     "description": "The country of the applicant address",
@@ -535,26 +546,30 @@
         "documents-filed": {
             "description": "The documents lodged to support the LON registration",
             "type": "object",
+            "additionalProperties": false,
             "required": [
-                "form-a",
-                "colour-plan"
+                "form-a"
             ],
             "properties": {
                 "form-a": {
                     "description": "Form A document in support of LON.",
                     "ref": "#/definitions/lon-documents"
                 },
-                "colour-plan": {
-                    "description": "Colour Plan document in support of LON.",
-                    "ref": "#/definitions/lon-documents"
-                },
-                "temporary-lon-certificate": {
+                "temporary-certificate": {
                     "description": "Temporary LON Certificate in support of LON",
                     "ref": "#/definitions/lon-documents"
                 },
                 "definitive-certificate": {
                     "description": "Definitive LON Certificate in support of LON",
                     "ref": "#/definitions/lon-documents"
+                },
+                "court-order": {
+                    "description": "Court order to vary or cancel LON",
+                    "$ref": "#/definitions/lon-documents"
+                },
+                "form-b": {
+                    "description": "Form B document to vary or cancel LON",
+                    "$ref": "#/definitions/lon-documents"
                 }
             }
         },
@@ -564,6 +579,7 @@
             "items": {
                 "type": "object",
                 "required": ["bucket", "file_id", "reference"],
+                "additionalProperties": false,
                 "properties": {
                     "bucket": {
                         "description": "Directory below the main container in the file path, e.g. /lon/",
@@ -572,6 +588,11 @@
                     },
                     "file_id": {
                         "description": "The id of the file.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "external_reference": {
+                        "description": "The URI of a file.",
                         "type": "string",
                         "minLength": 1
                     },
@@ -585,6 +606,33 @@
                         "type": "string",
                         "minLength": 1
                     }
+                }
+            }
+        },
+        "structure-position-and-dimension": {
+            "type": "object",
+            "required": ["height", "extent-covered"],
+            "additionalProperties": false,
+            "properties": {
+                "height": {
+                    "type": "string",
+                    "pattern": "^(Unlimited height)|(\\d+(\\.\\d+)?)$"
+                },
+                "units": {
+                    "type": "string",
+                    "description": "Not allowed if height is 'Unlimited height'."
+                },
+                "extent-covered": {
+                    "type": "string",
+                    "enum": [
+                        "All of the extent",
+                        "Part of the extent"
+                    ]
+                },
+                "part-explanatory-text": {
+                    "type": "string",
+                    "description": "Not allowed if extent-covered is 'All of the extent'.",
+                    "minLength": 1
                 }
             }
         }
