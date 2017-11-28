@@ -2,7 +2,7 @@
     "item": {
         "charge-creation-date": "2017-01-12",
         "charge-geographic-description": "The Street, Mytown",
-        "charge-type": "s8 Land Compensation Charge",
+        "charge-type": "Land compensation",
         "expiry-date": "2025-01-01",
         "further-information-location": "Room 101, Council Offices",
         "further-information-reference": "AB1212",
@@ -35,7 +35,8 @@
         "registration-date": "2017-01-11",
         "statutory-provision": "Housing Act 1985",
         "end-date": "2020-01-31",
-        "land-works-particulars": "building"
+        "land-works-particulars": "A30 widening",
+        "land-sold-description": "land formerly part of Wyndham House, Yeovil, Somerset"
     },
     "version-id": 46
 }

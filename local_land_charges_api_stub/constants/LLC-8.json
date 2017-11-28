@@ -2,7 +2,7 @@
     "item": {
         "charge-creation-date": "2017-01-12",
         "charge-geographic-description": "The Street, Mytown",
-        "charge-type": "Specific Financial Charge",
+        "charge-type": "Financial",
         "expiry-date": "2025-01-01",
         "further-information-location": "Room 101, Council Offices",
         "further-information-reference": "AB1212",

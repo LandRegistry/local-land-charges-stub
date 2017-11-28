@@ -1,6 +1,7 @@
 from local_land_charges_api_stub.app import app
 from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.extensions import schema_extension
+import json
 
 
 def _check_for_errors(data, schema, resolver):
@@ -27,7 +28,7 @@ def _check_for_errors(data, schema, resolver):
 
 
 def get_item_errors(data, version):
-    app.logger.info("Validating against full schema")
+    app.logger.info("Validating against full schema " + json.dumps(data))
     errors = []
     error_check = _check_for_errors(data, schema_extension.inherited_schema[version],
                                     schema_extension.inherited_resolver[version])

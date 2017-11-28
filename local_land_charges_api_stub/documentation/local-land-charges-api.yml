@@ -1,107 +1,96 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "Local Land Charges API for external systems. Allows authorised external services to Add, Amend and Retrieve Local Land Charges held by HM Land Registry."
-  version: "0.0.4"
-  title: "Local Land Charges"
-  #termsOfService: "http://LLC/terms/"
-  #contact:
-  #  email: "TBD"
-  #license:
-  #  name: "TBD"
-  #  url: "TBD"
-#host: "/"
-basePath: "/v1.0"
+  description: >-
+    Local Land Charges API for external systems. Allows authorised external
+    services to Add, Amend and Retrieve Local Land Charges held by HM Land
+    Registry.
+  version: 0.0.4
+  title: Local Land Charges
+basePath: /v1.0
 tags:
-- name: "LLC"
-  description: "Local Land Charges"
-  #externalDocs:
-  #  description: "Find out more"
-  #  url: "http://swagger.io"
-#schemes:
-#- "http"
+  - name: LLC
+    description: Local Land Charges
 paths:
   /local-land-charges:
     post:
       tags:
-      - "local-land-charges"
-      summary: "Add a new Local Land Charge to the Register"
-      description: ""
-      operationId: "addLLC"
+        - local-land-charges
+      summary: Add a new Local Land Charge to the Register
+      description: ''
+      operationId: addLLC
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Local Land Charge object to be added to the Register"
-        required: true
-        schema:
-          type: object
-          properties:
-            item:
-              type: object
-              properties:
-                geometry:
-                  type: object
-                  description: GeoJSON FeatureCollection of the LLC extent
-                  properties:
-                    features:
-                      type: array
-                      items:
-                        $ref: '#/definitions/Features'
-                    type:
-                      type: string
-                charge-type:
-                  $ref: '#/definitions/charge-type'
-                charge-sub-category:
-                  $ref: '#/definitions/charge-sub-category'
-                charge-geographic-description:
-                  $ref: '#/definitions/charge-geographic-description'
-                charge-addresss:
-                  $ref: '#/definitions/charge-address'
-                registration-date:
-                  $ref: '#/definitions/registration-date'
-                charge-creation-date:
-                  $ref: '#/definitions/charge-creation-date'
-                instrument:
-                  $ref: '#/definitions/instrument'
-                statutory-provision:
-                  $ref: '#/definitions/statutory-provision'
-                further-information-location:
-                  $ref: '#/definitions/further-information-location'
-                further-information-reference:
-                  $ref: '#/definitions/further-information-reference'
-                land-works-particulars:
-                  $ref: '#/definitions/land-works-particulars'
-                land-capacity-description:
-                  $ref: '#/definitions/land-capacity-description'
-                land-compensation-paid:
-                  $ref: '#/definitions/land-compensation-paid'
-                unique-property-reference-numbers:
-                  $ref: '#/definitions/unique-property-reference-numbers'
-                originating-authority:
-                  $ref: '#/definitions/originating-authority'
-                expiry-date:
-                  $ref: '#/definitions/expiry-date'
-                expiry-text:
-                  $ref: '#/definitions/expiry-text'
-                amount-originally-secured:
-                  $ref: '#/definitions/amount-originally-secured'
-                rate-of-interest:
-                  $ref: '#/definitions/rate-of-interest'
-              additionalProperties: false
-              required:
-                - geometry
-                - registration-date
-                - charge-type
-                - further-information-location
-                - originating-authority
-          additionalProperties: false
-          required:
-            - item
+        - in: body
+          name: body
+          description: Local Land Charge object to be added to the Register
+          required: true
+          schema:
+            type: object
+            properties:
+              item:
+                type: object
+                properties:
+                  geometry:
+                    type: object
+                    description: GeoJSON FeatureCollection of the LLC extent
+                    properties:
+                      features:
+                        type: array
+                        items:
+                          $ref: '#/definitions/Features'
+                      type:
+                        type: string
+                  charge-type:
+                    $ref: '#/definitions/charge-type'
+                  charge-sub-category:
+                    $ref: '#/definitions/charge-sub-category'
+                  charge-geographic-description:
+                    $ref: '#/definitions/charge-geographic-description'
+                  charge-addresss:
+                    $ref: '#/definitions/charge-address'
+                  registration-date:
+                    $ref: '#/definitions/registration-date'
+                  charge-creation-date:
+                    $ref: '#/definitions/charge-creation-date'
+                  instrument:
+                    $ref: '#/definitions/instrument'
+                  statutory-provision:
+                    $ref: '#/definitions/statutory-provision'
+                  further-information-location:
+                    $ref: '#/definitions/further-information-location'
+                  further-information-reference:
+                    $ref: '#/definitions/further-information-reference'
+                  land-works-particulars:
+                    $ref: '#/definitions/land-works-particulars'
+                  land-capacity-description:
+                    $ref: '#/definitions/land-capacity-description'
+                  land-compensation-paid:
+                    $ref: '#/definitions/land-compensation-paid'
+                  unique-property-reference-numbers:
+                    $ref: '#/definitions/unique-property-reference-numbers'
+                  originating-authority:
+                    $ref: '#/definitions/originating-authority'
+                  expiry-date:
+                    $ref: '#/definitions/expiry-date'
+                  amount-originally-secured:
+                    $ref: '#/definitions/amount-originally-secured'
+                  rate-of-interest:
+                    $ref: '#/definitions/rate-of-interest'
+                additionalProperties: false
+                required:
+                  - geometry
+                  - registration-date
+                  - charge-type
+                  - further-information-location
+                  - originating-authority
+            additionalProperties: false
+            required:
+              - item
       responses:
-        201:
+        '201':
           description: Successful response
           schema:
             type: object
@@ -112,7 +101,7 @@ paths:
                 type: string
               registration-date:
                 type: string
-        400:
+        '400':
           description: Bad request
           schema:
             type: object
@@ -132,11 +121,13 @@ paths:
                           error_message:
                             type: string
                           location:
-                            description: The location of the erroring attribute in the JSON. '$.' is the object root
+                            description: >-
+                              The location of the erroring attribute in the
+                              JSON. '$.' is the object root
                             type: string
               error_code:
                 type: string
-        500:
+        '500':
           description: Internal server error
           schema:
             type: object
@@ -145,27 +136,23 @@ paths:
                 type: string
               error_code:
                 type: string
-      #security:
-      #- llc_auth:
-      #  - "write:llc"
-      #  - "read:llc"
-  /local-land-charges/{land-charge-id}:
+  '/local-land-charges/{land-charge-id}':
     get:
       tags:
-      - "local-land-charges"
-      summary: "Retrieve Local Land Charge by ID"
-      description: "Returns latest version of a Local Land Charge"
-      operationId: "getLLCById"
+        - local-land-charges
+      summary: Retrieve Local Land Charge by ID
+      description: Returns latest version of a Local Land Charge
+      operationId: getLLCById
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "land-charge-id"
-        in: "path"
-        description: "ID of Local Land Charge to retrieve"
-        required: true
-        type: "string"
+        - name: land-charge-id
+          in: path
+          description: ID of Local Land Charge to retrieve
+          required: true
+          type: string
       responses:
-        200:
+        '200':
           description: Search Successful
           schema:
             type: object
@@ -177,7 +164,7 @@ paths:
                 properties:
                   geometry:
                     type: object
-                    description: 'GeoJSON FeatureCollection of the Local Land Charge extent'
+                    description: GeoJSON FeatureCollection of the Local Land Charge extent
                     properties:
                       features:
                         type: array
@@ -217,8 +204,6 @@ paths:
                     $ref: '#/definitions/originating-authority'
                   expiry-date:
                     $ref: '#/definitions/expiry-date'
-                  expiry-text:
-                    $ref: '#/definitions/expiry-text'
                   amount-originally-secured:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
@@ -240,7 +225,7 @@ paths:
                   tribunal-temporary-certificate-expiry-date:
                     $ref: '#/definitions/tribunal-temporary-certificate-expiry-date'
                   end-date:
-                    $ref: '#definitions/end-date'
+                    $ref: '#/definitions/end-date'
                 additionalProperties: false
                 required:
                   - geometry
@@ -252,30 +237,30 @@ paths:
             required:
               - version-id
               - item
-        404:
-          description: 'Not found'
+        '404':
+          description: Not found
           schema:
             type: object
             properties:
               error_message:
                 type: string
-                example: 'No land charges found'
+                example: No land charges found
               error_code:
                 type: number
                 example: 404
-        422:
-          description: 'Invalid entry'
+        '422':
+          description: Invalid entry
           schema:
             type: object
             properties:
               error_message:
                 type: string
-                example: 'Invalid Land Charge Number'
+                example: Invalid Land Charge Number
               error_code:
                 type: number
                 example: 422
-        500:
-          description: 'Internal server error'
+        '500':
+          description: Internal server error
           schema:
             type: object
             properties:
@@ -283,103 +268,105 @@ paths:
                 type: string
               error_code:
                 type: string
-      #security:
-      #- api_key: []
-  /local-land-charges/{land-charge-id}/{version-id}:
+  '/local-land-charges/{land-charge-id}/{version-id}':
     put:
       tags:
-      - "local-land-charges"
-      summary: "Update an existing Local Land Charge"
-      description: ""
-      operationId: "updateLLC"
+        - local-land-charges
+      summary: Update an existing Local Land Charge
+      description: ''
+      operationId: updateLLC
       consumes:
-      - "application/json"
+        - application/json
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "land-charge-id"
-        in: "path"
-        description: "ID of the Local Land Charge to amend"
-        required: true
-        type: "string"
-      - name: "version-id"
-        in: "path"
-        description: "Version ID of the Local Land Charge. Must be the latest version to be able to amend the charge"
-        required: true
-        type: "integer"
-        format: "int64"
-      - in: "body"
-        name: "body"
-        description: "Local Land Charges object to be added to the Register"
-        required: true
-        schema:
-          type: object
-          properties:
-            item:
-              type: object
-              properties:
-                geometry:
-                  type: object
-                  description: GeoJSON FeatureCollection of the LLC extent
-                  properties:
-                    features:
-                      type: array
-                      items:
-                        $ref: '#/definitions/Features'
-                    type:
-                      type: string
-                registration-date:
-                  $ref: '#/definitions/registration-date'
-                charge-type:
-                  $ref: '#/definitions/charge-type'
-                charge-sub-category:
-                  $ref: '#/definitions/charge-sub-category'
-                charge-geographic-description:
-                  $ref: '#/definitions/charge-geographic-description'
-                charge-addresss:
-                  $ref: '#/definitions/charge-address'
-                charge-creation-date:
-                  $ref: '#/definitions/charge-creation-date'
-                instrument:
-                  $ref: '#/definitions/instrument'
-                statutory-provision:
-                  $ref: '#/definitions/statutory-provision'
-                further-information-location:
-                  $ref: '#/definitions/further-information-location'
-                further-information-reference:
-                  $ref: '#/definitions/further-information-reference'
-                land-works-particulars:
-                  $ref: '#/definitions/land-works-particulars'
-                land-capacity-description:
-                  $ref: '#/definitions/land-capacity-description'
-                land-compensation-paid:
-                  $ref: '#/definitions/land-compensation-paid'
-                unique-property-reference-numbers:
-                  $ref: '#/definitions/unique-property-reference-numbers'
-                originating-authority:
-                  $ref: '#/definitions/originating-authority'
-                expiry-date:
-                  $ref: '#/definitions/expiry-date'
-                expiry-text:
-                  $ref: '#/definitions/expiry-text'
-                amount-originally-secured:
-                  $ref: '#/definitions/amount-originally-secured'
-                rate-of-interest:
-                  $ref: '#/definitions/rate-of-interest'
-                end-date:
-                  $ref: '#/definitions/end-date'
-              additionalProperties: false
-              required:
-                - geometry
-                - registration-date
-                - charge-type
-                - further-information-location
-                - originating-authority
-          additionalProperties: false
-          required:
-            - item
+        - name: land-charge-id
+          in: path
+          description: ID of the Local Land Charge to amend
+          required: true
+          type: string
+        - name: version-id
+          in: path
+          description: >-
+            Version ID of the Local Land Charge. Must be the latest version to
+            be able to amend the charge
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Local Land Charges object to be added to the Register
+          required: true
+          schema:
+            type: object
+            properties:
+              item:
+                type: object
+                properties:
+                  geometry:
+                    type: object
+                    description: GeoJSON FeatureCollection of the LLC extent
+                    properties:
+                      features:
+                        type: array
+                        items:
+                          $ref: '#/definitions/Features'
+                      type:
+                        type: string
+                  registration-date:
+                    $ref: '#/definitions/registration-date'
+                  charge-type:
+                    $ref: '#/definitions/charge-type'
+                  charge-sub-category:
+                    $ref: '#/definitions/charge-sub-category'
+                  charge-geographic-description:
+                    $ref: '#/definitions/charge-geographic-description'
+                  charge-addresss:
+                    $ref: '#/definitions/charge-address'
+                  charge-creation-date:
+                    $ref: '#/definitions/charge-creation-date'
+                  instrument:
+                    $ref: '#/definitions/instrument'
+                  statutory-provision:
+                    $ref: '#/definitions/statutory-provision'
+                  further-information-location:
+                    $ref: '#/definitions/further-information-location'
+                  further-information-reference:
+                    $ref: '#/definitions/further-information-reference'
+                  land-works-particulars:
+                    $ref: '#/definitions/land-works-particulars'
+                  land-sold-description:
+                    $ref: '#/definitions/land-sold-description'
+                  land-capacity-description:
+                    $ref: '#/definitions/land-capacity-description'
+                  land-compensation-paid:
+                    $ref: '#/definitions/land-compensation-paid'
+                  land-compensation-amount-type:
+                    $ref: '#/definitions/land-compensation-amount-type'
+                  unique-property-reference-numbers:
+                    $ref: '#/definitions/unique-property-reference-numbers'
+                  originating-authority:
+                    $ref: '#/definitions/originating-authority'
+                  expiry-date:
+                    $ref: '#/definitions/expiry-date'
+                  amount-originally-secured:
+                    $ref: '#/definitions/amount-originally-secured'
+                  rate-of-interest:
+                    $ref: '#/definitions/rate-of-interest'
+                  end-date:
+                    $ref: '#/definitions/end-date'
+                additionalProperties: false
+                required:
+                  - geometry
+                  - registration-date
+                  - charge-type
+                  - further-information-location
+                  - originating-authority
+            additionalProperties: false
+            required:
+              - item
       responses:
-        201:
+        '201':
           description: Successful response
           schema:
             type: object
@@ -390,7 +377,7 @@ paths:
                 type: string
               registration-date:
                 type: string
-        400:
+        '400':
           description: Bad request
           schema:
             type: object
@@ -410,11 +397,13 @@ paths:
                           error_message:
                             type: string
                           location:
-                            description: The location of the erroring attribute in the JSON. '$.' is the object root
+                            description: >-
+                              The location of the erroring attribute in the
+                              JSON. '$.' is the object root
                             type: string
               error_code:
                 type: string
-        500:
+        '500':
           description: Internal server error
           schema:
             type: object
@@ -423,32 +412,30 @@ paths:
                 type: string
               error_code:
                 type: string
-      #security:
-      #- llc_auth:
-      #  - "write:llc"
-      #  - "read:llc"
     delete:
       tags:
-      - "local-land-charges"
-      summary: "Cancel an existing Local Land Charge"
-      description: ""
-      operationId: "cancelLLC"
+        - local-land-charges
+      summary: Cancel an existing Local Land Charge
+      description: ''
+      operationId: cancelLLC
       produces:
-      - "application/json"
+        - application/json
       parameters:
-      - name: "land-charge-id"
-        in: "path"
-        description: "ID of the Local Land Charge to cancel"
-        required: true
-        type: "string"
-      - name: "version-id"
-        in: "path"
-        description: "Version ID of the Local Land Charge. Must be the latest version to be able to cancel the charge"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: land-charge-id
+          in: path
+          description: ID of the Local Land Charge to cancel
+          required: true
+          type: string
+        - name: version-id
+          in: path
+          description: >-
+            Version ID of the Local Land Charge. Must be the latest version to
+            be able to cancel the charge
+          required: true
+          type: integer
+          format: int64
       responses:
-        201:
+        '201':
           description: Successful response
           schema:
             type: object
@@ -459,7 +446,7 @@ paths:
                 type: string
               registration-date:
                 type: string
-        400:
+        '400':
           description: Bad request
           schema:
             type: object
@@ -479,11 +466,13 @@ paths:
                           error_message:
                             type: string
                           location:
-                            description: The location of the erroring attribute in the JSON. '$.' is the object root
+                            description: >-
+                              The location of the erroring attribute in the
+                              JSON. '$.' is the object root
                             type: string
               error_code:
                 type: string
-        500:
+        '500':
           description: Internal server error
           schema:
             type: object
@@ -492,22 +481,6 @@ paths:
                 type: string
               error_code:
                 type: string
-      #security:
-      #- llc_auth:
-      #  - "write:llc"
-      #  - "read:llc"
-#securityDefinitions:
-#  llc_auth:
-#    type: "oauth2"
-#    authorizationUrl: "http://LLC/oauth"
-#    flow: "implicit"
-#    scopes:
-#      write:LLC: "modify Local Land Charge"
-#      read:LLC: "retrieve Local Land Charge"
-#  api_key:
-#    type: "apiKey"
-#    name: "api_key"
-#    in: "header"
 definitions:
   Features:
     type: object
@@ -529,7 +502,7 @@ definitions:
       type: number
   Geometry:
     type: object
-    description: 'Geometry defining the area of a land charge'
+    description: Geometry defining the area of a land charge
     discriminator: type
     required:
       - type
@@ -537,29 +510,30 @@ definitions:
       coordinates:
         type: object
         description: >-
-          Should match the definition of; Point, LineString, Polygon's coordinates.
+          Should match the definition of; Point, LineString, Polygon's
+          coordinates.
       type:
         type: string
         enum:
           - Point
           - LineString
           - Polygon
-        description: 'The geometry type'
+        description: The geometry type
   Point:
     type: object
-    description: 'GeoJSon geometry'
+    description: GeoJSon geometry
     properties:
       coordinates:
         $ref: '#/definitions/Point2D'
   LineString:
     type: object
-    description: 'GeoJSon geometry'
+    description: GeoJSon geometry
     properties:
       coordinates:
         $ref: '#/definitions/Point2D'
   Polygon:
     type: object
-    description: 'GeoJSon geometry'
+    description: GeoJSon geometry
     properties:
       coordinates:
         type: array
@@ -569,26 +543,32 @@ definitions:
             $ref: '#/definitions/Point2D'
   registration-date:
     type: string
-    description: 'Date the charge was added the register. Set by the LLC service when added to register and cannot be subsequently amended'
+    description: >-
+      Date the charge was added the register. Set by the LLC service when added
+      to register and cannot be subsequently amended
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
   charge-type:
     description: 'The general category of the Charge (e.g. Planning, Financial)'
     type: string
-    example: 'Planning'
+    example: Planning
     minLength: 1
   charge-sub-category:
     type: string
-    description: 'The specific sub-category of the Charge.'
+    description: The specific sub-category of the Charge.
   charge-geographic-description:
-    description: 'A description of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.'
+    description: >-
+      A description of the land affected by the Charge. Only one of
+      charge-address or charge-geographic-description may be supplied.
     type: string
     minLength: 1
     maxLength: 1000
     example: '1 High Street, Exeter'
   charge-address:
-    description: 'Structured address of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.'
+    description: >-
+      Structured address of the land affected by the Charge. Only one of
+      charge-address or charge-geographic-description may be supplied.
     type: object
     properties:
       line-1:
@@ -612,240 +592,139 @@ definitions:
       - postcode
       - unique-property-reference-number
   charge-creation-date:
-    description: 'The date the Charge comes into effect'
+    description: The date the Charge comes into effect
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
   instrument:
-    description: The document giving rise to the Charge (e.g. charge, deed). Must be present if 'statutory-provision' is not supplied.
+    description: >-
+      The document giving rise to the Charge (e.g. charge, deed). Must be
+      present if 'statutory-provision' is not supplied.
     type: string
-    enum: ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice",
-     "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
+    enum:
+      - Acceptance
+      - Certificate
+      - Covenants
+      - Deed
+      - Deed of modification
+      - Notice
+      - Order
+      - Resolution
+      - Scheme
+      - Transfer
+      - Undertaking
   statutory-provision:
-    description: The statutory provision under which the Charge has arisen. Must be present if 'instrument' is not supplied.
+    description: >-
+      The statutory provision under which the Charge has arisen. Must be present
+      if 'instrument' is not supplied.
     type: string
     minLength: 1
-    example: 'Planning Act 2008 section 205'
+    example: Planning Act 2008 section 205
   further-information-location:
-    description: 'The location - physical or virtual - where relevant documents may be inspected'
+    description: >-
+      The location - physical or virtual - where relevant documents may be
+      inspected
     type: string
     minLength: 1
     maxLength: 475
     example: 'Council Offices, Exeter'
   further-information-reference:
-    description: 'The official reference of relevant documents'
+    description: The official reference of relevant documents
     type: string
     minLength: 1
     maxLength: 255
     example: 'REF: 123'
   land-works-particulars:
-    description: Description of the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 's8 Land Compensation Charge'
+    description: >-
+      Description of the reason why the land adjoining the
+      retained land was compulsorily acquired. Valid only when
+      'charge-type' is 'Land compensation' and accompanied by
+      'land-sold-description'. Is a s8 Land compensation charge.
     type: string
     minLength: 1
-    example: 'Building a new motorway'
+    example: Building a new motorway
+  land-sold-description:
+    description: >-
+      Description of the land sold by compulsory registration.
+      Valid only when 'charge-type' is 'Land compensation'
+      and accompanied by 'land-works-particulars'. Is a s8 Land compensation charge.
   land-capacity-description:
-    description: A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 's52 Land Compensation Charge'
+    description: >-
+      A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 'Land compensation' and accompnied by
+        'land-compensation-paid'
+        and 'land-compensation-amount-type'. Is a s52 Land compensation charge.
     type: string
     minLength: 1
-    example: 'Description of the capacity'
+    example: Description of the capacity
   land-compensation-paid:
-    description: Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 's52 Land Compensation Charge'
+    description: >-
+      Amount already paid to the landowner from which the land was acquired.
+      Valid only when 'charge-type' is 'Land compensation' and
+      accompanied by 'land-capacity-description' and
+      'land-compensation-amount-type'. Is a s52 Land compensation charge.
     type: string
     minLength: 1
     example: '£1,000,000'
+  land-compensation-amount-type:
+    description: >-
+      Valid only when 'charge-type' is 'Land compensation' is compensation paid Agreed or Estimated and
+      accompanied by 'land-capacity-descriptiom' and
+      'land-compensation-paid'. Is a s52 Land compensation charge.
+    type: string
+    enum:
+      - Agreed amount
+      - Estimated amount
   unique-property-reference-numbers:
-    description: 'Unique Property Reference Number, a unique number issued by GeoPlace for every Basic Land & Property Unit (BLPU) which reconciles different property gazetteers'
+    description: >-
+      Unique Property Reference Number, a unique number issued by GeoPlace for
+      every Basic Land & Property Unit (BLPU) which reconciles different
+      property gazetteers
     type: array
     items:
       type: integer
-    example: [100001111, 100002222]
+    example:
+      - 100001111
+      - 100002222
   originating-authority:
-    description: 'The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence'
+    description: >-
+      The name of the Minister of the Crown, government department, local
+      authority or other person by whom the charge is brought into existence
     type: string
     minLength: 1
-    example: 'City of Exeter'
+    example: City of Exeter
   expiry-date:
-    description: The date on which a Land Interest in respect of a local land charge ceases to exist. (Cannot be used with 'expiry-text')
+    description: >-
+      The date on which a Land Interest in respect of a local
+      land charge ceases to exist.
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
-  expiry-text:
-    description: Description of when a Land Interest in respect of a local land charge ceases to exist. (Cannot be used with 'expiry-date')
-    type: string
-    maxLength: 500
-    example: '5 years from date charge registered'
   amount-originally-secured:
-    description: The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Specific Financial Charge'
+    description: >-
+      The financial amount secured at the time the charge was created. Valid
+      only when 'charge-type' is 'Financial'
     type: string
     minLength: 1
-    example: '£1000.00'
+    example: £1000.00
   rate-of-interest:
-    description: The rate of interest as a percentage payable on the amount secured. Valid only when 'charge-type' is 'Specific Financial Charge'
+    description: >-
+      The rate of interest as a percentage payable on the amount secured. Valid
+      only when 'charge-type' is 'Financial' and 'amount-originally-secured' is included.
     type: string
     minLength: 1
-    example: '5% per year'
-  applicant-name:
-    description: The name of the individual or organisation applying for the light obstruction notice. Valid only when 'charge-type' is 'Light obstruction notice'
-    type: string
-    minLength: 1
-    example: 'A Name'
-  applicant-address:
-    description: The address of the applicant. Valid only when 'charge-type' is 'Light obstruction notice'
-    $ref: '#/definitions/applicant-address-structure'
-  servient-land-interest-description:
-    description: The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land). Valid only when 'charge-type' is 'Light obstruction notice'
-    type: string
-    enum: ["Owner", "Tenant", "Lender"]
-  structure-position-and-dimension:
-    description: The position and dimension of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land (the dominant land is the subject of the charge). Valid only when 'charge-type' is 'Light obstruction notice'
-    type: object
-    minLength: 1
-    properties:
-      height:
-        type: string
-        pattern: '^(Unlimited height)|(\d+(\.\d+)?)$'
-      units:
-        type: string
-        description: The unit of measurement of the structure height. Must be provided if height is not 'Unlimited height'
-        enum:
-          - Metres
-          - Feet
-      extent-covered:
-        type: string
-        enum:
-          - All of the extent
-          - Part of the extent
-      part-explanatory-text:
-        type: string
-        description: The part of the extent covered by the structure. Must be provided if extent-covered is 'Part of the extent'
-    required:
-      - height
-      - extent-covered
-  tribunal-definitive-certificate-date:
-    description: The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light obstruction notice'
-    type: string
-    pattern: '^\d{4}-\d{2}-\d{2}$'
-    format: date
-    example: '2017-01-04'
-  documents-filed:
-    description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light obstruction notice'
-    $ref: '#/definitions/documents-filed-structure'
-  tribunal-temporary-certificate-date:
-    description: The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal. Valid only when 'charge-type' is 'Light obstruction notice'
-    type: string
-    pattern: '^\d{4}-\d{2}-\d{2}$'
-    format: date
-    example: '2017-01-04'
-  tribunal-temporary-certificate-expiry-date:
-    description: The date a temporary Lands Tribunal certificate expires, this is a maximum of 6 months after the date of registration. Valid only when 'charge-type' is 'Light obstruction notice'
-    type: string
-    pattern: '^\d{4}-\d{2}-\d{2}$'
-    format: date
-    example: '2017-01-04'
-  applicant-address-structure:
-   description: "The address of the applicant"
-   type: object
-   required:
-    -
-     street
-    -
-     town
-    -
-     postcode
-    -
-     country
-   properties:
-    street:
-     description: "The street of the applicant address"
-     type: string
-     minLength: 1
-    town:
-     description: "The town of the applicant address"
-     type: string
-     minLength: 1
-    county:
-     description: "The county of the applicant address"
-     type: string
-     minLength: 1
-    postcode:
-     description: "The postcode of the applicant address"
-     type: string
-     pattern: "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$"
-     format: postcode
-     minLength: 1
-    country:
-     description: "The country of the applicant address"
-     type: string
-     minLength: 1
-  documents-filed-structure:
-   description: "The documents lodged to support the LON registration"
-   type: object
-   required:
-    -
-     form-a
-   properties:
-    form-a:
-     description: "Form A document in support of LON."
-     $ref: "#/definitions/lon-documents"
-    temporary-certificate:
-     description: "Temporary LON Certificate in support of LON"
-     $ref: "#/definitions/lon-documents"
-    definitive-certificate:
-     description: "Definitive LON Certificate in support of LON"
-     $ref: "#/definitions/lon-documents"
-    court-order:
-     description: "Court order to vary or cancel LON"
-     $ref: "#/definitions/lon-documents"
-    form-b:
-     description: "Form B document to vary or cancel LON"
-     $ref: "#/definitions/lon-documents"
-  lon-documents:
-   type: array
-   minItems: 1
-   items:
-    type: object
-    required:
-     -
-      bucket
-     -
-      file_id
-     -
-      reference
-    properties:
-     bucket:
-      description: "Directory below the main container in the file path, e.g. /lon/"
-      type: string
-      minLength: 1
-     file_id:
-      description: "The id of the file."
-      type: string
-      minLength: 1
-     reference:
-      description: "The path to file."
-      type: string
-      minLength: 1
-     external_reference:
-      description: "The URI of a file."
-      type: "string"
-      minLength: 1
-     subdirectory:
-      description: "The sub directory path to file."
-      type: string
-      minLength: 1
+    example: 5% per year
   end-date:
-    description: 'The date on which Local Land Charge record is cancelled'
+    description: The date on which Local Land Charge record is cancelled
     type: string
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
   version-id:
     type: number
-    description: 'ID which distingiushes each version of a charge during its lifecycle of changes'
+    description: >-
+      ID which distingiushes each version of a charge during its lifecycle of
+      changes
     example: 4443
     minLength: 1
-#externalDocs:
-#  description: "Find out more about Swagger"
-#  url: "http://swagger.io"
-
