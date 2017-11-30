@@ -63,12 +63,16 @@ paths:
                     $ref: '#/definitions/further-information-location'
                   further-information-reference:
                     $ref: '#/definitions/further-information-reference'
+                  land-sold-description:
+                    $ref: '#/definitions/land-sold-description'
                   land-works-particulars:
                     $ref: '#/definitions/land-works-particulars'
                   land-capacity-description:
                     $ref: '#/definitions/land-capacity-description'
                   land-compensation-paid:
                     $ref: '#/definitions/land-compensation-paid'
+                  land-compensation-amount-type:
+                    $ref: '#/definitions/land-compensation-amount-type'
                   unique-property-reference-numbers:
                     $ref: '#/definitions/unique-property-reference-numbers'
                   originating-authority:
@@ -79,6 +83,8 @@ paths:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
                     $ref: '#/definitions/rate-of-interest'
+                  supplementary-information:
+                    $ref: '#/definitions/supplementary-information'
                 additionalProperties: false
                 required:
                   - geometry
@@ -192,12 +198,16 @@ paths:
                     $ref: '#/definitions/further-information-location'
                   further-information-reference:
                     $ref: '#/definitions/further-information-reference'
+                  land-sold-description:
+                    $ref: '#/definitions/land-sold-description'
                   land-works-particulars:
                     $ref: '#/definitions/land-works-particulars'
                   land-capacity-description:
                     $ref: '#/definitions/land-capacity-description'
                   land-compensation-paid:
                     $ref: '#/definitions/land-compensation-paid'
+                  land-compensation-amount-type:
+                    $ref: '#/definitions/land-compensation-amount-type'
                   unique-property-reference-numbers:
                     $ref: '#/definitions/unique-property-reference-numbers'
                   originating-authority:
@@ -208,24 +218,14 @@ paths:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
                     $ref: '#/definitions/rate-of-interest'
-                  applicant-name:
-                    $ref: '#/definitions/applicant-name'
-                  applicant-address:
-                    $ref: '#/definitions/applicant-address'
-                  servient-land-interest-description:
-                    $ref: '#/definitions/servient-land-interest-description'
-                  structure-position-and-dimension:
-                    $ref: '#/definitions/structure-position-and-dimension'
-                  tribunal-definitive-certificate-date:
-                    $ref: '#/definitions/tribunal-definitive-certificate-date'
                   documents-filed:
                     $ref: '#/definitions/documents-filed'
-                  tribunal-temporary-certificate-date:
-                    $ref: '#/definitions/tribunal-temporary-certificate-date'
-                  tribunal-temporary-certificate-expiry-date:
-                    $ref: '#/definitions/tribunal-temporary-certificate-expiry-date'
                   end-date:
                     $ref: '#/definitions/end-date'
+                  version-id:
+                    $ref: '#/definitions/version-id'
+                  supplementary-information:
+                    $ref: '#/definitions/supplementary-information'
                 additionalProperties: false
                 required:
                   - geometry
@@ -355,6 +355,8 @@ paths:
                     $ref: '#/definitions/rate-of-interest'
                   end-date:
                     $ref: '#/definitions/end-date'
+                  supplementary-information:
+                    $ref: '#/definitions/supplementary-information'
                 additionalProperties: false
                 required:
                   - geometry
@@ -556,7 +558,15 @@ definitions:
     minLength: 1
   charge-sub-category:
     type: string
-    description: The specific sub-category of the Charge.
+    description: |
+      The sub-category specific to the Charge type.
+      | charge-type | charge-sub-category options |
+      | ----------- | --------------------------- |
+      | Planning | Change a development, Breach of conditions, Conservation area, Conditional planning consent, Enforcement notice, Article 4, Planning notices, Planning agreement, Tree preservation order (TPO), Listed building conditional planning consent |
+      | Listed building | Listed building, Enforcement notice, Repairs notice |
+      | Housing | Approval under house in multiple occupation (HMO), Grant, Interim certificate under HMO, Notice of works or repairs, Re-approval of grant, Re-approval under HMO |
+      | Other | Ancient monuments, Assets of community value, Compulsory purchase order, Improve a highway, Smoke control order, Site of special scientific interest (SSSI) |
+    example: 'Planning agreement'
   charge-geographic-description:
     description: >-
       A description of the land affected by the Charge. Only one of
@@ -649,14 +659,15 @@ definitions:
       Description of the land sold by compulsory registration.
       Valid only when 'charge-type' is 'Land compensation'
       and accompanied by 'land-works-particulars'. Is a s8 Land compensation charge.
-  land-capacity-description:
-    description: >-
-      A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 'Land compensation' and accompnied by
-        'land-compensation-paid'
-        and 'land-compensation-amount-type'. Is a s52 Land compensation charge.
     type: string
     minLength: 1
-    example: Description of the capacity
+    example: Land adjoining Buttercup Meadow, Plymouth
+  land-capacity-description:
+    description: >-
+      A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 'Land compensation' and accompanied by 'land-compensation-paid' and 'land-compensation-amount-type'. Is a s52 Land compensation charge.
+    type: string
+    minLength: 1
+    example: Freehold, Leasehold or other
   land-compensation-paid:
     description: >-
       Amount already paid to the landowner from which the land was acquired.
@@ -665,7 +676,7 @@ definitions:
       'land-compensation-amount-type'. Is a s52 Land compensation charge.
     type: string
     minLength: 1
-    example: '£1,000,000'
+    example: '10000.00'
   land-compensation-amount-type:
     description: >-
       Valid only when 'charge-type' is 'Land compensation' is compensation paid Agreed or Estimated and
@@ -707,14 +718,17 @@ definitions:
       only when 'charge-type' is 'Financial'
     type: string
     minLength: 1
-    example: £1000.00
+    example: 1000.00
   rate-of-interest:
     description: >-
       The rate of interest as a percentage payable on the amount secured. Valid
       only when 'charge-type' is 'Financial' and 'amount-originally-secured' is included.
     type: string
     minLength: 1
-    example: 5% per year
+    example: 5.5
+  documents-filed:
+    description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
+    enum: ["form-a", "definitive-certificate", "temporary-lon-certificate", "form-b", "court-order"]
   end-date:
     description: The date on which Local Land Charge record is cancelled
     type: string
@@ -728,3 +742,9 @@ definitions:
       changes
     example: 4443
     minLength: 1
+  supplementary-information:
+    type: string
+    description: "Other information relating to the charge"
+    minLength: 1
+    maxLength: 475
+    example: 'Application to vary condition 47 of planning permission reference number 123/123 dated 26.08.2011, enabling the addition of a split basement level'
