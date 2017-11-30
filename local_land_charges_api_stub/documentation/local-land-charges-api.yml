@@ -142,6 +142,10 @@ paths:
                 type: string
               error_code:
                 type: string
+      #security:
+      #- llc_auth:
+      #  - "write:llc"
+      #  - "read:llc"
   '/local-land-charges/{land-charge-id}':
     get:
       tags:
@@ -268,6 +272,8 @@ paths:
                 type: string
               error_code:
                 type: string
+      #security:
+      #- api_key: []
   '/local-land-charges/{land-charge-id}/{version-id}':
     put:
       tags:
@@ -414,6 +420,10 @@ paths:
                 type: string
               error_code:
                 type: string
+      #security:
+      #- llc_auth:
+      #  - "write:llc"
+      #  - "read:llc"
     delete:
       tags:
         - local-land-charges
@@ -483,6 +493,22 @@ paths:
                 type: string
               error_code:
                 type: string
+      #security:
+      #- llc_auth:
+      #  - "write:llc"
+      #  - "read:llc"
+#securityDefinitions:
+#  llc_auth:
+#    type: "oauth2"
+#    authorizationUrl: "http://LLC/oauth"
+#    flow: "implicit"
+#    scopes:
+#      write:LLC: "modify Local Land Charge"
+#      read:LLC: "retrieve Local Land Charge"
+#  api_key:
+#    type: "apiKey"
+#    name: "api_key"
+#    in: "header"
 definitions:
   Features:
     type: object
