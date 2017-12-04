@@ -35,8 +35,8 @@
         "registration-date": "2017-01-11",
         "statutory-provision": "Housing Act 1985",
         "end-date": "2020-01-31",
-        "amount-originally-secured": "£25000",
-        "rate-of-interest": "5.8%"
+        "amount-originally-secured": "25000",
+        "rate-of-interest": "5.8"
     },
     "version-id": 46
 }

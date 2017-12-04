@@ -73,8 +73,6 @@ paths:
                     $ref: '#/definitions/land-compensation-paid'
                   land-compensation-amount-type:
                     $ref: '#/definitions/land-compensation-amount-type'
-                  unique-property-reference-numbers:
-                    $ref: '#/definitions/unique-property-reference-numbers'
                   originating-authority:
                     $ref: '#/definitions/originating-authority'
                   expiry-date:
@@ -212,8 +210,6 @@ paths:
                     $ref: '#/definitions/land-compensation-paid'
                   land-compensation-amount-type:
                     $ref: '#/definitions/land-compensation-amount-type'
-                  unique-property-reference-numbers:
-                    $ref: '#/definitions/unique-property-reference-numbers'
                   originating-authority:
                     $ref: '#/definitions/originating-authority'
                   expiry-date:
@@ -349,8 +345,6 @@ paths:
                     $ref: '#/definitions/land-compensation-paid'
                   land-compensation-amount-type:
                     $ref: '#/definitions/land-compensation-amount-type'
-                  unique-property-reference-numbers:
-                    $ref: '#/definitions/unique-property-reference-numbers'
                   originating-authority:
                     $ref: '#/definitions/originating-authority'
                   expiry-date:
@@ -712,17 +706,6 @@ definitions:
     enum:
       - Agreed amount
       - Estimated amount
-  unique-property-reference-numbers:
-    description: >-
-      Unique Property Reference Number, a unique number issued by GeoPlace for
-      every Basic Land & Property Unit (BLPU) which reconciles different
-      property gazetteers
-    type: array
-    items:
-      type: integer
-    example:
-      - 100001111
-      - 100002222
   originating-authority:
     description: >-
       The name of the Minister of the Crown, government department, local
