@@ -2,7 +2,7 @@
     "item": {
         "charge-creation-date": "2017-01-12",
         "charge-geographic-description": "The Street, Mytown",
-        "charge-type": "Specific Financial Charge",
+        "charge-type": "Financial",
         "expiry-date": "2025-01-01",
         "further-information-location": "Room 101, Council Offices",
         "further-information-reference": "AB1212",
@@ -35,8 +35,8 @@
         "registration-date": "2017-01-11",
         "statutory-provision": "Housing Act 1985",
         "end-date": "2020-01-31",
-        "amount-originally-secured": "£25000",
-        "rate-of-interest": "5.8%"
+        "amount-originally-secured": "25000",
+        "rate-of-interest": "5.8"
     },
     "version-id": 46
 }

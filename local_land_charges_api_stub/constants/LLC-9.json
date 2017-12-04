@@ -5,7 +5,7 @@
             "line-1": "The Street",
             "line-2": "Mytown",
             "postcode": "AA1 1AA",
-            "unique-property-reference-number": "001122334455"
+            "unique-property-reference-number": 456987123
         },
         "charge-type": "Light Obstruction Notice",
         "expiry-date": "2025-01-01",
@@ -56,7 +56,7 @@
         "tribunal-definitive-certificate-date": "2016-11-23",
         "documents-filed": [
             "form-a",
-            "colour-plan",
+            "court-order",
             "definitive-certificate"
         ]
     },

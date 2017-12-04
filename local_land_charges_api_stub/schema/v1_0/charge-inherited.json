@@ -6,8 +6,7 @@
         {"$ref": "#/definitions/principle-local-land-charge"},
         {"$ref": "#/definitions/s8-land-compensation-charge"},
         {"$ref": "#/definitions/s52-land-compensation-charge"},
-        {"$ref": "#/definitions/financial-charge"},
-        {"$ref": "#/definitions/lon-charge"}
+        {"$ref": "#/definitions/financial-charge"}
     ],
     "definitions": {
         "generic-local-land-charge": {
@@ -100,7 +99,8 @@
                     "$ref": "#/definitions/date"
                 },
                 "supplementary-information": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1
                 },
                 "start-date": {
                     "description": "The date the charge Item is cancelled on the register.",
@@ -117,12 +117,9 @@
             },
             "required": [
                 "geometry",
-                "registration-date",
-                "local-land-charge",
                 "originating-authority",
                 "charge-type",
-                "further-information-location",
-                "start-date"
+                "further-information-location"
             ]
         },
         "abstract-principle-local-land-charge": {
@@ -148,7 +145,6 @@
                         "further-information-reference": {},
                         "old-register-part": {},
                         "expiry-date": {},
-                        "expiry-text": {},
                         "supplementary-information": {},
                         "start-date": {},
                         "end-date": {},
@@ -183,10 +179,9 @@
                         "charge-type": {
                             "not": {
                                 "enum": [
-                                    "s8 Land Compensation Charge",
-                                    "s52 Land Compensation Charge",
-                                    "Specific Financial Charge",
-                                    "Light Obstruction Notice"
+                                    "Land compensation",
+                                    "Financial",
+                                    "Light obstruction notice"
                                 ]
                             }
                         },
@@ -196,7 +191,6 @@
                         "further-information-reference": {},
                         "old-register-part": {},
                         "expiry-date": {},
-                        "expiry-text": {},
                         "supplementary-information": {},
                         "start-date": {},
                         "end-date": {},
@@ -226,7 +220,7 @@
                             "description": "The general category of the Charge (e.g. Planning, Financial)",
                             "type": "string",
                             "enum": [
-                                "s8 Land Compensation Charge"
+                                "Land compensation"
                             ]
                         },
                         "migrating-authority": {},
@@ -235,7 +229,6 @@
                         "further-information-reference": {},
                         "old-register-part": {},
                         "expiry-date": {},
-                        "expiry-text": {},
                         "supplementary-information": {},
                         "start-date": {},
                         "end-date": {},
@@ -244,90 +237,19 @@
                         "land-works-particulars": {
                             "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "maxLength": 400
+                        },
+                        "land-sold-description": {
+                        "description": "Description of the land adjoining the retained land that was compulsorily acquired.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 400
                         }
                     },
                     "required": [
-                        "land-works-particulars"
-                    ],
-                    "additionalProperties": false
-                }
-            ]
-        },
-        "lon-charge": {
-            "allOf": [
-                {"$ref": "#/definitions/abstract-principle-local-land-charge"},
-                {
-                    "type": "object",
-                    "properties": {
-                        "geometry": {},
-                        "originating-authority-charge-identifier": {},
-                        "registration-date": {},
-                        "local-land-charge": {},
-                        "charge-creation-date": {},
-                        "charge-geographic-description": {},
-                        "instrument": {},
-                        "statutory-provision": {},
-                        "charge-type": {
-                            "description": "The general category of the Charge (e.g. Planning, Financial)",
-                            "type": "string",
-                            "enum": [
-                                "Light Obstruction Notice"
-                            ]
-                        },
-                        "migrating-authority": {},
-                        "migration-supplier": {},
-                        "further-information-location": {},
-                        "further-information-reference": {},
-                        "old-register-part": {},
-                        "expiry-date": {},
-                        "expiry-text": {},
-                        "supplementary-information": {},
-                        "start-date": {},
-                        "end-date": {},
-                        "author": {},
-                        "originating-authority": {},
-                        "applicant-name": {
-                            "description": "The name of the individual or organisation applying for the light obstruction notice",
-                            "type": "string",
-                            "minLength": 1
-                        },
-                        "applicant-address": {
-                            "description": "The address of the applicant",
-                            "$ref": "#/definitions/applicant-address"
-                        },
-                        "servient-land-interest-description": {
-                            "description": "The capacity in which the applicant holds the land over which the acquisition of the right to light is prevented (The Servient Land)",
-                            "type": "string",
-                            "enum": ["Owner", "Tenant", "Lender"]
-                        },
-                        "structure-position-and-dimension": {
-                            "description": "The description of a notional structure which if erected would block the light to the dominant land. This structure is notionally erected on the servient land.",
-                            "ref": "#/definitions/structure-position-and-dimension"
-                        },
-                        "tribunal-definitive-certificate-date": {
-                            "description": "The date the definitive Lands Tribunal certificate was issued by the Lands Tribunal.",
-                            "$ref": "#/definitions/date"
-                        },
-                        "documents-filed": {
-                            "description": "The documents lodged to support the LON registration",
-                            "$ref": "#/definitions/documents-filed"
-                        },
-                        "tribunal-temporary-certificate-date": {
-                            "description": "The date a temporary Lands Tribunal certificate was issued by the Lands Tribunal",
-                            "$ref": "#/definitions/date"
-                        },
-                        "tribunal-temporary-certificate-expiry-date": {
-                            "description": "The date a temporary Lands Tribunal certificate expires, this is a maximum of 6 months after the date of registration",
-                            "$ref": "#/definitions/date"
-                        }
-                    },
-                    "required": [
-                        "applicant-name",
-                        "applicant-address",
-                        "servient-land-interest-description",
-                        "structure-position-and-dimension",
-                        "documents-filed"
+                        "land-works-particulars",
+                        "land-sold-description"
                     ],
                     "additionalProperties": false
                 }
@@ -351,7 +273,7 @@
                             "description": "The general category of the Charge (e.g. Planning, Financial)",
                             "type": "string",
                             "enum": [
-                                "s52 Land Compensation Charge"
+                                "Land compensation"
                             ]
                         },
                         "migrating-authority": {},
@@ -360,7 +282,6 @@
                         "further-information-reference": {},
                         "old-register-part": {},
                         "expiry-date": {},
-                        "expiry-text": {},
                         "supplementary-information": {},
                         "start-date": {},
                         "end-date": {},
@@ -369,7 +290,13 @@
                         "land-capacity-description": {
                             "description": "A description of the capacity in which the land was acquired; e.g. freehold.",
                             "type": "string",
-                            "minLength": 1
+                            "minLength": 1,
+                            "maxLength": 400
+                        },
+                        "land-compensation-amount-type": {
+                            "description": "Description of the amount paid to the landowner.",
+                            "type": "string",
+                            "enum": ["Agreed amount", "Estimated amount"]
                         },
                         "land-compensation-paid": {
                             "description": "Amount already paid to the landowner from which the land was acquired.",
@@ -379,7 +306,8 @@
                     },
                     "required": [
                         "land-capacity-description",
-                        "land-compensation-paid"
+                        "land-compensation-paid",
+                        "land-compensation-amount-type"
                     ],
                     "additionalProperties": false
                 }
@@ -412,7 +340,6 @@
                         "further-information-reference": {},
                         "old-register-part": {},
                         "expiry-date": {},
-                        "expiry-text": {},
                         "supplementary-information": {},
                         "start-date": {},
                         "end-date": {},
@@ -462,7 +389,7 @@
                     "$ref": "#/definitions/postcode"
                 },
                 "unique-property-reference-number": {
-                    "type": "string"
+                    "type": "integer"
                 }
             }
         },
@@ -502,135 +429,6 @@
                     "description": "The organisation of the author",
                     "type": "string",
                     "minLength": 1
-                }
-            }
-        },
-        "applicant-address": {
-            "description": "The address of the applicant",
-            "type": "object",
-            "required": [
-                "street",
-                "town",
-                "postcode",
-                "country"
-            ],
-            "additionalProperties": false,
-            "properties": {
-                "street": {
-                    "description": "The street of the applicant address",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "town": {
-                    "description": "The town of the applicant address",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "county": {
-                    "description": "The county of the applicant address",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "postcode": {
-                    "description": "The postcode of the applicant address",
-                    "$ref": "#/definitions/postcode"
-                },
-                "country": {
-                    "description": "The country of the applicant address",
-                    "type": "string",
-                    "minLength": 1
-                }
-            }
-        },
-        "additionalProperties": false,
-        "documents-filed": {
-            "description": "The documents lodged to support the LON registration",
-            "type": "object",
-            "required": [
-                "form-a"
-            ],
-            "properties": {
-                "form-a": {
-                    "description": "Form A document in support of LON.",
-                    "ref": "#/definitions/lon-documents"
-                },
-                "temporary-lon-certificate": {
-                    "description": "Temporary LON Certificate in support of LON",
-                    "ref": "#/definitions/lon-documents"
-                },
-                "definitive-certificate": {
-                    "description": "Definitive LON Certificate in support of LON",
-                    "ref": "#/definitions/lon-documents"
-                },
-                "court-order": {
-                    "description": "Court order to vary or cancel LON",
-                    "$ref": "#/definitions/lon-documents"
-                },
-                "form-b": {
-                    "description": "Form B document to vary or cancel LON",
-                    "$ref": "#/definitions/lon-documents"
-                }
-            }
-        },
-        "lon-documents": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-                "type": "object",
-                "required": ["bucket", "file_id", "reference"],
-                "additionalProperties": false,
-                "properties": {
-                    "bucket": {
-                        "description": "Directory below the main container in the file path, e.g. /lon/",
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "file_id": {
-                        "description": "The id of the file.",
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "external_reference": {
-                        "description": "The URI of a file.",
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "reference": {
-                        "description": "The path to file.",
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "subdirectory": {
-                        "description": "The sub directory path to file.",
-                        "type": "string",
-                        "minLength": 1
-                    }
-                }
-            }
-        },
-        "structure-position-and-dimension": {
-            "type": "object",
-            "required": ["height", "extent-covered"],
-            "additionalProperties": false,
-            "properties": {
-                "height": {
-                    "type": "string",
-                    "pattern": "^(Unlimited height)|(\\d+(\\.\\d+)?)$"
-                },
-                "units": {
-                    "type": "string",
-                    "description": "Not allowed if height is 'Unlimited height'."
-                },
-                "extent-covered": {
-                    "type": "string",
-                    "enum": [
-                        "All of the extent",
-                        "Part of the extent"
-                    ]
-                },
-                "part-explanatory-text": {
-                    "type": "string",
-                    "description": "Not allowed if extent-covered is 'All of the extent'."
                 }
             }
         }

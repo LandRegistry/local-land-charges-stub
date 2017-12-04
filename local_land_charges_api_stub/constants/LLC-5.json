@@ -3,6 +3,7 @@
         "charge-creation-date": "2017-01-12",
         "charge-geographic-description": "The Street, Mytown",
         "charge-type": "Planning",
+        "charge-sub-category": "Planning agreement",
         "expiry-date": "2025-01-01",
         "further-information-location": "Room 101, Council Offices",
         "further-information-reference": "AB1212",
