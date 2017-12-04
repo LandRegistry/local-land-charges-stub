@@ -616,7 +616,7 @@ definitions:
       postcode:
         type: string
       unique-property-reference-number:
-        type: string
+        type: integer
     required:
       - line-1
       - postcode

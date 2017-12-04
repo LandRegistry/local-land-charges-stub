@@ -183,7 +183,7 @@
                     "type": "string"
                 },
                 "unique-property-reference-number": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "postcode": {
                     "description": "The postcode of the address",

@@ -389,7 +389,7 @@
                     "$ref": "#/definitions/postcode"
                 },
                 "unique-property-reference-number": {
-                    "type": "string"
+                    "type": "integer"
                 }
             }
         },
