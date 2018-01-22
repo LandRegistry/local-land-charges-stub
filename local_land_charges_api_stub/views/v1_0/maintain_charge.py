@@ -19,7 +19,7 @@ def add_charge():
     payload = request.get_json()
     date = datetime.datetime.now().strftime("%Y-%m-%d")
 
-    errors = add_vary_handler.add_vary_validate(payload, 'v1_0')
+    errors = add_vary_handler.add_vary_validate(payload)
 
     if errors:
         error_message = {

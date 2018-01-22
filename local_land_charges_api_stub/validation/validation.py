@@ -72,7 +72,7 @@ def get_item_errors(data):
             "location": "$."
         }]
 
-    version = data['schema-version']
+    version = "v{}".format(data['schema-version'].replace('.', '_'))
     if version not in schema_extension.schema:
         return [{
             "error_message": "Unknown schema version {}".format(version),

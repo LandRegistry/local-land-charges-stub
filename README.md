@@ -39,6 +39,7 @@ i.e.
 ```
 {
   "item": {
+    "schema-version": "2.0",
     "further-information-location": "some further info",
     "charge-type": "Planning",
     "charge-sub-category": "Change a development",

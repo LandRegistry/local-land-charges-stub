@@ -2,13 +2,18 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "description": "v2.0.0 schema for local land charge item as submitted to the LLC API",
     "type": "object",
-    "oneOf": [
-        {"$ref": "#/definitions/other-land-charge"},
-        {"$ref": "#/definitions/land-compensation-charge-s8"},
-        {"$ref": "#/definitions/land-compensation-charge-s52"},
-        {"$ref": "#/definitions/general-financial-charge"},
-        {"$ref": "#/definitions/specific-financial-charge"}
-    ],
+    "properties": {
+        "item": {
+            "type": "object",
+            "oneOf": [
+                {"$ref": "#/definitions/other-land-charge"},
+                {"$ref": "#/definitions/land-compensation-charge-s8"},
+                {"$ref": "#/definitions/land-compensation-charge-s52"},
+                {"$ref": "#/definitions/general-financial-charge"},
+                {"$ref": "#/definitions/specific-financial-charge"}
+            ]
+        }
+    },
     "definitions": {
         "object-has-charge-geographic-description": {
             "type": "object",
