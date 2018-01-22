@@ -1,0 +1,630 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "v2.0.0 schema for local land charge item as submitted to the LLC API",
+    "type": "object",
+    "oneOf": [
+        {"$ref": "#/definitions/other-land-charge"},
+        {"$ref": "#/definitions/land-compensation-charge-s8"},
+        {"$ref": "#/definitions/land-compensation-charge-s52"},
+        {"$ref": "#/definitions/general-financial-charge"},
+        {"$ref": "#/definitions/specific-financial-charge"}
+    ],
+    "definitions": {
+        "object-has-charge-geographic-description": {
+            "type": "object",
+            "properties": {
+                "charge-geographic-description": {
+                    "description": "A description of the land affected by the Charge.",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                }
+            },
+            "required": ["charge-geographic-description"],
+            "not": {
+                "required": ["charge-address"]
+            }
+        },
+        "object-has-charge-address": {
+            "type": "object",
+            "properties": {
+                "charge-address": {
+                    "description": "The postal address of the land affected by the charge.",
+                    "$ref": "#/definitions/address"
+                }
+            },
+            "required": ["charge-address"],
+            "not": {
+                "required": ["charge-geographic-description"]
+            }
+        },
+        "address": {
+            "type": "object",
+            "required": ["line-1", "postcode", "unique-property-reference-number"],
+            "additionalProperties": false,
+            "properties": {
+                "line-1": {
+                    "type": "string"
+                },
+                "line-2": {
+                    "type": "string"
+                },
+                "line-3": {
+                    "type": "string"
+                },
+                "line-4": {
+                    "type": "string"
+                },
+                "line-5": {
+                    "type": "string"
+                },
+                "line-6": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "description": "The postcode of the address",
+                    "$ref": "#/definitions/postcode"
+                },
+                "unique-property-reference-number": {
+                    "type": "integer"
+                }
+            }
+        },
+        "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "format": "date"
+        },
+        "postcode": {
+            "description": "The postcode of an address",
+            "type": "string",
+            "pattern": "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$",
+            "format": "postcode",
+            "minLength": 1
+        },
+        "author": {
+            "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
+            "type": "object",
+            "required": [
+                "full-name",
+                "organisation"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "full-name": {
+                    "description": "The full name of the author, computed by first name + second name",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "email": {
+                    "description": "The email of the author",
+                    "type": "string",
+                    "format": "email",
+                    "minLength": 1
+                },
+                "organisation": {
+                    "description": "The organisation of the author",
+                    "type": "string",
+                    "minLength": 1
+                }
+            }
+        },
+        "base-land-charge": {
+            "description": "Abstract subschema representing the common elements of any local land charge item",
+            "type": "object",
+            "properties": {
+                "schema-version": {
+                    "type": "string",
+                    "pattern": "^2\\.\\d+$"
+                },
+                "geometry": {
+                    "$ref": "file:feature_collection.json",
+                    "description": "FeatureCollection identifying the Charge extent.",
+                    "$comment": "Additional validation is performed on the geometry field by the validation service."
+                },
+                "local-land-charge": {
+                    "description": "Identifier of the Charge issued by Land Registry.",
+                    "type": "integer"
+                },
+                "registration-date": {
+                    "description": "Date the item was entered into the register.",
+                    "$ref": "#/definitions/date"
+                },
+                "charge-type": {
+                    "description": "The general category of the Charge (e.g. Planning, Financial)",
+                    "type": "string",
+                    "enum": ["Planning", "Listed building", "Housing", "Other", "Land compensation",
+                             "Financial", "Light obstruction notice"]
+                },
+                "charge-sub-category": {
+                    "type": "string",
+                    "description": "The specific sub-category of the Charge.",
+                    "minLength": 1
+                },
+                "charge-creation-date": {
+                    "description": "The date the Charge comes into effect.",
+                    "$ref": "#/definitions/date"
+                },
+                "instrument": {
+                    "description": "The document giving rise to the Charge (e.g. charge, deed)",
+                    "type": "string",
+                    "enum": ["Acceptance", "Certificate", "Covenants", "Deed", "Deed of modification", "Notice",
+                             "Order", "Resolution", "Scheme", "Transfer", "Undertaking"]
+                },
+                "statutory-provision": {
+                    "description": "The statutory provision(s) under which the Charge has arisen.",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "further-information-location": {
+                    "type": "string",
+                    "description": "The location - physical or virtual - where relevant documents may be inspected.",
+                    "minLength": 1,
+                    "maxLength": 475
+                },
+                "further-information-reference": {
+                    "type": "string",
+                    "description": "The location - physical or virtual - where relevant documents may be inspected.",
+                    "minLength": 1,
+                    "maxLength": 255
+                },
+                "expiry-date": {
+                    "$ref": "#/definitions/date",
+                    "description": "The date on which a Land Interest in respect of a local land charge ceases to exist."
+                },
+                "supplementary-information": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1500
+                },
+                "start-date": {
+                    "description": "The date the charge Item is entered into the register.",
+                    "$ref": "#/definitions/date"
+                },
+                "end-date": {
+                    "description": "The date the charge Item is cancelled on the register.",
+                    "$ref": "#/definitions/date"
+                },
+                "author": {
+                    "description": "The author of the current charge item state (e.g. who created, updated or cancelled a charge)",
+                    "$ref": "#/definitions/author"
+                },
+                "originating-authority-charge-identifier": {
+                    "description": "The ID of the charge form (i) if an existing digital system -the ID within that system, (ii) if paper/electronic - where one is currently allocated by LA use as currently exists within LA if not allocated by the first supplier to handle the records and agreed with the LA.",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "migration-supplier": {
+                    "description": "Identifier of the Charge issued by the migration supplier.",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "migrating-authority": {
+                    "description": "The Charge migrating Registering Authority name.",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "old-register-part": {
+                    "description": "The part of the LLC register on which a charge was recorded by a lcoal authority prior to migration. Only required for migrated Charges.",
+                    "type": "string",
+                    "enum": ["1", "2", "3b", "4", "6a", "6b", "7", "8", "9", "10", "11", "12"]
+                }
+            },
+            "allOf": [
+                {
+                    "oneOf": [
+                        {
+                            "properties": {
+                                "charge-type": {
+                                    "enum": [
+                                        "Financial",
+                                        "Land compensation",
+                                        "Light obstruction notice"
+                                    ]
+                                }
+                            },
+                            "not": {
+                                "required": ["charge-sub-category"]
+                            }
+                        },
+                        {
+                            "properties": {
+                                "charge-type": {"enum": ["Planning"]},
+                                "charge-sub-category": {
+                                    "enum": [
+                                        "Change a development",
+                                        "Breach of conditions",
+                                        "Conservation area",
+                                        "Conditional planning consent",
+                                        "Enforcement notice",
+                                        "Article 4",
+                                        "Planning notices",
+                                        "Planning agreement",
+                                        "Tree preservation order (TPO)",
+                                        "Listed building conditional planning consent"
+                                    ]
+                                }
+                            },
+                            "required": ["charge-sub-category"]
+                        },
+                        {
+                            "properties": {
+                                "charge-type": {"enum": ["Listed building"]},
+                                "charge-sub-category": {
+                                    "enum": [
+                                        "Listed building",
+                                        "Enforcement notice",
+                                        "Repairs notice"
+                                    ]
+                                }
+                            },
+                            "required": ["charge-sub-category"]
+                        },
+                        {
+                            "properties": {
+                                "charge-type": {"enum": ["Housing"]},
+                                "charge-sub-category": {
+                                    "enum": [
+                                        "Approval under house in multiple occupation (HMO)",
+                                        "Grant",
+                                        "Interim certificate under HMO",
+                                        "Notice of works or repairs",
+                                        "Re-approval of grant",
+                                        "Re-approval under HMO"
+                                    ]
+                                }
+                            },
+                            "required": ["charge-sub-category"]
+                        },
+                        {
+                            "properties": {
+                                "charge-type": {"enum": ["Other"]},
+                                "charge-sub-category": {
+                                    "enum": [
+                                        "Ancient monuments",
+                                        "Assets of community value",
+                                        "Compulsory purchase order",
+                                        "Improve a highway",
+                                        "Smoke control order",
+                                        "Site of special scientific interest (SSSI)"
+                                    ]
+                                }
+                            },
+                            "required": ["charge-sub-category"]
+                        }
+                    ]
+                },
+                {
+                    "oneOf": [
+                        {"$ref": "#/definitions/object-has-charge-geographic-description"},
+                        {"$ref": "#/definitions/object-has-charge-address"}
+                    ]
+                },
+                {
+                    "oneOf": [
+                        {
+                            "required": [
+                                "migration-supplier",
+                                "migrating-authority",
+                                "old-register-part"
+                            ]
+                        },
+                        {
+                            "allOf": [
+                                {"not": {"required": ["migration-supplier"]}},
+                                {"not": {"required": ["migrating-authority"]}},
+                                {"not": {"required": ["old-register-part"]}}
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "required": [
+                "schema-version",
+                "geometry",
+                "charge-type",
+                "further-information-location",
+                "originating-authority"
+            ]
+        },
+        "other-land-charge": {
+            "description": "Subschema representing a local land charge that is not specific Financial, Land compensation or Light obstruction",
+            "allOf": [
+                {"$ref": "#/definitions/base-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "not": {
+                                "enum": [
+                                    "Land compensation",
+                                    "Financial"
+                                ]
+                            }
+                        },
+                        "originating-authority": {
+                            "description": "The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence.",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "alternate-land-charge": {
+            "description": "Abstract subschema representing Financial and Land compensation charge items",
+            "allOf": [
+                {"$ref": "#/definitions/base-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "enum": [
+                                "Land compensation",
+                                "Financial"
+                            ]
+                        },
+                        "originating-authority": {
+                            "description": "The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence.",
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "required": ["originating-authority"]
+                }
+            ]
+        },
+        "land-compensation-charge-s8": {
+            "description": "Subschema representing a Section 8 Land compensation charge item",
+            "allOf": [
+                {"$ref": "#/definitions/alternate-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "enum": [
+                                "Land compensation"
+                            ]
+                        },
+                        "originating-authority": {},
+                        "land-works-particulars": {
+                            "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired.",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 400
+                        },
+                        "land-sold-description": {
+                            "description": "Description of the land adjoining the retained land that was compulsorily acquired.",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 400
+                        }
+                    },
+                    "required": [
+                        "land-works-particulars",
+                        "land-sold-description"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "land-compensation-charge-s52": {
+            "description": "Subschema representing a Section 52 Land compensation charge item",
+            "allOf": [
+                {"$ref": "#/definitions/alternate-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "enum": [
+                                "Land compensation"
+                            ]
+                        },
+                        "originating-authority": {},
+                        "land-capacity-description": {
+                            "description": "A description of the capacity in which the land was acquired; e.g. freehold.",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 400
+                        },
+                        "land-compensation-amount-type": {
+                            "description": "Description of the amount paid to the landowner.",
+                            "type": "string",
+                            "enum": ["Agreed amount", "Estimated amount"]
+                        },
+                        "land-compensation-paid": {
+                            "description": "Amount already paid to the landowner from which the land was acquired.",
+                            "type": "string",
+                            "minLength": 1,
+                            "pattern": "^\\d+(?:\\.\\d{2})?$"
+                        }
+                    },
+                    "required": [
+                        "land-capacity-description",
+                        "land-compensation-amount-type",
+                        "land-compensation-paid"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "general-financial-charge": {
+            "description": "Subschema representing a general financial charge",
+            "allOf": [
+                {"$ref": "#/definitions/alternate-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "enum": [
+                                "Financial"
+                            ]
+                        },
+                        "originating-authority": {}
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "specific-financial-charge": {
+            "description": "Subschema representing a specific Financial charge item",
+            "allOf": [
+                {"$ref": "#/definitions/alternate-land-charge"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "schema-version": {},
+                        "local-land-charge": {},
+                        "registration-date": {},
+                        "charge-address": {},
+                        "charge-geographic-description": {},
+                        "geometry": {},
+                        "charge-sub-category": {},
+                        "charge-creation-date": {},
+                        "instrument": {},
+                        "statutory-provision": {},
+                        "further-information-location": {},
+                        "further-information-reference": {},
+                        "expiry-date": {},
+                        "supplementary-information": {},
+                        "start-date": {},
+                        "end-date": {},
+                        "author": {},
+                        "migration-supplier": {},
+                        "originating-authority-charge-identifier": {},
+                        "migrating-authority": {},
+                        "old-register-part": {},
+                        "charge-type": {
+                            "enum": [
+                                "Financial"
+                            ]
+                        },
+                        "originating-authority": {},
+                        "amount-originally-secured": {
+                            "description": "",
+                            "type": "string",
+                            "pattern": "^\\d+(?:\\.\\d{2})?$"
+                        },
+                        "rate-of-interest": {
+                            "description": "",
+                            "type": "string",
+                            "pattern": "^(\\d+(?:\\.\\d{1,2})?)|(Interest may be payable)|(No interest is payable)$"
+                        }
+                    },
+                    "required": [
+                        "originating-authority",
+                        "rate-of-interest",
+                        "amount-originally-secured"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        }
+    }
+}

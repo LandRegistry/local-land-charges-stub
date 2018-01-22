@@ -41,6 +41,7 @@ i.e.
   "item": {
     "further-information-location": "some further info",
     "charge-type": "Planning",
+    "charge-sub-category": "Change a development",
     "expiry-date": "2020-01-01",
     "originating-authority": "Place City Council",
     "charge-creation-date": "2017-01-12",
