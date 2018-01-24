@@ -710,7 +710,6 @@ definitions:
     description: >-
       The name of the Minister of the Crown, government department, local
       authority or other person by whom the charge is brought into existence.
-      May not be provided where 'charge-type' is 'Light obstruction notice'
     type: string
     minLength: 1
     example: City of Exeter
