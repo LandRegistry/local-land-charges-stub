@@ -53,7 +53,7 @@ def vary_charge(land_charge_id, version_id):
     if not version_id.isdigit():
         raise ApplicationError("Invalid Version ID", 'E422', 422)
 
-    errors = add_vary_handler.add_vary_validate(payload, 'v1_0')
+    errors = add_vary_handler.add_vary_validate(payload)
 
     if errors:
         error_message = {

@@ -41,7 +41,6 @@ def _check_for_errors(data, schema, resolver):
 
     for error in validator.iter_errors(data):
         for suberror in error.context:
-
             path = _format_path(suberror.path)
             subschema = str(suberror.schema_path[0])
             if subschema not in messages:
@@ -65,7 +64,9 @@ def _check_for_errors(data, schema, resolver):
     return _filter_errors(messages, discard_subschemas)
 
 
-def get_item_errors(data):
+def get_item_errors(payload):
+    data = payload['item']
+
     if 'schema-version' not in data:
         return [{
             "error_message": "'schema-version' is a required field",
@@ -80,7 +81,7 @@ def get_item_errors(data):
         }]
 
     app.logger.info("Validating against full schema " + json.dumps(data))
-    errors = _check_for_errors(data, schema_extension.schema[version],
+    errors = _check_for_errors(payload, schema_extension.schema[version],
                                schema_extension.resolver[version])
 
     # Dynamically load module for semantic validation
