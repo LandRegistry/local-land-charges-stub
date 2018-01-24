@@ -127,10 +127,6 @@
                     "description": "FeatureCollection identifying the Charge extent.",
                     "$comment": "Additional validation is performed on the geometry field by the validation service."
                 },
-                "local-land-charge": {
-                    "description": "Identifier of the Charge issued by Land Registry.",
-                    "type": "integer"
-                },
                 "registration-date": {
                     "description": "Date the item was entered into the register.",
                     "$ref": "#/definitions/date"
@@ -340,7 +336,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
@@ -386,7 +381,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
@@ -430,7 +424,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
@@ -485,7 +478,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
@@ -546,7 +538,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
@@ -585,7 +576,6 @@
                     "type": "object",
                     "properties": {
                         "schema-version": {},
-                        "local-land-charge": {},
                         "registration-date": {},
                         "charge-address": {},
                         "charge-geographic-description": {},
