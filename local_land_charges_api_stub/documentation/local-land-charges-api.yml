@@ -709,7 +709,8 @@ definitions:
   originating-authority:
     description: >-
       The name of the Minister of the Crown, government department, local
-      authority or other person by whom the charge is brought into existence
+      authority or other person by whom the charge is brought into existence.
+      May not be provided where 'charge-type' is 'Light obstruction notice'
     type: string
     minLength: 1
     example: City of Exeter
@@ -724,14 +725,15 @@ definitions:
   amount-originally-secured:
     description: >-
       The financial amount secured at the time the charge was created. Valid
-      only when 'charge-type' is 'Financial'
+      only when 'charge-type' is 'Financial' and 'rate-of-interest' is included.
     type: string
     minLength: 1
     example: 1000.00
   rate-of-interest:
     description: >-
-      The rate of interest as a percentage payable on the amount secured. Valid
-      only when 'charge-type' is 'Financial' and 'amount-originally-secured' is included.
+      The rate of interest as a percentage payable on the amount secured, or 'Interest may be
+      payable' or 'No interest is payable'. Valid only when 'charge-type' is 'Financial' and
+      'amount-originally-secured' is included.
     type: string
     minLength: 1
     example: 5.5
