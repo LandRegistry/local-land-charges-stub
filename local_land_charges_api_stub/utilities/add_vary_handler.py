@@ -2,7 +2,7 @@ from local_land_charges_api_stub.constants.constants import AddChargeConstants
 from local_land_charges_api_stub.validation import validation
 
 
-def add_vary_validate(payload, version):
+def add_vary_validate(payload):
     errors = []
     if 'item' not in payload:
         errors.append({"location": "$.", "error_message": "'item' is a required property"})
@@ -33,7 +33,7 @@ def add_vary_validate(payload, version):
                 errors.append({"location": "$.item.charge-type",
                                "error_message": "'{}' is not valid".format(charge_data['charge-type'])})
 
-        schema_errors = validation.get_item_errors(charge_data, version)
+        schema_errors = validation.get_item_errors(payload)
         if schema_errors:
             errors.extend(schema_errors)
 

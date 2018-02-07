@@ -39,8 +39,10 @@ i.e.
 ```
 {
   "item": {
+    "schema-version": "2.0",
     "further-information-location": "some further info",
     "charge-type": "Planning",
+    "charge-sub-category": "Change a development",
     "expiry-date": "2020-01-01",
     "originating-authority": "Place City Council",
     "charge-creation-date": "2017-01-12",
