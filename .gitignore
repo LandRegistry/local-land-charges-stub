@@ -266,3 +266,4 @@ GitHub.sublime-settings
 # Eclipse
 .project
 .pydevproject
+/.idea/
