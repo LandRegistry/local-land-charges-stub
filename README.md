@@ -11,7 +11,8 @@ Running this service locally will require the following :
 * Python 3
 * Virtualenv
 
-To start the service, run the run.sh file in Terminal (i.e. ./run.sh). 
+To start the service, run the run.sh file in Terminal (i.e. ./run.sh).
+If using Windows, run the run_in_windows.bat file in a cmd window. 
 
 Check application is running using http://localhost:9998/health
 

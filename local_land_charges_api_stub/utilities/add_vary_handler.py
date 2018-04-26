@@ -33,7 +33,12 @@ def add_vary_validate(payload):
                 errors.append({"location": "$.item.charge-type",
                                "error_message": "'{}' is not valid".format(charge_data['charge-type'])})
 
-        schema_errors = validation.get_item_errors(payload)
+        # For an add, need to simulate system setting these values
+        charge_data['local-land-charge'] = 0
+        charge_data['start-date'] = "2000-01-01"
+        charge_data['registration-date'] = "2000-01-01"
+
+        schema_errors = validation.get_item_errors(charge_data)
         if schema_errors:
             errors.extend(schema_errors)
 
