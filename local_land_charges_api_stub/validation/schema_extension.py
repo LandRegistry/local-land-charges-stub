@@ -27,6 +27,12 @@ class SchemaExtension(object):
             with open(os.path.join(schema_path, SCHEMA_FILENAME)) as simple:
                 self.schema[version] = json.load(simple)
 
-            self.resolver[version] = RefResolver('file://' + schema_path + '/', self.schema[version])
+            # Get file prefix based on OS
+            if os.name == 'nt':
+                file_prefix = 'file:///'
+            else:
+                file_prefix = 'file:'
+
+            self.resolver[version] = RefResolver(file_prefix + schema_path + '/', self.schema[version])
             sem_mod = import_module('local_land_charges_api_stub.schema.' + version + '.semantics')
             self.semantic_validators[version] = sem_mod.validation_rules
