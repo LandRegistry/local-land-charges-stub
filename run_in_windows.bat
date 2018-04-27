@@ -5,8 +5,8 @@ REM use ctrl-c to stop API and enter 'deactivate' to exit virtual environment
 
 IF NOT EXIST ./venv (
 python -m venv ./venv
-CALL ./venv/Scripts/activate
 )
+CALL ./venv/Scripts/activate
 
 pip install -r requirements.txt
 
