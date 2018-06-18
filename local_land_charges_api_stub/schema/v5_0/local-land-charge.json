@@ -313,8 +313,7 @@
                 "charge-type": {
                     "description": "The general category of the Charge (e.g. Planning, Financial)",
                     "type": "string",
-                    "enum": ["Planning", "Listed building", "Housing", "Other", "Land compensation",
-                             "Financial", "Light obstruction notice"]
+                    "minLength": 1
                 },
                 "charge-sub-category": {
                     "type": "string",
