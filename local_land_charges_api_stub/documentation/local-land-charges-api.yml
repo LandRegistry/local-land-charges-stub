@@ -81,6 +81,8 @@ paths:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
                     $ref: '#/definitions/rate-of-interest'
+                  amount-of-compensation:
+                    $ref: '#/definitions/amount-of-compensation'
                   supplementary-information:
                     $ref: '#/definitions/supplementary-information'
                 additionalProperties: false
@@ -218,6 +220,8 @@ paths:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
                     $ref: '#/definitions/rate-of-interest'
+                  amount-of-compensation:
+                    $ref: '#/definitions/amount-of-compensation'
                   documents-filed:
                     $ref: '#/definitions/documents-filed'
                   end-date:
@@ -353,6 +357,8 @@ paths:
                     $ref: '#/definitions/amount-originally-secured'
                   rate-of-interest:
                     $ref: '#/definitions/rate-of-interest'
+                  amount-of-compensation:
+                    $ref: '#/definitions/amount-of-compensation'
                   end-date:
                     $ref: '#/definitions/end-date'
                   supplementary-information:
@@ -736,6 +742,11 @@ definitions:
     type: string
     minLength: 1
     example: 5.5
+  amount-of-compensation:
+    description: The total amount of compensation payable to the landowner from which the land was acquired. Valid only when 'charge-type' is 'Land compensation'
+    type: string
+    minLength: 1
+    example: '1000000.00'
   documents-filed:
     description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
     enum: ["form-a", "definitive-certificate", "temporary-lon-certificate", "form-b", "court-order"]
