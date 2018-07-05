@@ -82,6 +82,10 @@ def get_item_errors(data):
     errors = _check_for_errors(data, schema_extension.schema[version],
                                schema_extension.resolver[version])
 
+    if data['schema-version'] == '5.0':
+        # version 5 of the schema moved category validation from schema to code, so validate this now
+        errors += validate_category_instrument(data)
+
     # Dynamically load module for semantic validation
     for rule in schema_extension.semantic_validators[version]:
         rule_errors = rule(data)
@@ -89,3 +93,147 @@ def get_item_errors(data):
         for re in rule_errors:
             errors.append(re)
     return errors
+
+
+def validate_category_instrument(charge):
+    errors = []
+    category = get_charge_category(charge["charge-type"])
+    if not category or charge["charge-type"] != category['name']:
+        errors.append({"location": "$.item.charge-type",
+                       "error_message": "'{}' is not valid".format(charge['charge-type'])})
+    else:
+        instruments = None
+        if 'sub-categories' in category and category['sub-categories']:
+            if 'charge-sub-category' in charge and charge['charge-sub-category']:
+                valid_sub_cats = [sub['name'] for sub in category['sub-categories']]
+                if charge['charge-sub-category'] not in valid_sub_cats:
+                    errors.append({"location": "$.item.charge-sub-category",
+                                   "error_message":
+                                       "'{}' is not valid".format(charge['charge-sub-category'])})
+                else:
+                    sub_category = get_charge_sub_category(charge['charge-type'],
+                                                           charge['charge-sub-category'])
+                    if 'instruments' in sub_category and sub_category['instruments']:
+                        instruments = sub_category['instruments']
+            else:
+                errors.append({"location": "$.item",
+                               "error_message":
+                                   "'charge-sub-category' is required"})
+        elif 'charge-sub-category' in charge and charge['charge-sub-category']:
+            errors.append(
+                {"location": "$.item",
+                 "error_message":
+                     "Additional properties are not allowed ('charge-sub-category' was unexpected)"})
+        if not instruments and 'instruments' in category and category['instruments']:
+            instruments = category['instruments']
+        if instruments:
+            instruments = [instrument for instrument in instruments]
+            if 'instrument' in charge and charge['instrument']:
+                if charge['instrument'] not in instruments:
+                    errors.append({"location": "$.item.instrument",
+                                   "error_message":
+                                       "'{}' is not valid".format(charge['instrument'])})
+            else:
+                errors.append({"location": "$.item", "error_message": "'instrument' is required"})
+        else:
+            if 'instrument' in charge and charge['instrument']:
+                errors.append({"location": "$.item",
+                               "error_message":
+                                   "Additional properties are not allowed ('instrument' was unexpected)"})
+    return errors
+
+
+def get_charge_category(category):
+    # TODO change this to not use database but instead use a dictionary of the database values
+    app.logger.info("Get category for {0}.".format(category))
+
+    category_obj = Categories.query \
+        .filter(func.lower(Categories.name) == func.lower(category)) \
+        .filter(Categories.parent_id == None) \
+        .first()  # noqa: E711 - Ignore "is None vs ==" linting error, is None does not produce valid sql in sqlAlchmey
+
+    if category_obj is None:
+        raise ApplicationError("Category '{0}' not found.".format(category), 404, 404)
+
+    provisions = []
+    for provision_mapping in category_obj.provisions:
+        provisions.append(provision_mapping.provision.title)
+
+    instruments = []
+    for instruments_mapping in category_obj.instruments:
+        instruments.append(instruments_mapping.instrument.name)
+
+    children = []
+    for children_mapping in Categories.query \
+            .filter(Categories.parent_id == category_obj.id) \
+            .order_by(Categories.display_order).all():
+        children.append(
+            {
+                "name": children_mapping.name,
+                "display-name": children_mapping.display_name,
+                "permission": children_mapping.permission,
+
+            })
+
+    result = {
+        "name": category_obj.name,
+        "display-name": category_obj.display_name,
+        "permission": category_obj.permission,
+        "statutory-provisions": provisions,
+        "instruments": instruments,
+        "sub-categories": children}
+
+    return result
+
+
+def get_charge_sub_category(category, sub_category):
+    # TODO change this to not use database but instead use a dictionary of the database values
+    app.logger.info("Get category for {0}.".format(category))
+
+    category_obj = Categories.query \
+        .filter(func.lower(Categories.name) == func.lower(category)) \
+        .filter(Categories.parent_id == None) \
+        .first()  # noqa: E711 - Ignore "is None vs ==", is None does not produce valid sql in sqlAlchmey
+
+    if category_obj is None:
+        raise ApplicationError("Category '{0}' not found.".format(category), 404, 404)
+
+    sub_category_obj = Categories.query \
+        .filter(func.lower(Categories.name) == func.lower(sub_category)) \
+        .filter(Categories.parent_id == category_obj.id) \
+        .first()
+
+    if sub_category_obj is None:
+        raise ApplicationError("Sub-category '{0}' not found for parent '{1}'".format(sub_category, category),
+                               404, 404)
+
+    provisions = []
+    for provision_mapping in sub_category_obj.provisions:
+        provisions.append(provision_mapping.provision.title)
+
+    instruments = []
+    for instruments_mapping in sub_category_obj.instruments:
+        instruments.append(instruments_mapping.instrument.name)
+
+    children = []
+    for children_mapping in Categories.query \
+            .filter(Categories.parent_id == sub_category_obj.id) \
+            .order_by(Categories.display_order).all():
+        children.append(
+            {
+                "name": children_mapping.name,
+                "display-name": children_mapping.display_name,
+                "permission": children_mapping.permission,
+
+            })
+
+    result = {
+        "name": sub_category_obj.name,
+        "display-name": sub_category_obj.display_name,
+        "permission": sub_category_obj.permission,
+        "statutory-provisions": provisions,
+        "instruments": instruments,
+        "sub-categories": children,
+        "parent": category_obj.name}
+
+    return result
