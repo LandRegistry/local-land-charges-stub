@@ -68,12 +68,3 @@ category_dict = {
         }
     }
  }
-
-
-
-# select * from charge_categories
-# order by parent_id, display_order
-
-# select category_id, c.name, c.parent_id, instruments_id, i.name from charge_categories_instruments cci
-# inner join charge_categories c on cci.category_id = c.id
-# inner join instruments i on cci.instruments_id = i.id
