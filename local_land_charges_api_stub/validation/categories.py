@@ -23,15 +23,7 @@ category_dict = {
             }
         }
     },
-    "Financial": {
-        "sub-categories": {
-            "Approval under house in multiple occupation (HMO)": {},
-            "Grant": {},
-            "Interim certificate under HMO": {},
-            "Notice of works or repairs": {},
-            "Right to buy / right to acquire": {}
-        }
-    },
+    "Financial": {},
     "Listed building": {
         "sub-categories": {
             "Enforcement notice": {},
@@ -41,7 +33,15 @@ category_dict = {
         }
     },
     "Land compensation": {},
-    "Housing": {},
+    "Housing": {
+        "sub-categories": {
+            "Approval under house in multiple occupation (HMO)": {},
+            "Grant": {},
+            "Interim certificate under HMO": {},
+            "Notice of works or repairs": {},
+            "Right to buy / right to acquire": {}
+        }
+    },
     "Light obstruction notice": {
         "instruments": ["Certificate"]
     },

@@ -99,10 +99,9 @@ def get_item_errors(data):
 
 def validate_category_instrument(charge):
     errors = []
-    category = get_charge_category(charge["charge-type"])
-    if not category or charge["charge-type"] != category['name']:
-        errors.append({"location": "$.item.charge-type",
-                       "error_message": "'{}' is not valid".format(charge['charge-type'])})
+    category, error = get_charge_category(charge["charge-type"])
+    if error:
+        errors.append(error)
     else:
         instruments = None
         if 'sub-categories' in category and category['sub-categories']:
@@ -112,9 +111,11 @@ def validate_category_instrument(charge):
                                    "error_message":
                                        "'{}' is not valid".format(charge['charge-sub-category'])})
                 else:
-                    valid_instruments = get_sub_category_instruments(charge['charge-type'],
-                                                                     charge['charge-sub-category'])
-                    if valid_instruments:
+                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
+                                                                            charge['charge-sub-category'])
+                    if error:
+                        errors.append(error)
+                    elif valid_instruments:
                         instruments = valid_instruments
             else:
                 errors.append({"location": "$.item",
@@ -146,10 +147,10 @@ def validate_category_instrument(charge):
 def get_charge_category(category):
     app.logger.info("Get category for {0}.".format(category))
 
-    if category in category_dict and category_dict[category]:
+    if category in category_dict:
         category_obj = category_dict[category]
     else:
-        raise ApplicationError("Category '{0}' not found.".format(category), 404, 404)
+        return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
     instruments = []
     if "instruments" in category_obj:
@@ -160,30 +161,28 @@ def get_charge_category(category):
         children = list(category_obj["sub-categories"].keys())
 
     result = {
-        "name": category_obj.name,
         "instruments": instruments,
         "sub-categories": children
     }
 
-    return result
+    return result, {}
 
 
 def get_sub_category_instruments(category, sub_category):
     app.logger.info("Get sub-category {1} for category {0}.".format(category, sub_category))
 
-    if category in category_dict and category_dict[category]:
+    if category in category_dict:
         category_obj = category_dict[category]
     else:
-        raise ApplicationError("Category '{0}' not found.".format(category), 404, 404)
+        return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
-    if sub_category in category_obj["sub-categories"] and category_obj["sub-categories"][sub_category]:
+    if "sub-categories" in category_obj and sub_category in category_obj["sub-categories"]:
         sub_category_obj = category_obj["sub-categories"][sub_category]
     else:
-        raise ApplicationError("Sub-category '{0}' not found for parent '{1}'".format(sub_category, category),
-                               404, 404)
+        return {}, {"location": "$.item.charge-sub-category", "error_message": "'{}' is not valid".format(sub_category)}
 
     instruments = []
     if "instruments" in sub_category_obj:
         instruments = sub_category_obj["instruments"]
 
-    return instruments
+    return instruments, {}

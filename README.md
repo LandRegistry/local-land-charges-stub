@@ -95,6 +95,8 @@ The service will validate against the JSON schema for mandatory elements. Omitti
 }
 ```
 
+The service will also validate the supplied charge categories, sub-categories, and instruments. This validation will be applied against a dictionary object found in /local_land_charges_api_stub/validation/categories.py
+
 
 ## Vary and cancel Local Land Charge
 For Vary, use any valid JSON/Payload as for 'Add Local Land Charge' example above.
