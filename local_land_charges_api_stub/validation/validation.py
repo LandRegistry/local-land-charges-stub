@@ -98,6 +98,12 @@ def get_item_errors(data):
 
 
 def validate_category_instrument(charge):
+    """
+    Validate the category, sub-category (if present), and instrument (if present) against valid values in
+    validation/categories.py dictionary
+    :param charge: the charge object
+    :return: a list of errors if any are present, an empty list if the category/sub-category/instrument are valid
+    """
     errors = []
     category, error = get_charge_category(charge["charge-type"])
     if error:
