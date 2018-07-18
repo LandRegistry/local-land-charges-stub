@@ -145,6 +145,12 @@ def validate_category_instrument(charge):
 
 
 def get_charge_category(category):
+    """
+    Check that a charge category exists in the validation/categories.py dictionary, and return the details if so
+    :param category: The name of the category to check
+    :return: dict of instruments and sub-categories if category valid, empty dict if invalid
+             empty dict if category valid, dict of error if invalid
+    """
     app.logger.info("Get category for {0}.".format(category))
 
     if category in category_dict:
@@ -169,17 +175,25 @@ def get_charge_category(category):
 
 
 def get_sub_category_instruments(category, sub_category):
+    """
+    Check that a charge category exists and has a sub-category, in the validation/categories.py dictionary, and
+    returns the instruments for the sub-category if any exist
+    :param category: The name of the category to check
+    :param sub_category: The name of the sub-category to check
+    :return: list of instruments if any exist, or empty list if none exist or any errors are present
+             empty dict if no errors, dict of error details if errors are present
+    """
     app.logger.info("Get sub-category {1} for category {0}.".format(category, sub_category))
 
     if category in category_dict:
         category_obj = category_dict[category]
     else:
-        return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
+        return [], {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
     if "sub-categories" in category_obj and sub_category in category_obj["sub-categories"]:
         sub_category_obj = category_obj["sub-categories"][sub_category]
     else:
-        return {}, {"location": "$.item.charge-sub-category", "error_message": "'{}' is not valid".format(sub_category)}
+        return [], {"location": "$.item.charge-sub-category", "error_message": "'{}' is not valid".format(sub_category)}
 
     instruments = []
     if "instruments" in sub_category_obj:
