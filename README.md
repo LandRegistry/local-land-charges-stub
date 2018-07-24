@@ -39,10 +39,10 @@ i.e.
 ```
 {
   "item": {
-    "schema-version": "2.0",
+    "schema-version": "5.0",
     "further-information-location": "some further info",
     "charge-type": "Planning",
-    "charge-sub-category": "Change a development",
+    "charge-sub-category": "Conservation area",
     "expiry-date": "2020-01-01",
     "originating-authority": "Place City Council",
     "charge-creation-date": "2017-01-12",
@@ -141,12 +141,6 @@ The following params can be used for both vary and cancel (no JSON/Payload requi
 
 
 ## NOTE:
-Only the following Statutory Provisions are available to use in this stub:-
-* Agriculture Act 1947,
-* Building Act 1984 section 107,
-* Coast Protection Act 1949 section 12,
-* Environment Act 1995,
-* Housing Act 1985,
-* Land Compensation Act 1973,
-* Town and Country Planning Act 1990,
-* Land Compensation Act 1973 section 52
+The following link contains the list of Statutory Provisions are available to use in this stub:-
+
+https://github.com/LandRegistry/local-land-charges-stub/blob/master/local_land_charges_api_stub/constants/constants.py
