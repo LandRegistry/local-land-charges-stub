@@ -3,7 +3,7 @@ The stub service is a stand-a-lone service without any database connectivity or 
 It is developed to return responses to replicate a live service, in many cases these are static files that are returned.
 It is intended as a tool for third party users to develop services to use the Local Land Charge API. 
 
-This is currently an Beta version and therefore subject to future changes.
+This is currently a Beta version and therefore subject to future changes.
 
 ## Getting Started
 
