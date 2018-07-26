@@ -216,8 +216,7 @@
                                 "charge-type": {
                                     "enum": [
                                         "Financial",
-                                        "Land compensation",
-                                        "Light obstruction notice"
+                                        "Land compensation"
                                     ]
                                 }
                             },
@@ -231,8 +230,7 @@
                                     "not": {
                                         "enum": [
                                             "Financial",
-                                            "Land compensation",
-                                            "Light obstruction notice"
+                                            "Land compensation"
                                         ]
                                     }
                                 },
@@ -281,7 +279,7 @@
             ]
         },
         "other-land-charge": {
-            "description": "Subschema representing a local land charge that is not specific Financial, Land compensation or Light obstruction",
+            "description": "Subschema representing a local land charge that is not specific Financial or Land compensation",
             "allOf": [
                 {"$ref": "#/definitions/base-land-charge"},
                 {
@@ -312,8 +310,7 @@
                             "not": {
                                 "enum": [
                                     "Land compensation",
-                                    "Financial",
-                                    "Light obstruction notice"
+                                    "Financial"
                                 ]
                             }
                         },

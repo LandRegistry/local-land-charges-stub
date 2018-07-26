@@ -27,12 +27,6 @@ def add_vary_validate(payload):
                 errors.append({"location": "$.item.statutory-provision",
                                "error_message": "'{}' is not valid".format(charge_data['statutory-provision'])})
 
-        # Prevent LONs
-        if 'charge-type' in charge_data:
-            if charge_data['charge-type'] in ['Light obstruction notice']:
-                errors.append({"location": "$.item.charge-type",
-                               "error_message": "'{}' is not valid".format(charge_data['charge-type'])})
-
         # For an add, need to simulate system setting these values
         charge_data['local-land-charge'] = 0
         charge_data['start-date'] = "2000-01-01"

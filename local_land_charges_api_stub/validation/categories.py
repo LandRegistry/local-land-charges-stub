@@ -42,9 +42,6 @@ category_dict = {
             "Right to buy / right to acquire": {}
         }
     },
-    "Light obstruction notice": {
-        "instruments": ["Certificate"]
-    },
     "Other": {
         "sub-categories": {
             "Ancient monuments": {},
