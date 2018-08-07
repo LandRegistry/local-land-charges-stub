@@ -4,7 +4,7 @@ info:
     Local Land Charges API for external systems. Allows authorised external
     services to Add, Amend and Retrieve Local Land Charges held by HM Land
     Registry.
-  version: 0.0.4
+  version: 0.0.5
   title: Local Land Charges
 basePath: /v1.0
 tags:
@@ -43,6 +43,8 @@ paths:
                           $ref: '#/definitions/Features'
                       type:
                         type: string
+                  schema-version:
+                    $ref: '#/definitions/schema-version'
                   charge-type:
                     $ref: '#/definitions/charge-type'
                   charge-sub-category:
@@ -85,6 +87,7 @@ paths:
                     $ref: '#/definitions/supplementary-information'
                 additionalProperties: false
                 required:
+                  - schema-version
                   - geometry
                   - registration-date
                   - charge-type
@@ -758,3 +761,8 @@ definitions:
     minLength: 1
     maxLength: 475
     example: 'Application to vary condition 47 of planning permission reference number 123/123 dated 26.08.2011, enabling the addition of a split basement level'
+  schema-version:
+    type: string
+    description: "The current version of the schema"
+    minLength: 1
+    example: '5.0'

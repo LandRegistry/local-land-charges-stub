@@ -3,13 +3,12 @@ The stub service is a stand-a-lone service without any database connectivity or 
 It is developed to return responses to replicate a live service, in many cases these are static files that are returned.
 It is intended as a tool for third party users to develop services to use the Local Land Charge API. 
 
-This is currently an Alpha version and therefore subject to future changes.
+This is currently a Beta version and therefore subject to future changes.
 
 ## Getting Started
 
 Running this service locally will require the following :
 * Python 3
-* Virtualenv
 
 To start the service, run the run.sh file in Terminal (i.e. ./run.sh).
 If using Windows, run the run_in_windows.bat file in a cmd window. 
@@ -40,10 +39,10 @@ i.e.
 ```
 {
   "item": {
-    "schema-version": "2.0",
+    "schema-version": "5.0",
     "further-information-location": "some further info",
     "charge-type": "Planning",
-    "charge-sub-category": "Change a development",
+    "charge-sub-category": "Conservation area",
     "expiry-date": "2020-01-01",
     "originating-authority": "Place City Council",
     "charge-creation-date": "2017-01-12",
@@ -142,12 +141,6 @@ The following params can be used for both vary and cancel (no JSON/Payload requi
 
 
 ## NOTE:
-Only the following Statutory Provisions are available to use in this stub:-
-* Agriculture Act 1947,
-* Building Act 1984 section 107,
-* Coast Protection Act 1949 section 12,
-* Environment Act 1995,
-* Housing Act 1985,
-* Land Compensation Act 1973,
-* Town and Country Planning Act 1990,
-* Land Compensation Act 1973 section 52
+The following link contains the list of Statutory Provisions are available to use in this stub:-
+
+https://github.com/LandRegistry/local-land-charges-stub/blob/master/local_land_charges_api_stub/constants/constants.py
