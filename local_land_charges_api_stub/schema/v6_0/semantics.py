@@ -31,6 +31,5 @@ def geometry_extent_count(item):
 
 validation_rules = [
     geometry_extent_count,
-    validate_geometry,
     validate_geometry_ids
 ]
