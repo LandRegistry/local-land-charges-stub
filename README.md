@@ -9,6 +9,7 @@ This is currently a Beta version and therefore subject to future changes.
 
 Running this service locally will require the following :
 * Python 3
+* Python 3 header files and a static library for Python (`python3-dev` on Debian/ Ubuntu)
 
 To start the service, run the run.sh file in Terminal (i.e. ./run.sh).
 If using Windows, run the run_in_windows.bat file in a cmd window. 
