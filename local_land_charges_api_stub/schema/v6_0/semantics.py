@@ -1,4 +1,4 @@
-from validation_api.app import app
+from local_land_charges_api_stub.app import app
 
 
 def validate_geometry_ids(item):
