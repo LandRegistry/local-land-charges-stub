@@ -5,7 +5,7 @@ from importlib import import_module
 
 SCHEMA_RELATIVE_DIRECTORY = "schema"
 SCHEMA_FILENAME = "local-land-charge.json"
-SCHEMA_VERSIONS = ["v2_0", "v3_0", "v4_0", "v5_0", "V6_0"]
+SCHEMA_VERSIONS = ["v2_0", "v3_0", "v4_0", "v5_0", "v6_0"]
 
 
 class SchemaExtension(object):
