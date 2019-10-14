@@ -452,6 +452,12 @@
                         "originating-authority-charge-identifier": {},
                         "migrating-authority": {},
                         "old-register-part": {},
+                        "amount-of-compensation": {
+                            "description": "The total amount of compensation payable to the landowner from which the land was acquired. Valid only when 'charge-type' is 'Land compensation'",
+                            "type": "string",
+                            "minLength": 1,
+                            "pattern": "^\\d+(?:\\.\\d{2})?$"
+                        },
                         "charge-type": {
                             "enum": [
                                 "Land compensation"
@@ -478,7 +484,6 @@
                     },
                     "required": [
                         "land-capacity-description",
-                        "land-compensation-amount-type",
                         "land-compensation-paid"
                     ],
                     "additionalProperties": false
