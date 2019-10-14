@@ -115,7 +115,7 @@
             "properties": {
                 "schema-version": {
                     "type": "string",
-                    "pattern": "^6\\.\\d+$"
+                    "pattern": "^9\\.\\d+$"
                 },
                 "geometry": {
                     "$ref": "file:feature_collection.json",

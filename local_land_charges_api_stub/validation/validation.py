@@ -84,8 +84,8 @@ def get_item_errors(data):
     errors = _check_for_errors(data, schema_extension.schema[version],
                                schema_extension.resolver[version])
 
-    if data['schema-version'] == '5.0':
-        # version 5 of the schema moved category validation from schema to code, so validate this now
+    if data['schema-version'] >= '5.0':
+        # from version 5, category validation moved out of the schema, so validate this now
         errors += validate_category_instrument(data)
 
     # Dynamically load module for semantic validation
