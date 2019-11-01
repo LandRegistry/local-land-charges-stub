@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "description": "v6.0.0 schema for local land charge item",
+    "description": "v8.0.0 schema for local land charge item",
     "type": "object",
     "oneOf": [
         {"$ref": "#/definitions/other-land-charge"},
@@ -115,7 +115,7 @@
             "properties": {
                 "schema-version": {
                     "type": "string",
-                    "pattern": "^6\\.\\d+$"
+                    "pattern": "^8\\.\\d+$"
                 },
                 "geometry": {
                     "$ref": "file:feature_collection.json",

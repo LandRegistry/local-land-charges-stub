@@ -4,7 +4,7 @@ info:
     Local Land Charges API for external systems. Allows authorised external
     services to Add, Amend and Retrieve Local Land Charges held by HM Land
     Registry.
-  version: 0.0.5
+  version: 0.0.6
   title: Local Land Charges
 basePath: /v1.0
 tags:
@@ -229,6 +229,8 @@ paths:
                     $ref: '#/definitions/documents-filed'
                   end-date:
                     $ref: '#/definitions/end-date'
+                  cancellation-reason:
+                    $ref: '#/definitions/cancellation-reason'
                   version-id:
                     $ref: '#/definitions/version-id'
                   supplementary-information:
@@ -591,10 +593,10 @@ definitions:
       The sub-category specific to the Charge type.
       | charge-type | charge-sub-category options |
       | ----------- | --------------------------- |
-      | Planning | Change a development, Breach of conditions, Conservation area, Conditional planning consent, Enforcement notice, Article 4, Planning notices, Planning agreement, Tree preservation order (TPO), Listed building conditional planning consent |
-      | Listed building | Listed building, Enforcement notice, Repairs notice |
-      | Housing | Approval under house in multiple occupation (HMO), Grant, Interim certificate under HMO, Notice of works or repairs, Re-approval of grant, Re-approval under HMO |
-      | Other | Ancient monuments, Assets of community value, Compulsory purchase order, Improve a highway, Smoke control order, Site of special scientific interest (SSSI) |
+      | Planning | Conditional planning consent, Conservation area, Enforcement notice, Modification / rectification orders, No permitted development / article 4, Planning agreement, Planning notice, Tree preservation order (TPO) |
+      | Listed building | Enforcement notice, Listed building |
+      | Housing | Approval under house in multiple occupation (HMO), Grant, Interim certificate under HMO, Notice of works or repairs, Right to buy / right to acquire |
+      | Other | Ancient monuments, Assets of community value, Compulsory purchase order, Highway and paths, Licence, Local acts,  Site of special scientific interest (SSSI), Smoke control order, Uncommon charges, Water / drainage |
     example: 'Planning agreement'
   charge-geographic-description:
     description: >-
@@ -759,6 +761,11 @@ definitions:
     pattern: '^\d{4}-\d{2}-\d{2}$'
     format: date
     example: '2017-01-04'
+  cancellation-reason:
+    description: Reason why charge has been cancelled
+    type: string
+    minLength: 1
+    maxLength: 1500
   version-id:
     type: number
     description: >-
