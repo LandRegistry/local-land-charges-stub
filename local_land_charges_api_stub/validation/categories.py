@@ -35,10 +35,10 @@ category_dict = {
     "Land compensation": {},
     "Housing": {
         "sub-categories": {
-            "Approval under house in multiple occupation (HMO)": {},
+            "Occupancy including house in multiple occupation (HMO)": {},
             "Grant": {},
             "Interim certificate under HMO": {},
-            "Notice of works or repairs": {},
+            "Works, repairs or authority action": {},
             "Right to buy / right to acquire": {}
         }
     },
@@ -48,20 +48,24 @@ category_dict = {
             "Assets of community value": {
                 "instruments": ["List"]
             },
-            "Compulsory purchase order": {
+            "Compulsory purchase or acquisition": {
                 "instruments": ["Order"]
             },
             "Highways and paths": {},
             "Licence": {},
             "Local acts": {},
-            "Site of special scientific interest (SSSI)": {
+            "New towns": {
+                "instruments": ["Order"]
+            },
+            "Pipeline": {},
+            "Protected areas /sites": {
                 "instruments": ["Notice"]
             },
             "Smoke control order": {
                 "instruments": ["Order"]
             },
             "Uncommon charges": {},
-            "Water / drainage": {}
+            "Water / drainage / environmental": {}
         }
     }
  }
