@@ -12,6 +12,6 @@ def check_status():
     return Response(response=json.dumps({
         "app": current_app.config["APP_NAME"],
         "status": "OK",
-        "headers": request.headers.to_list(),
+        "headers": request.headers.to_wsgi_list(),
         "commit": current_app.config["COMMIT"]
     }), mimetype='application/json', status=200)

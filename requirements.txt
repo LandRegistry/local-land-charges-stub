@@ -1,7 +1,8 @@
-Flask==0.12.2
+Flask==1.1.1
 Flask-LogConfig==0.4.2
 Flask-Negotiate==0.1.0
-Flask-Script==2.0.5
-requests==2.13
-jsonschema==2.6.0
+Flask-Script==2.0.6
+requests==2.22.0
+jsonschema==3.0.1
 wheel==0.32.3
+werkeug==1.0.0
