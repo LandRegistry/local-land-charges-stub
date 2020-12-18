@@ -31,15 +31,13 @@ def add_charge():
         current_app.logger.error("Errors found: {}".format(error_message))
         raise ApplicationError(error_message, 'E100', 400)
 
-
+    #checks if supplementary-information is DUPLICATE, if so raise an error
     check_if_duplicate_charge = validation.validate_check_if_duplicate(payload)
 
     if check_if_duplicate_charge:
 
         current_app.logger.error(check_if_duplicate_charge)
         raise ApplicationError(check_if_duplicate_charge, 'E100', 409)
-
-
 
     result = AddResponses.add_valid_response
     status_code = 200
