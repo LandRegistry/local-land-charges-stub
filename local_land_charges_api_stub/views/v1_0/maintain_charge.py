@@ -5,6 +5,7 @@ from local_land_charges_api_stub.constants.responses import AddResponses
 from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.utilities import add_vary_handler
 from local_land_charges_api_stub.utilities.charge_id import is_valid_charge_id
+from local_land_charges_api_stub.validation import validation
 
 import json
 
@@ -19,7 +20,7 @@ def add_charge():
     current_app.logger.info("Endpoint called")
     payload = request.get_json()
     date = datetime.datetime.now().strftime("%Y-%m-%d")
-    print(payload)
+
     errors = add_vary_handler.add_vary_validate(payload)
 
     if errors:
@@ -29,6 +30,16 @@ def add_charge():
         }
         current_app.logger.error("Errors found: {}".format(error_message))
         raise ApplicationError(error_message, 'E100', 400)
+
+
+    check_if_duplicate_charge = validation.validate_check_if_duplicate(payload)
+
+    if check_if_duplicate_charge:
+
+        current_app.logger.error(check_if_duplicate_charge)
+        raise ApplicationError(check_if_duplicate_charge, 'E100', 409)
+
+
 
     result = AddResponses.add_valid_response
     status_code = 200

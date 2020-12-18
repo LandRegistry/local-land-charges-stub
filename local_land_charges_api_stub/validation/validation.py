@@ -97,6 +97,19 @@ def get_item_errors(data):
             errors.append(re)
     return errors
 
+def validate_check_if_duplicate(payload):
+    """
+    Validate the the charge to make sure it is not a duplicate
+    :param charge: the charge object
+    :return: a list of errors if any are present, an empty list if charge is not duplicated
+    """
+    charge_data = payload['item']
+
+    if 'supplementary-information' in charge_data:
+        if charge_data['supplementary-information'] == "DUPLICATE":
+
+            return {"duplicate_charges":["LLC-D"]}
+    return []
 
 def validate_category_instrument(charge):
     """
@@ -118,7 +131,8 @@ def validate_category_instrument(charge):
                                    "error_message":
                                        "'{}' is not valid".format(charge['charge-sub-category'])})
                 else:
-                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'])
+                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
+                                                                            charge['instrument'])
                     if error:
                         errors.append(error)
                     elif valid_instruments:
@@ -180,16 +194,16 @@ def get_charge_category(category):
     return result, {}
 
 
-def get_sub_category_instruments(category,sub_category):
+def get_sub_category_instruments(category,instrument):
     """
-    Check that a charge category exists and has a sub-category, in the validation/categories.py dictionary, and
-    returns the instruments for the sub-category if any exist
+    Check that a charge category exists, in the validation/categories.py dictionary, and
+    checks that the sub_category is in the validation/instruments.py list
     :param category: The name of the category to check
     :param sub_category: The name of the sub-category to check
     :return: list of instruments if any exist, or empty list if none exist or any errors are present
              empty dict if no errors, dict of error details if errors are present
     """
-    app.logger.info("Get sub-category {1} for category {0}.".format(category, sub_category))
+    app.logger.info("Get instrument {1} for category {0}.".format(category, instrument))
 
     if category in category_dict:
         category_obj = category_dict[category]
@@ -197,9 +211,9 @@ def get_sub_category_instruments(category,sub_category):
         return [], {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
     instruments = []
-    if sub_category in instruments_list:
-        instruments = instruments_list[sub_category]
+    if instrument in instruments_list:
+        instruments = instrument
     else:
-        return [], {"location": "$.item.instrument", "error_message": "'{}' is not valid".format(sub_category)}
+        return [], {"location": "$.item.instrument", "error_message": "'{}' is not valid".format(instrument)}
 
     return instruments, {}
