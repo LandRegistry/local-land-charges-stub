@@ -12,13 +12,14 @@ maintain = Blueprint('maintain', __name__)
 
 
 @maintain.route("", methods=["POST"])
-@consumes("application/json")
-@produces('application/json')
+# doesn't work with this
+# @consumes("application/json")
+# @produces('application/json')
 def add_charge():
     current_app.logger.info("Endpoint called")
     payload = request.get_json()
     date = datetime.datetime.now().strftime("%Y-%m-%d")
-
+    print(payload)
     errors = add_vary_handler.add_vary_validate(payload)
 
     if errors:

@@ -3,6 +3,7 @@ from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.extensions import schema_extension
 from local_land_charges_api_stub.validation.categories import category_dict
+from local_land_charges_api_stub.validation.instruments import instruments_list
 import json
 
 
@@ -117,8 +118,7 @@ def validate_category_instrument(charge):
                                    "error_message":
                                        "'{}' is not valid".format(charge['charge-sub-category'])})
                 else:
-                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
-                                                                            charge['charge-sub-category'])
+                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'])
                     if error:
                         errors.append(error)
                     elif valid_instruments:
@@ -180,7 +180,7 @@ def get_charge_category(category):
     return result, {}
 
 
-def get_sub_category_instruments(category, sub_category):
+def get_sub_category_instruments(category,sub_category):
     """
     Check that a charge category exists and has a sub-category, in the validation/categories.py dictionary, and
     returns the instruments for the sub-category if any exist
@@ -196,13 +196,10 @@ def get_sub_category_instruments(category, sub_category):
     else:
         return [], {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
-    if "sub-categories" in category_obj and sub_category in category_obj["sub-categories"]:
-        sub_category_obj = category_obj["sub-categories"][sub_category]
-    else:
-        return [], {"location": "$.item.charge-sub-category", "error_message": "'{}' is not valid".format(sub_category)}
-
     instruments = []
-    if "instruments" in sub_category_obj:
-        instruments = sub_category_obj["instruments"]
+    if sub_category in instruments_list:
+        instruments = instruments_list[sub_category]
+    else:
+        return [], {"location": "$.item.instrument", "error_message": "'{}' is not valid".format(sub_category)}
 
     return instruments, {}

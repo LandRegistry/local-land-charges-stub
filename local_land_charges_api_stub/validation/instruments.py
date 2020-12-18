@@ -1,0 +1,16 @@
+instruments_list = [
+    "Agreement",
+    "Certificate",
+    "Deed",
+    "Direction",
+    "Licence",
+    "List",
+    "Notice",
+    "Order",
+    "Planning permission",
+    "Resolution",
+    "Schedule",
+    "Scheme",
+    "Transfer",
+    "Undertaking",
+]
