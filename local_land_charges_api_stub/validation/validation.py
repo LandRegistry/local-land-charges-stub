@@ -103,9 +103,7 @@ def validate_check_if_duplicate(payload):
     :param charge: the charge object
     :return: a list of errors if any are present, an empty list if charge is not duplicated
     """
-    charge_data = payload['item']
-
-    if charge_data.get('supplementary-information','') == "DUPLICATE":
+    if payload['item'].get('supplementary-information','') == "DUPLICATE":
         return {"duplicate_charges":["LLC-D"]}
     return []
 
