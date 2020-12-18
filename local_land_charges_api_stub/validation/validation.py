@@ -105,10 +105,8 @@ def validate_check_if_duplicate(payload):
     """
     charge_data = payload['item']
 
-    if 'supplementary-information' in charge_data:
-        if charge_data['supplementary-information'] == "DUPLICATE":
-
-            return {"duplicate_charges":["LLC-D"]}
+    if charge_data.get('supplementary-information','') == "DUPLICATE":
+        return {"duplicate_charges":["LLC-D"]}
     return []
 
 def validate_category_instrument(charge):
@@ -205,15 +203,10 @@ def get_sub_category_instruments(category,instrument):
     """
     app.logger.info("Get instrument {1} for category {0}.".format(category, instrument))
 
-    if category in category_dict:
-        category_obj = category_dict[category]
-    else:
+    if category not in category_dict:
         return [], {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
-    instruments = []
     if instrument in instruments_list:
-        instruments = instrument
+        return instrument, {}
     else:
         return [], {"location": "$.item.instrument", "error_message": "'{}' is not valid".format(instrument)}
-
-    return instruments, {}
