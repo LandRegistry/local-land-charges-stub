@@ -13,9 +13,8 @@ maintain = Blueprint('maintain', __name__)
 
 
 @maintain.route("", methods=["POST"])
-# doesn't work with this
-# @consumes("application/json")
-# @produces('application/json')
+@consumes("application/json")
+@produces('application/json')
 def add_charge():
     current_app.logger.info("Endpoint called")
     payload = request.get_json()
@@ -35,9 +34,8 @@ def add_charge():
     check_if_duplicate_charge = validation.validate_check_if_duplicate(payload)
 
     if check_if_duplicate_charge:
-
-        current_app.logger.error(check_if_duplicate_charge)
-        raise ApplicationError(check_if_duplicate_charge, 'E100', 409)
+        return (json.dumps({ "duplicate_charges": ["LLC-D"]}), 409,
+            {'Content-Type': 'application/json'})
 
     result = AddResponses.add_valid_response
     status_code = 200
