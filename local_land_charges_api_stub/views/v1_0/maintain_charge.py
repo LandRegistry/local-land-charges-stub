@@ -31,9 +31,7 @@ def add_charge():
         raise ApplicationError(error_message, 'E100', 400)
 
     #checks if supplementary-information is DUPLICATE, if so raise an error
-    check_if_duplicate_charge = validation.validate_check_if_duplicate(payload)
-
-    if check_if_duplicate_charge:
+    if validation.validate_check_if_duplicate(payload):
         return (json.dumps({ "duplicate_charges": ["LLC-D"]}), 409,
             {'Content-Type': 'application/json'})
 

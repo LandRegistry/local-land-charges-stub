@@ -120,19 +120,20 @@ def validate_category_instrument(charge):
         errors.append(error)
     else:
         instruments = None
-        if 'sub-categories' in category and category['sub-categories']:
-            if 'charge-sub-category' in charge and charge['charge-sub-category']:
+        if category.get('sub-categories', None):
+            if charge.get('charge-sub-category', None):
                 if charge['charge-sub-category'] not in category['sub-categories']:
                     errors.append({"location": "$.item.charge-sub-category",
                                    "error_message":
                                        "'{}' is not valid".format(charge['charge-sub-category'])})
                 else:
-                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
-                                                                            charge['instrument'])
-                    if error:
-                        errors.append(error)
-                    elif valid_instruments:
-                        instruments = valid_instruments
+                    if charge.get('instrument', None):
+                        valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
+                                                                                charge['instrument'])
+                        if error:
+                            errors.append(error)
+                        elif valid_instruments:
+                            instruments = valid_instruments
             else:
                 errors.append({"location": "$.item",
                                "error_message":
@@ -142,10 +143,10 @@ def validate_category_instrument(charge):
                 {"location": "$.item",
                  "error_message":
                      "Additional properties are not allowed ('charge-sub-category' was unexpected)"})
-        if not instruments and 'instruments' in category and category['instruments']:
+        if not instruments and category.get('instruments', None):
             instruments = category['instruments']
         if instruments:
-            if 'instrument' in charge and charge['instrument']:
+            if category.get('charge', None):
                 if charge['instrument'] not in instruments:
                     errors.append({"location": "$.item.instrument",
                                    "error_message":
@@ -153,7 +154,7 @@ def validate_category_instrument(charge):
             else:
                 errors.append({"location": "$.item", "error_message": "'instrument' is required"})
         else:
-            if 'instrument' in charge and charge['instrument']:
+            if charge.get('instrument', None):
                 errors.append({"location": "$.item",
                                "error_message":
                                    "Additional properties are not allowed ('instrument' was unexpected)"})
