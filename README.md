@@ -74,7 +74,8 @@ i.e.
     "statutory-provision": "Town and Country Planning Act 1990",
     "further-information-reference": "AB1212",
     "instrument": "Notice",
-    "charge-geographic-description": "Varying as LR user"
+    "charge-geographic-description": "Varying as LR user",
+    "supplementary-information": "a description of the local land charge"
   }
 }
 ```
@@ -95,7 +96,16 @@ The service will validate against the JSON schema for mandatory elements. Omitti
 }
 ```
 
-The service will also validate the supplied charge categories, sub-categories, and instruments. This validation will be applied against a dictionary object found in /local_land_charges_api_stub/validation/categories.py
+The service will also validate the supplied charge categories, sub-categories, and instruments. This validation will be applied against a dictionary object found in /local_land_charges_api_stub/validation/categories.py and list of instruments in instruments/py  
+
+The live service will check whether a charge being added is a duplicate that is already held. To recreate the response for this scenario set the value of "supplementary-information" in the request JSON payload to "DUPLICATE". The response will return a 409 HTTP code with this example message
+```
+{
+    "duplicate_charges": [
+        "LLC-D"
+    ]
+}
+```
 
 
 ## Vary and cancel Local Land Charge

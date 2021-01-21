@@ -5,6 +5,7 @@ from local_land_charges_api_stub.constants.responses import AddResponses
 from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.utilities import add_vary_handler
 from local_land_charges_api_stub.utilities.charge_id import is_valid_charge_id
+from local_land_charges_api_stub.validation import validation
 
 import json
 
@@ -28,6 +29,11 @@ def add_charge():
         }
         current_app.logger.error("Errors found: {}".format(error_message))
         raise ApplicationError(error_message, 'E100', 400)
+
+    # checks if supplementary-information is DUPLICATE, if so raise an error
+    if validation.validate_check_if_duplicate(payload):
+        return (json.dumps({"duplicate_charges": ["LLC-D"]}), 409,
+                {'Content-Type': 'application/json'})
 
     result = AddResponses.add_valid_response
     status_code = 200

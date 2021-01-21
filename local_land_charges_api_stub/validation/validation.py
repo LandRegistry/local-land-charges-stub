@@ -3,6 +3,7 @@ from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.extensions import schema_extension
 from local_land_charges_api_stub.validation.categories import category_dict
+from local_land_charges_api_stub.validation.instruments import instruments_list
 import json
 
 
@@ -97,10 +98,21 @@ def get_item_errors(data):
     return errors
 
 
+def validate_check_if_duplicate(payload):
+    """
+    Validate the the charge to make sure it is not a duplicate
+    :param charge: the charge object
+    :return: a list of errors if any are present, an empty list if charge is not duplicated
+    """
+    if payload['item'].get('supplementary-information', '') == "DUPLICATE":
+        return {"duplicate_charges": ["LLC-D"]}
+    return []
+
+
 def validate_category_instrument(charge):
     """
     Validate the category, sub-category (if present), and instrument (if present) against valid values in
-    validation/categories.py dictionary
+    validation/categories.py dictionary and instruments.py
     :param charge: the charge object
     :return: a list of errors if any are present, an empty list if the category/sub-category/instrument are valid
     """
@@ -109,20 +121,12 @@ def validate_category_instrument(charge):
     if error:
         errors.append(error)
     else:
-        instruments = None
-        if 'sub-categories' in category and category['sub-categories']:
-            if 'charge-sub-category' in charge and charge['charge-sub-category']:
+        if category.get('sub-categories', None):
+            if charge.get('charge-sub-category', None):
                 if charge['charge-sub-category'] not in category['sub-categories']:
                     errors.append({"location": "$.item.charge-sub-category",
                                    "error_message":
                                        "'{}' is not valid".format(charge['charge-sub-category'])})
-                else:
-                    valid_instruments, error = get_sub_category_instruments(charge['charge-type'],
-                                                                            charge['charge-sub-category'])
-                    if error:
-                        errors.append(error)
-                    elif valid_instruments:
-                        instruments = valid_instruments
             else:
                 errors.append({"location": "$.item",
                                "error_message":
@@ -132,21 +136,12 @@ def validate_category_instrument(charge):
                 {"location": "$.item",
                  "error_message":
                      "Additional properties are not allowed ('charge-sub-category' was unexpected)"})
-        if not instruments and 'instruments' in category and category['instruments']:
-            instruments = category['instruments']
-        if instruments:
-            if 'instrument' in charge and charge['instrument']:
-                if charge['instrument'] not in instruments:
-                    errors.append({"location": "$.item.instrument",
-                                   "error_message":
-                                       "'{}' is not valid".format(charge['instrument'])})
-            else:
-                errors.append({"location": "$.item", "error_message": "'instrument' is required"})
-        else:
-            if 'instrument' in charge and charge['instrument']:
-                errors.append({"location": "$.item",
-                               "error_message":
-                                   "Additional properties are not allowed ('instrument' was unexpected)"})
+
+    if charge.get('instrument', None):
+        if charge['instrument'] not in instruments_list:
+            errors.append({"location": "$.item.instrument",
+                           "error_message": "'{}' is not valid".format(charge['instrument'])})
+
     return errors
 
 
@@ -154,7 +149,7 @@ def get_charge_category(category):
     """
     Check that a charge category exists in the validation/categories.py dictionary, and return the details if so
     :param category: The name of the category to check
-    :return: dict of instruments and sub-categories if category valid, empty dict if invalid
+    :return: dict of sub-categories if category valid, empty dict if invalid
              empty dict if category valid, dict of error if invalid
     """
     app.logger.info("Get category for {0}.".format(category))
@@ -164,45 +159,12 @@ def get_charge_category(category):
     else:
         return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
-    instruments = []
-    if "instruments" in category_obj:
-        instruments = category_obj["instruments"]
-
     children = []
     if "sub-categories" in category_obj:
         children = list(category_obj["sub-categories"].keys())
 
     result = {
-        "instruments": instruments,
         "sub-categories": children
     }
 
     return result, {}
-
-
-def get_sub_category_instruments(category, sub_category):
-    """
-    Check that a charge category exists and has a sub-category, in the validation/categories.py dictionary, and
-    returns the instruments for the sub-category if any exist
-    :param category: The name of the category to check
-    :param sub_category: The name of the sub-category to check
-    :return: list of instruments if any exist, or empty list if none exist or any errors are present
-             empty dict if no errors, dict of error details if errors are present
-    """
-    app.logger.info("Get sub-category {1} for category {0}.".format(category, sub_category))
-
-    if category in category_dict:
-        category_obj = category_dict[category]
-    else:
-        return [], {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
-
-    if "sub-categories" in category_obj and sub_category in category_obj["sub-categories"]:
-        sub_category_obj = category_obj["sub-categories"][sub_category]
-    else:
-        return [], {"location": "$.item.charge-sub-category", "error_message": "'{}' is not valid".format(sub_category)}
-
-    instruments = []
-    if "instruments" in sub_category_obj:
-        instruments = sub_category_obj["instruments"]
-
-    return instruments, {}

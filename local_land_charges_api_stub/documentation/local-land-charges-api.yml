@@ -589,14 +589,10 @@ definitions:
     minLength: 1
   charge-sub-category:
     type: string
-    description: |
+    description: >-
       The sub-category specific to the Charge type.
-      | charge-type | charge-sub-category options |
-      | ----------- | --------------------------- |
-      | Planning | Conditional planning consent, Conservation area, Enforcement notice, Modification / rectification orders, No permitted development / article 4, Planning agreement, Planning notice, Tree preservation order (TPO) |
-      | Listed building | Enforcement notice, Listed building |
-      | Housing | Approval under house in multiple occupation (HMO), Grant, Interim certificate under HMO, Notice of works or repairs, Right to buy / right to acquire |
-      | Other | Ancient monuments, Assets of community value, Compulsory purchase order, Highway and paths, Licence, Local acts,  Site of special scientific interest (SSSI), Smoke control order, Uncommon charges, Water / drainage |
+      Valid values of charge-type and charge-sub-category combinations
+      can be found in /validation/categories.py
     example: 'Planning agreement'
   charge-geographic-description:
     description: >-
@@ -640,25 +636,14 @@ definitions:
     example: '2017-01-04'
   instrument:
     description: >-
-      The document giving rise to the Charge (e.g. charge, deed). Must be
-      present if 'statutory-provision' is not supplied.
+      The document giving rise to the Charge.
+      Valid values can be found in /validation/instruments.py
     type: string
-    enum:
-      - Acceptance
-      - Certificate
-      - Covenants
-      - Deed
-      - Deed of modification
-      - Notice
-      - Order
-      - Resolution
-      - Scheme
-      - Transfer
-      - Undertaking
+    example: Deed
   statutory-provision:
     description: >-
-      The statutory provision under which the Charge has arisen. Must be present
-      if 'instrument' is not supplied.
+      The statutory provision under which the Charge has arisen.
+      Valid values can be found in /constants/constants.py
     type: string
     minLength: 1
     example: Planning Act 2008 section 205
@@ -752,9 +737,6 @@ definitions:
     type: string
     minLength: 1
     example: '1000000.00'
-  documents-filed:
-    description: The documents lodged to support the LON registration. Valid only when 'charge-type' is 'Light Obstruction Notice'
-    enum: ["form-a", "definitive-certificate", "temporary-lon-certificate", "form-b", "court-order"]
   end-date:
     description: The date on which Local Land Charge record is cancelled
     type: string
