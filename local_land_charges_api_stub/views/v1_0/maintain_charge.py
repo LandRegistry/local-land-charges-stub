@@ -30,10 +30,10 @@ def add_charge():
         current_app.logger.error("Errors found: {}".format(error_message))
         raise ApplicationError(error_message, 'E100', 400)
 
-    #checks if supplementary-information is DUPLICATE, if so raise an error
+    # checks if supplementary-information is DUPLICATE, if so raise an error
     if validation.validate_check_if_duplicate(payload):
-        return (json.dumps({ "duplicate_charges": ["LLC-D"]}), 409,
-            {'Content-Type': 'application/json'})
+        return (json.dumps({"duplicate_charges": ["LLC-D"]}), 409,
+                {'Content-Type': 'application/json'})
 
     result = AddResponses.add_valid_response
     status_code = 200
