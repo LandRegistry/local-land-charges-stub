@@ -225,8 +225,6 @@ paths:
                     $ref: '#/definitions/rate-of-interest'
                   amount-of-compensation:
                     $ref: '#/definitions/amount-of-compensation'
-                  documents-filed:
-                    $ref: '#/definitions/documents-filed'
                   end-date:
                     $ref: '#/definitions/end-date'
                   cancellation-reason:
