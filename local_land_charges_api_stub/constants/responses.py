@@ -8,7 +8,7 @@ class AddResponses(object):
 
     @staticmethod
     def add_vary_cancel_response(charge_id, version_id):
-        status_code = 200
+        status_code = 201
         if charge_id == "LLC-10" and version_id == "3":
             response = {
                 "error_code": 404,
@@ -44,7 +44,7 @@ class AddResponses(object):
 
     @staticmethod
     def cancel_charge_response(charge_id, version_id):
-        status_code = 200
+        status_code = 201
         version_id = int(version_id) + 1
         response = {
             "land-charge-id": charge_id,

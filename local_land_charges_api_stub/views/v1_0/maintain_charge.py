@@ -36,11 +36,9 @@ def add_charge():
                 {'Content-Type': 'application/json'})
 
     result = AddResponses.add_valid_response
-    status_code = 200
+    status_code = 201
 
     result["registration-date"] = date
-
-    current_app.logger.info("Charge sent to maintain-api - Building response")
 
     return (json.dumps(result, sort_keys=True, separators=(',', ':')), status_code,
             {'Content-Type': 'application/json'})
@@ -87,14 +85,7 @@ def cancel_charge(land_charge_id, version_id):
     if not version_id.isdigit():
         raise ApplicationError("Invalid Version ID", 'E422', 422)
 
-    current_app.logger.info("Sending charge to maintain-api")
     status_code, result = AddResponses.add_vary_cancel_response(land_charge_id, version_id)
-
-    if status_code == 400:
-        current_app.logger.error("Errors found: {}".format(result[0]))
-        raise ApplicationError(result[0], 'E400', status_code)
-
-    current_app.logger.info("Charge sent to maintain-api - Building response")
 
     return (json.dumps(result, sort_keys=True, separators=(',', ':')), status_code,
             {'Content-Type': 'application/json'})
