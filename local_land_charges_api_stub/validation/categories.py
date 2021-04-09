@@ -33,7 +33,7 @@ category_dict = {
         }
     },
     "Land compensation": {},
-    "Housing": {
+    "Housing / buildings": {
         "sub-categories": {
             "Occupancy including house in multiple occupation (HMO)": {},
             "Grant": {},
@@ -58,7 +58,7 @@ category_dict = {
                 "instruments": ["Order"]
             },
             "Pipeline": {},
-            "Protected areas /sites": {
+            "Protected areas / sites": {
                 "instruments": ["Notice"]
             },
             "Smoke control order": {
