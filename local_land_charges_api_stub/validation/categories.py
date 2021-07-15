@@ -20,6 +20,9 @@ category_dict = {
             "Planning notice": {},
             "Tree preservation order (TPO)": {
                 "instruments": ["Order"]
+            },
+            "Planning order": {
+                "instruments": ["order"]
             }
         }
     },
