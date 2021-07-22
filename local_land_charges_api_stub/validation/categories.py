@@ -22,7 +22,7 @@ category_dict = {
                 "instruments": ["Order"]
             },
             "Planning order": {
-                "instruments": ["order"]
+                "instruments": ["Order"]
             }
         }
     },
