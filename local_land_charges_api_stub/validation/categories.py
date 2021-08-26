@@ -18,6 +18,7 @@ category_dict = {
                 "instruments": ["Agreement"]
             },
             "Planning notice": {},
+            "Planning order": {},
             "Tree preservation order (TPO)": {
                 "instruments": ["Order"]
             }
@@ -37,7 +38,6 @@ category_dict = {
         "sub-categories": {
             "Occupancy including house in multiple occupation (HMO)": {},
             "Grant": {},
-            "Interim certificate under HMO": {},
             "Works, repairs or authority action": {},
             "Right to buy / right to acquire": {}
         }
