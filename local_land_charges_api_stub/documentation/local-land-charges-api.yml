@@ -651,7 +651,7 @@ definitions:
       inspected
     type: string
     minLength: 1
-    maxLength: 475
+    maxLength: 500
     example: 'Council Offices, Exeter'
   further-information-reference:
     description: The official reference of relevant documents
