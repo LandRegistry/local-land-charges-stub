@@ -583,8 +583,8 @@ definitions:
       be inspected
     type: string
     minLength: 1
-    maxLength: 475
-    example: Council Offices, Exeter
+    maxLength: 500
+    example: 'Council Offices, Exeter'
   further-information-reference:
     description: The official reference of relevant documents
     type: string
