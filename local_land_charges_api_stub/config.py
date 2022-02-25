@@ -12,6 +12,9 @@ FLASK_LOG_LEVEL = os.environ['LOG_LEVEL']
 # For health route
 COMMIT = os.environ['COMMIT']
 
+# URL For the latest statutory provisions list
+STATUTORY_PROVISION_URL = "https://search-local-land-charges.service.gov.uk/statutory-provisions"
+
 # This APP_NAME variable is to allow changing the app name when the app is running in a cluster. So that
 # each app in the cluster will have a unique name.
 APP_NAME = "local-land-charges-api-stub"
