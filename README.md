@@ -154,4 +154,4 @@ The following params can be used for both vary and cancel (no JSON/Payload requi
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
 
-https://github.com/LandRegistry/local-land-charges-stub/blob/master/local_land_charges_api_stub/constants/constants.py
+https://search-local-land-charges.service.gov.uk/statutory-provisions
