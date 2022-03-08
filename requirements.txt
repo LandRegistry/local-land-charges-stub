@@ -7,4 +7,4 @@ jsonschema==3.0.1
 wheel==0.32.3
 Werkzeug==1.0.0
 selenium==3.141.0
-chromedriver-autoinstaller
+chromedriver-autoinstaller==0.3.1
