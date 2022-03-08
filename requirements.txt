@@ -8,3 +8,4 @@ wheel==0.32.3
 Werkzeug==1.0.0
 selenium==3.141.0
 chromedriver-autoinstaller==0.3.1
+itsdangerous==2.0.1
