@@ -35,9 +35,9 @@ class Categories(object):
         for category_type in category_data:
             if category_type.get("name") != None:
                 category_dict={}
-                if category_type.get("sub-categories", {}) != {}:
+                if category_type.get("sub-categories", []) != []:
                     category_dict["sub-categories"]={}
-                    for sub_category in category_type.get("sub-categories", {}):
+                    for sub_category in category_type.get("sub-categories", []):
                         sub_categories={
                             sub_category.get("name"):{}
                         }                        
