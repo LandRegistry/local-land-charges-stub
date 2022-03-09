@@ -1,6 +1,4 @@
-from local_land_charges_api_stub.app import app
 import json
-import requests
 import time
 
 from selenium import webdriver
@@ -8,7 +6,6 @@ import chromedriver_autoinstaller
 
 
 class AddChargeConstants(object):
-    STATUTORY_PROVISION=[]
 
     chromedriver_autoinstaller.install()
 

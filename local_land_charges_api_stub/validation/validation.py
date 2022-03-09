@@ -2,7 +2,7 @@ from local_land_charges_api_stub.app import app
 from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.extensions import schema_extension
-from local_land_charges_api_stub.validation.categories import category_dict
+from local_land_charges_api_stub.validation.categories import Categories
 from local_land_charges_api_stub.validation.instruments import instruments_list
 import json
 
@@ -154,8 +154,8 @@ def get_charge_category(category):
     """
     app.logger.info("Get category for {0}.".format(category))
 
-    if category in category_dict:
-        category_obj = category_dict[category]
+    if category in Categories.category_dict:
+        category_obj = Categories.category_dict[category]
     else:
         return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 
