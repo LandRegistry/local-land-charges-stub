@@ -154,8 +154,11 @@ def get_charge_category(category):
     """
     app.logger.info("Get category for {0}.".format(category))
 
-    if category in Categories.category_dict:
-        category_obj = Categories.category_dict[category]
+    category_data=Categories.get_category_data()
+    print(category_data)
+
+    if category in category_data:
+        category_obj = category_data[category]
     else:
         return {}, {"location": "$.item.charge-type", "error_message": "'{}' is not valid".format(category)}
 

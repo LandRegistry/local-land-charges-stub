@@ -6,27 +6,30 @@ import chromedriver_autoinstaller
 
 
 class Categories(object):
-
-    chromedriver_autoinstaller.install()
-
-    options = webdriver.ChromeOptions()
-    options.add_argument("--disable-extensions")
-    options.add_argument("--headless")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-
-    browser = webdriver.Chrome(chrome_options=options)
-
-    url = "https://search-local-land-charges.service.gov.uk/categories/all"
     
-    browser.get(url)
-    time.sleep(3)
-    html = browser.execute_script("return document.getElementsByTagName('pre')[0].innerHTML")
-    category_dict=self.organist_category_list(json.loads(html))
+    def get_category_data(self, category_data):
 
-    browser.close()
+        chromedriver_autoinstaller.install()
 
-    def organist_category_list(category_data):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--disable-extensions")
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+
+        browser = webdriver.Chrome(chrome_options=options)
+
+        url = "https://search-local-land-charges.service.gov.uk/categories/all"
+        
+        browser.get(url)
+        time.sleep(3)
+        html = browser.execute_script("return document.getElementsByTagName('pre')[0].innerHTML")
+        category_dict=organise_category_list(json.loads(html))
+
+        browser.close()
+        return category_dict
+
+    def organise_category_list(self, category_data):
         full_category_dict={}
 
         for category_type in category_data:
@@ -34,12 +37,12 @@ class Categories(object):
                 category_dict={}
                 if category_type.get("sub-categories", []) != []:
                     sub_categories={
-                        sub_category.get("name"):{}
+                        category_type.get("name"):{}
                     }
                     for sub_category in category_type.get("sub-categories", []):
                         if sub_category.get("instruments",[]) != []:
                             
-                            sub_categories[sub_category['name']].update({
+                            sub_categories[category_type['name']].update({
                                     "instruments":sub_category.get("instruments",[])
                                      })
                     
