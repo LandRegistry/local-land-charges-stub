@@ -154,8 +154,7 @@ def get_charge_category(category):
     """
     app.logger.info("Get category for {0}.".format(category))
 
-    category_data=Categories.get_category_data()
-    print(category_data)
+    category_data=Categories().get_category_data()
 
     if category in category_data:
         category_obj = category_data[category]

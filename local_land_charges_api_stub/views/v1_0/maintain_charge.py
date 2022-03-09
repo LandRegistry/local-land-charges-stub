@@ -11,7 +11,6 @@ import json
 
 maintain = Blueprint('maintain', __name__)
 
-
 @maintain.route("", methods=["POST"])
 @consumes("application/json")
 @produces('application/json')
