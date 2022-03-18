@@ -1,0 +1,70 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Validate Local Land Charge Items",
+    "version": "2.0",
+    "title": "Validation API"
+  },
+  "host": "localhost:8007",
+  "basePath": "/v2.0",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/validate": {
+      "post": {
+        "summary": "Validate an item against schemas and semantic rules.",
+        "operationId": "postValidate",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data to be validated",
+            "required": true,
+            "schema": {
+              "description": "Charge schema too complex to be defined in swagger, see schemas validation_api/schema/<version_number>/local-land-charge.json",
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Submitted data is valid"
+          },
+          "400": {
+            "description": "Submitted data is invalid",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string"
+          },
+          "error_message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

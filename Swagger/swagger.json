@@ -1,0 +1,939 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Local Land Charges API for external systems. Allows authorised external services to Add, Amend and Retrieve Local Land Charges held by HM Land Registry.",
+    "version": "0.0.6",
+    "title": "Local Land Charges"
+  },
+  "basePath": "/v1.0",
+  "tags": [
+    {
+      "name": "LLC",
+      "description": "Local Land Charges"
+    }
+  ],
+  "paths": {
+    "/local-land-charges": {
+      "post": {
+        "tags": [
+          "local-land-charges"
+        ],
+        "summary": "Add a new Local Land Charge to the Register",
+        "description": "",
+        "operationId": "addLLC",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Local Land Charge object to be added to the Register",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "geometry": {
+                      "type": "object",
+                      "description": "GeoJSON FeatureCollection of the LLC extent",
+                      "properties": {
+                        "features": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/Features"
+                          }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "FeatureCollection"
+                          ]
+                        }
+                      }
+                    },
+                    "schema-version": {
+                      "$ref": "#/definitions/schema-version"
+                    },
+                    "charge-type": {
+                      "$ref": "#/definitions/charge-type"
+                    },
+                    "charge-sub-category": {
+                      "$ref": "#/definitions/charge-sub-category"
+                    },
+                    "charge-address": {
+                      "$ref": "#/definitions/charge-address"
+                    },
+                    "registration-date": {
+                      "$ref": "#/definitions/registration-date"
+                    },
+                    "charge-creation-date": {
+                      "$ref": "#/definitions/charge-creation-date"
+                    },
+                    "instrument": {
+                      "$ref": "#/definitions/instrument"
+                    },
+                    "statutory-provision": {
+                      "$ref": "#/definitions/statutory-provision"
+                    },
+                    "further-information-location": {
+                      "$ref": "#/definitions/further-information-location"
+                    },
+                    "further-information-reference": {
+                      "$ref": "#/definitions/further-information-reference"
+                    },
+                    "originating-authority": {
+                      "$ref": "#/definitions/originating-authority"
+                    },
+                    "expiry-date": {
+                      "$ref": "#/definitions/expiry-date"
+                    },
+                    "supplementary-information": {
+                      "$ref": "#/definitions/supplementary-information"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "schema-version",
+                    "geometry",
+                    "registration-date",
+                    "charge-type",
+                    "further-information-location",
+                    "originating-authority"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "item"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "version-id": {
+                  "type": "string"
+                },
+                "land-charge-id": {
+                  "type": "string"
+                },
+                "registration-date": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "error_message": {
+                              "type": "string"
+                            },
+                            "location": {
+                              "description": "The location of the erroring attribute in the JSON. '$.' is the object root",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/local-land-charges/{land-charge-id}": {
+      "get": {
+        "tags": [
+          "local-land-charges"
+        ],
+        "summary": "Retrieve Local Land Charge by ID",
+        "description": "Returns latest version of a Local Land Charge",
+        "operationId": "getLLCById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "land-charge-id",
+            "in": "path",
+            "description": "ID of Local Land Charge to retrieve",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search Successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "version-id": {
+                  "$ref": "#/definitions/version-id"
+                },
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "geometry": {
+                      "type": "object",
+                      "description": "GeoJSON FeatureCollection of the Local Land Charge extent",
+                      "properties": {
+                        "features": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/Features"
+                          }
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "registration-date": {
+                      "$ref": "#/definitions/registration-date"
+                    },
+                    "charge-type": {
+                      "$ref": "#/definitions/charge-type"
+                    },
+                    "charge-sub-category": {
+                      "$ref": "#/definitions/charge-sub-category"                   
+                    },
+                    "charge-address": {
+                      "$ref": "#/definitions/charge-address"
+                    },
+                    "charge-creation-date": {
+                      "$ref": "#/definitions/charge-creation-date"
+                    },
+                    "instrument": {
+                      "$ref": "#/definitions/instrument"
+                    },
+                    "statutory-provision": {
+                      "$ref": "#/definitions/statutory-provision"
+                    },
+                    "further-information-location": {
+                      "$ref": "#/definitions/further-information-location"
+                    },
+                    "further-information-reference": {
+                      "$ref": "#/definitions/further-information-reference"
+                    },
+                    "land-sold-description": {
+                      "$ref": "#/definitions/land-sold-description"
+                    },
+                    "land-works-particulars": {
+                      "$ref": "#/definitions/land-works-particulars"
+                    },
+                    "land-capacity-description": {
+                      "$ref": "#/definitions/land-capacity-description"
+                    },
+                    "land-compensation-paid": {
+                      "$ref": "#/definitions/land-compensation-paid"
+                    },
+                    "land-compensation-amount-type": {
+                      "$ref": "#/definitions/land-compensation-amount-type"
+                    },
+                    "originating-authority": {
+                      "$ref": "#/definitions/originating-authority"
+                    },
+                    "expiry-date": {
+                      "$ref": "#/definitions/expiry-date"
+                    },
+                    "amount-originally-secured": {
+                      "$ref": "#/definitions/amount-originally-secured"
+                    },
+                    "rate-of-interest": {
+                      "$ref": "#/definitions/rate-of-interest"
+                    },
+                    "amount-of-compensation": {
+                      "$ref": "#/definitions/amount-of-compensation"
+                    },
+                    "end-date": {
+                      "$ref": "#/definitions/end-date"
+                    },
+                    "cancellation-reason": {
+                      "$ref": "#/definitions/cancellation-reason"
+                    },
+                    "version-id": {
+                      "$ref": "#/definitions/version-id"
+                    },
+                    "supplementary-information": {
+                      "$ref": "#/definitions/supplementary-information"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "geometry",
+                    "registration-date",
+                    "charge-type",
+                    "further-information-location",
+                    "originating-authority"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "version-id",
+                "item"
+              ]
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string",
+                  "example": "No land charges found"
+                },
+                "error_code": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid entry",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string",
+                  "example": "Invalid Land Charge Number"
+                },
+                "error_code": {
+                  "type": "number",
+                  "example": 422
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/local-land-charges/{land-charge-id}/{version-id}": {
+      "put": {
+        "tags": [
+          "local-land-charges"
+        ],
+        "summary": "Update an existing Local Land Charge",
+        "description": "",
+        "operationId": "updateLLC",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "land-charge-id",
+            "in": "path",
+            "description": "ID of the Local Land Charge to amend",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version-id",
+            "in": "path",
+            "description": "Version ID of the Local Land Charge. Must be the latest version to be able to amend the charge",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Local Land Charges object to be added to the Register",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "geometry": {
+                      "type": "object",
+                      "description": "GeoJSON FeatureCollection of the LLC extent",
+                      "properties": {
+                        "features": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/Features"
+                          }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "FeatureCollection"
+                          ]
+                        }
+                      }
+                    },
+                    "schema-version": {
+                      "$ref": "#/definitions/schema-version"
+                    },
+                    "charge-type": {
+                      "$ref": "#/definitions/charge-type"
+                    },
+                    "charge-sub-category": {
+                      "$ref": "#/definitions/charge-sub-category"
+                    },
+                    "charge-address": {
+                      "$ref": "#/definitions/charge-address"
+                    },
+                    "registration-date": {
+                      "$ref": "#/definitions/registration-date"
+                    },
+                    "charge-creation-date": {
+                      "$ref": "#/definitions/charge-creation-date"
+                    },
+                    "instrument": {
+                      "$ref": "#/definitions/instrument"
+                    },
+                    "statutory-provision": {
+                      "$ref": "#/definitions/statutory-provision"
+                    },
+                    "further-information-location": {
+                      "$ref": "#/definitions/further-information-location"
+                    },
+                    "further-information-reference": {
+                      "$ref": "#/definitions/further-information-reference"
+                    },
+                    "originating-authority": {
+                      "$ref": "#/definitions/originating-authority"
+                    },
+                    "expiry-date": {
+                      "$ref": "#/definitions/expiry-date"
+                    },
+                    "supplementary-information": {
+                      "$ref": "#/definitions/supplementary-information"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "geometry",
+                    "registration-date",
+                    "charge-type",
+                    "further-information-location",
+                    "originating-authority"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "item"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "version-id": {
+                  "type": "string"
+                },
+                "land-charge-id": {
+                  "type": "string"
+                },
+                "registration-date": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "error_message": {
+                              "type": "string"
+                            },
+                            "location": {
+                              "description": "The location of the erroring attribute in the JSON. '$.' is the object root",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "local-land-charges"
+        ],
+        "summary": "Cancel an existing Local Land Charge",
+        "description": "",
+        "operationId": "cancelLLC",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "land-charge-id",
+            "in": "path",
+            "description": "ID of the Local Land Charge to cancel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version-id",
+            "in": "path",
+            "description": "Version ID of the Local Land Charge. Must be the latest version to be able to cancel the charge",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "version-id": {
+                  "type": "string"
+                },
+                "land-charge-id": {
+                  "type": "string"
+                },
+                "registration-date": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "string"
+                      },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "error_message": {
+                              "type": "string"
+                            },
+                            "location": {
+                              "description": "The location of the erroring attribute in the JSON. '$.' is the object root",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "error_code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Features": {
+      "type": "object",
+      "properties": {
+        "geometry": {
+          "$ref": "#/definitions/Geometry"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Feature"
+          ]
+        }
+      }
+    },
+    "Point2D": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number"
+      },
+      "example": "[123123,12312]"
+    },
+    "Geometry": {
+      "type": "object",
+      "description": "Geometry defining the area of a land charge",
+      "discriminator": "type",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "coordinates": {
+          "type": "object",
+          "description": "Should match the definition of; Point, LineString, Polygon's coordinates.",
+          "example": "[123123,12312]"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon"
+          ],
+          "description": "The geometry type"
+        }
+      }
+    },
+    "Point": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "properties": {
+        "coordinates": {
+          "$ref": "#/definitions/Point2D"
+        }
+      }
+    },
+    "LineString": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "properties": {
+        "coordinates": {
+          "$ref": "#/definitions/Point2D"
+        }
+      }
+    },
+    "Polygon": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "properties": {
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Point2D"
+            }
+          }
+        }
+      }
+    },
+    "registration-date": {
+      "type": "string",
+      "description": "Date the charge was added the register. Set by the LLC service when added to register and cannot be subsequently amended",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date",
+      "example": "2017-01-04"
+    },
+    "charge-type": {
+      "description": "The general category of the Charge (e.g. Planning, Financial)",
+      "type": "string",
+      "example": "Planning",
+      "minLength": 1
+    },
+    "charge-sub-category": {
+      "type": "string",
+      "description": "The sub-category specific to the Charge type. Valid values of charge-type and charge-sub-category combinations can be found in /validation/categories.py",
+      "example": "Planning agreement"
+    },
+    "charge-geographic-description": {
+      "description": "A description of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "example": "1 High Street, Exeter"
+    },
+    "charge-address": {
+      "description": "Structured address of the land affected by the Charge. Only one of charge-address or charge-geographic-description may be supplied.",
+      "type": "object",
+      "properties": {
+        "line-1": {
+          "type": "string"
+        },
+        "line-2": {
+          "type": "string"
+        },
+        "line-3": {
+          "type": "string"
+        },
+        "line-4": {
+          "type": "string"
+        },
+        "line-5": {
+          "type": "string"
+        },
+        "line-6": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string",
+          "pattern": "^(([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))(| [0-9][A-Za-z]{2})))$",
+          "example": "SK1 6BH"
+        },
+        "unique-property-reference-number": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "line-1",
+        "postcode",
+        "unique-property-reference-number"
+      ]
+    },
+    "charge-creation-date": {
+      "description": "The date the Charge comes into effect",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date",
+      "example": "2017-01-04"
+    },
+    "instrument": {
+      "description": "The document giving rise to the Charge. Valid values can be found in /validation/instruments.py",
+      "type": "string",
+      "example": "Deed"
+    },
+    "statutory-provision": {
+      "description": "The statutory provision under which the Charge has arisen. Valid values can be found in /constants/constants.py",
+      "type": "string",
+      "minLength": 1,
+      "example": "Planning Act 2008 section 205"
+    },
+    "further-information-location": {
+      "description": "The location - physical or virtual - where relevant documents may be inspected",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 475,
+      "example": "Council Offices, Exeter"
+    },
+    "further-information-reference": {
+      "description": "The official reference of relevant documents",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "example": "REF: 123"
+    },
+    "land-works-particulars": {
+      "description": "Description of the reason why the land adjoining the retained land was compulsorily acquired. Valid only when 'charge-type' is 'Land compensation' and accompanied by 'land-sold-description'. Is a s8 Land compensation charge.",
+      "type": "string",
+      "minLength": 1,
+      "example": "Building a new motorway"
+    },
+    "land-sold-description": {
+      "description": "Description of the land sold by compulsory registration. Valid only when 'charge-type' is 'Land compensation' and accompanied by 'land-works-particulars'. Is a s8 Land compensation charge.",
+      "type": "string",
+      "minLength": 1,
+      "example": "Land adjoining Buttercup Meadow, Plymouth"
+    },
+    "land-capacity-description": {
+      "description": "A description of the capacity in which the land was acquired; e.g. freehold. Valid only when 'charge-type' is 'Land compensation' and accompanied by 'land-compensation-paid' and 'land-compensation-amount-type'. Is a s52 Land compensation charge.",
+      "type": "string",
+      "minLength": 1,
+      "example": "Freehold, Leasehold or other"
+    },
+    "land-compensation-paid": {
+      "description": "Amount already paid to the landowner from which the land was acquired. Valid only when 'charge-type' is 'Land compensation' and accompanied by 'land-capacity-description' and 'land-compensation-amount-type'. Is a s52 Land compensation charge.",
+      "type": "string",
+      "minLength": 1,
+      "example": "10000.00"
+    },
+    "land-compensation-amount-type": {
+      "description": "Valid only when 'charge-type' is 'Land compensation' is compensation paid Agreed or Estimated and accompanied by 'land-capacity-descriptiom' and 'land-compensation-paid'. Is a s52 Land compensation charge.",
+      "type": "string",
+      "enum": [
+        "Agreed amount",
+        "Estimated amount"
+      ]
+    },
+    "originating-authority": {
+      "description": "The name of the Minister of the Crown, government department, local authority or other person by whom the charge is brought into existence.",
+      "type": "string",
+      "minLength": 1,
+      "example": "City of Exeter"
+    },
+    "expiry-date": {
+      "description": "The date on which a Land Interest in respect of a local land charge ceases to exist.",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date",
+      "example": "2017-01-04"
+    },
+    "amount-originally-secured": {
+      "description": "The financial amount secured at the time the charge was created. Valid only when 'charge-type' is 'Financial' and 'rate-of-interest' is included.",
+      "type": "string",
+      "minLength": 1,
+      "example": 1000
+    },
+    "rate-of-interest": {
+      "description": "The rate of interest as a percentage payable on the amount secured, or 'Interest may be payable' or 'No interest is payable'. Valid only when 'charge-type' is 'Financial' and 'amount-originally-secured' is included.",
+      "type": "string",
+      "minLength": 1,
+      "example": 5.5
+    },
+    "amount-of-compensation": {
+      "description": "The total amount of compensation payable to the landowner from which the land was acquired. Valid only when 'charge-type' is 'Land compensation'",
+      "type": "string",
+      "minLength": 1,
+      "example": "1000000.00"
+    },
+    "end-date": {
+      "description": "The date on which Local Land Charge record is cancelled",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date",
+      "example": "2017-01-04"
+    },
+    "cancellation-reason": {
+      "description": "Reason why charge has been cancelled",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1500
+    },
+    "version-id": {
+      "type": "number",
+      "description": "ID which distingiushes each version of a charge during its lifecycle of changes",
+      "example": 4443,
+      "minLength": 1
+    },
+    "supplementary-information": {
+      "type": "string",
+      "description": "Other information relating to the charge",
+      "minLength": 1,
+      "maxLength": 475,
+      "example": "Application to vary condition 47 of planning permission reference number 123/123 dated 26.08.2011, enabling the addition of a split basement level"
+    },
+    "schema-version": {
+      "type": "string",
+      "description": "The current version of the schema",
+      "minLength": 1,
+      "example": "5.0"
+    }
+  }
+}

@@ -150,6 +150,13 @@ The following params can be used for both vary and cancel (no JSON/Payload requi
 }
 ```
 
+## Swagger
+To run the premade swagger server, move to the directory /Swagger, then execute the command 'python3 pythonserver.py'
+Open your favourite web browser and go to localhost:8000
+If the api is running the UI will be able to send payloads to it.
+
+The schema file the swagger uses can be found at /Swagger/Swagger.json.
+If you wish to update the schema you may want to convert the /local_land_charges_api_stub/documentation/local-land-charges-api.yml file to json and replace the swagger.json with it.
 
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
