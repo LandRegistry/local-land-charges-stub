@@ -1,32 +1,16 @@
 import json
 import time
 
-from selenium import webdriver
-import chromedriver_autoinstaller
-
 
 class Categories(object):
     
     def get_category_data(self):
 
-        chromedriver_autoinstaller.install()
-
-        options = webdriver.ChromeOptions()
-        options.add_argument("--disable-extensions")
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")
-
-        browser = webdriver.Chrome(chrome_options=options)
-
-        url = "https://search-local-land-charges.service.gov.uk/categories/all"
         
-        browser.get(url)
-        time.sleep(3)
-        html = browser.execute_script("return document.getElementsByTagName('pre')[0].innerHTML")
-        category_dict=self.organise_category_list(json.loads(html))
-
-        browser.close()
+        url = 'https://search-local-land-charges.service.gov.uk/categories/all'
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/605.1.15'}
+        response = requests.get(url, headers=headers)
+        category_dict=self.organise_category_list(json.loads(response.content))
         return category_dict
 
     def organise_category_list(self, category_data):
