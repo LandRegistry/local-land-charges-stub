@@ -154,4 +154,4 @@ The following params can be used for both vary and cancel (no JSON/Payload requi
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
 
-https://search-local-land-charges.service.gov.uk/statutory-provisions
+https://search-local-land-charges.service.gov.uk/statutory-provisions/history
