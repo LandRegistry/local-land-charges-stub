@@ -161,4 +161,4 @@ If you wish to update the schema you may want to convert the /local_land_charges
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
 
-https://github.com/LandRegistry/local-land-charges-stub/blob/master/local_land_charges_api_stub/constants/constants.py
+https://search-local-land-charges.service.gov.uk/statutory-provisions
