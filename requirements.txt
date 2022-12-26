@@ -4,5 +4,5 @@ Flask-Negotiate==0.1.0
 Flask-Script==2.0.6
 requests==2.22.0
 jsonschema==3.0.1
-wheel==0.32.3
+wheel==0.38.1
 Werkzeug==1.0.0
