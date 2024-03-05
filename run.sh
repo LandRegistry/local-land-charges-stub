@@ -13,12 +13,6 @@ python3 -m venv ./venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
-pip3 freeze > requirements.txt
-
-pip3 install -r requirements.txt --upgrade
-
-pip3 freeze > requirements.txt
-
 export FLASK_APP=local_land_charges_api-stub/main.py
 export FLASK_DEBUG=1
 # For Python

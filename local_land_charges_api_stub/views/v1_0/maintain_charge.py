@@ -17,9 +17,9 @@ maintain = Blueprint('maintain', __name__)
 @produces('application/json')
 def add_charge():
     current_app.logger.info("Endpoint called")
+
     payload = request.get_json()
     date = datetime.datetime.now().strftime("%Y-%m-%d")
-
     errors = add_vary_handler.add_vary_validate(payload)
 
     if errors:

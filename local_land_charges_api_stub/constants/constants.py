@@ -13,5 +13,5 @@ class AddChargeConstants(object):
     except json.JSONDecodeError:
         with open('local_land_charges_api_stub/constants/statutory_provisions.csv') as stat_prov_file:
             reader = csv.reader(stat_prov_file)
-            statutory_provisions = {rows[0]: rows[1] for rows in reader}
+            STATUTORY_PROVISION = {rows[0]: rows[1] for rows in reader}
  
