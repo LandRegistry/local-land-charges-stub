@@ -1,6 +1,5 @@
-import unittest
-
 from local_land_charges_api_stub.main import app
+import unittest
 
 
 class TestHealth(unittest.TestCase):

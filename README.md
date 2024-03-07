@@ -158,6 +158,9 @@ If the api is running the UI will be able to send payloads to it.
 The schema file the swagger uses can be found at /Swagger/Swagger.json.
 If you wish to update the schema you may want to convert the /local_land_charges_api_stub/documentation/local-land-charges-api.yml file to json and replace the swagger.json with it.
 
+## Testing
+To run the tests, run the run_tests.sh file in Terminal (i.e. ./run_tests.sh).
+
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
 
