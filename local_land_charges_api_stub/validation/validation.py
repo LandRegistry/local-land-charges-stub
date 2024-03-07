@@ -117,7 +117,7 @@ def validate_category_instrument(charge):
     :return: a list of errors if any are present, an empty list if the category/sub-category/instrument are valid
     """
     errors = []
-    category, error = get_charge_category(charge["charge-type"])
+    category, error = get_charge_category(charge.get("charge-type", ""))
     if error:
         errors.append(error)
     else:
