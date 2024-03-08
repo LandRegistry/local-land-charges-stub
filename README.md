@@ -16,8 +16,6 @@ If using Windows, run the run_in_windows.bat file in a cmd window.
 
 You may need to update the bat file code to use py or python3, instead of python, depending on your PATH configuration.
 
-Alternativety you can run docker-compose up --build -d, if you are using Docker.
-
 Check application is running using http://localhost:9998/health
 
 The base URL for the application will run on http://localhost:9998/v1.0/local-land-charges (See swagger documentation for details of the available endpoints)
