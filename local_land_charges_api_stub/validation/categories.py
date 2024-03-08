@@ -10,7 +10,7 @@ class Categories(object):
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/605.1.15'}
         response = requests.get(url, headers=headers)
         try:
-            category_data = json.loads(response.content)
+            category_data = response.content
         except json.JSONDecodeError:
             with open('local_land_charges_api_stub/constants/categories.json') as category_dict:
                 category_data = category_dict.read()
