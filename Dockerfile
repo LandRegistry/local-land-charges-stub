@@ -1,21 +1,14 @@
-# Set the base image to the base image
-FROM python:3.12-slim
+FROM python:3.9
 
-# ----
-# Put your app-specific stuff here (extra yum installs etc).
-# Any unique environment variables your config.py needs should also be added as ENV entries here
+WORKDIR /usr/src/app
 
-ENV APP_NAME=local-land-charges-api-stub
+COPY . .
 
-# ----
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -r requirements_test.txt 
 
-# The command to run the app is inherited from lr_base_python_flask
+# Make port 9998 available to the world outside this container
+EXPOSE 9998
 
-# Get the python environment ready.
-# Have this at the end so if the files change, all the other steps don't need to be rerun. Same reason why _test is
-# first. This ensures the container always has just what is in the requirements files as it will rerun this in a
-# clean image.
-ADD requirements_test.txt requirements_test.txt
-ADD requirements.txt requirements.txt
-RUN pip3 install -q -r requirements.txt && \
-  pip3 install -q -r requirements_test.txt
+
+CMD [ "flask", "run", "--host=0.0.0.0", "--port=9998" ]
