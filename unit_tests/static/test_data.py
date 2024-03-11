@@ -62,7 +62,7 @@ invalid_charge_type = {
                     "crs": {
                         "type": "name1",
                         "properties": {
-                        "name": "urn:ogc:def:crs:EPSG::27700"
+                            "name": "urn:ogc:def:crs:EPSG::27700"
                         }
                     },
                     "type": "Feature",
@@ -102,7 +102,7 @@ missing_field_payload = {
                     "crs": {
                         "type": "name1",
                         "properties": {
-                        "name": "urn:ogc:def:crs:EPSG::27700"
+                            "name": "urn:ogc:def:crs:EPSG::27700"
                         }
                     },
                     "type": "Feature",
@@ -143,7 +143,7 @@ duplicate_charge = {
                     "crs": {
                         "type": "name1",
                         "properties": {
-                        "name": "urn:ogc:def:crs:EPSG::27700"
+                            "name": "urn:ogc:def:crs:EPSG::27700"
                         }
                     },
                     "type": "Feature",
@@ -184,7 +184,7 @@ payload = {
                     "crs": {
                         "type": "name1",
                         "properties": {
-                        "name": "urn:ogc:def:crs:EPSG::27700"
+                            "name": "urn:ogc:def:crs:EPSG::27700"
                         }
                     },
                     "type": "Feature",
