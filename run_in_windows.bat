@@ -10,7 +10,10 @@ CALL ./venv/Scripts/activate
 
 pip install -r requirements.txt
 
+python --version 
+
 set LOG_LEVEL=INFO
 set COMMIT=LOCAL
+set FLASK_APP=local_land_charges_api_stub/main.py
 
-python3 -m flask run
+python -m flask run

@@ -13,5 +13,6 @@ pip install -r requirements_test.txt
 
 set LOG_LEVEL=INFO
 set COMMIT=LOCAL
+set FLASK_APP=local_land_charges_api_stub/main.py
 
 python -m pytest
