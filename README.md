@@ -8,11 +8,11 @@ This is currently a Beta version and therefore subject to future changes.
 ## Getting Started
 
 Running this service locally will require the following :
-* Python 3
+* Python 3.9 - 3.10.10
 * Python 3 header files and a static library for Python (`python3-dev` on Debian/ Ubuntu)
 
-To start the service, run the run.sh file in Terminal (i.e. ./run.sh).
-If using Windows, run the run_in_windows.bat file in a cmd window. 
+To start the service, run the ```./run.sh``` file in Termina;.
+If using Windows, run the ```./run_in_windows.bat``` file in a cmd window. 
 
 You may need to update the bat file code to use py or python3, instead of python, depending on your PATH configuration.
 
@@ -161,7 +161,9 @@ The schema file the swagger uses can be found at /Swagger/Swagger.json.
 If you wish to update the schema you may want to convert the /local_land_charges_api_stub/documentation/local-land-charges-api.yml file to json and replace the swagger.json with it.
 
 ## Testing
-To run the tests, run the run_tests.sh file in Terminal (i.e. ./run_tests.sh).
+To run the tests, if on Windows, run ```./run_tests_in_windows.bat``` in the Oerminal.
+
+Otherwise run the ```./run_tests.sh``` file in Terminal
 
 ## NOTE:
 The following link contains the list of Statutory Provisions are available to use in this stub:-
