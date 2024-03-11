@@ -13,10 +13,9 @@ source venv/bin/activate
 # Install dependencies
 pip3 install -r requirements.txt
 pip3 install -r requirements_test.txt
-pip install --force-reinstall urllib3==2.2.1
 
 # Set environment variables necessary for testing
-export FLASK_APP=local_land_charges_api-stub/main.py
+export FLASK_APP=local_land_charges_api_stub/main.py
 export FLASK_DEBUG=1
 export PYTHONUNBUFFERED=yes
 export FLASK_LOG_LEVEL=DEBUG

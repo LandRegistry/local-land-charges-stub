@@ -13,4 +13,4 @@ pip install -r requirements.txt
 set LOG_LEVEL=INFO
 set COMMIT=LOCAL
 
-python manage.py runserver
+python3 -m flask run

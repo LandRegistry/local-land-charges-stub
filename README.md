@@ -8,7 +8,7 @@ This is currently a Beta version and therefore subject to future changes.
 ## Getting Started
 
 Running this service locally will require the following :
-* Python 3.9 - 3.10.10
+* Python 3.11
 * Python 3 header files and a static library for Python (`python3-dev` on Debian/ Ubuntu)
 
 To start the service, run the ```./run.sh``` file in Termina;.
@@ -16,9 +16,9 @@ If using Windows, run the ```./run_in_windows.bat``` file in a cmd window.
 
 You may need to update the bat file code to use py or python3, instead of python, depending on your PATH configuration.
 
-Check application is running using http://localhost:9998/health
+Check application is running using http://localhost:5000/health
 
-The base URL for the application will run on http://localhost:9998/v1.0/local-land-charges (See swagger documentation for details of the available endpoints)
+The base URL for the application will run on http://localhost:5000/v1.0/local-land-charges (See swagger documentation for details of the available endpoints)
 
 The following provides information on available data and responses.
 
