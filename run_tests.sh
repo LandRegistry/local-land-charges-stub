@@ -25,7 +25,6 @@ export COMMIT=LOCAL
 export APP_NAME=local-land-charges-api-stub
 export PYTHONPATH='.'
 
-
 # Run unit tests
 make unittest
 
