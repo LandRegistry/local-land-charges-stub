@@ -82,7 +82,7 @@ class TestMaintainCharge(unittest.TestCase):
 
         response = self.client.put(
             f"/v1.0/local-land-charges/{valid_land_charge_id}/{invalid_version_id}",
-            data=json.dumps(payload),
+            data=json.dumps(test_data.invalid_version),
             content_type='application/json',
             headers={'Accept': 'application/json'}
         )

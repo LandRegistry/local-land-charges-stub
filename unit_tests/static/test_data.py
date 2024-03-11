@@ -161,7 +161,7 @@ duplicate_charge = {
     }
 }
 
-payload = {
+invalid_version = {
     "item": {
         "schema-version": "5.0",
         "further-information-location": "some further info",
