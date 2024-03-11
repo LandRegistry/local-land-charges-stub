@@ -11,7 +11,7 @@ Running this service locally will require the following :
 * Python 3.11
 * Python 3 header files and a static library for Python (`python3-dev` on Debian/ Ubuntu)
 
-To start the service, run the ```./run.sh``` file in Termina;.
+To start the service, run the ```./run.sh``` file in Terminal.
 If using Windows, run the ```./run_in_windows.bat``` file in a cmd window. 
 
 You may need to update the bat file code to use py or python3, instead of python, depending on your PATH configuration.
