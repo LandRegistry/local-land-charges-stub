@@ -13,9 +13,9 @@ class Categories(object):
             category_data = json.loads(response.content)
         except json.JSONDecodeError:
             with open('local_land_charges_api_stub/constants/categories.json') as category_dict:
-                category_data = category_dict.read()
+                category_data = json.loads(category_dict.read())
 
-        return self.organise_category_list(json.loads(category_data))        
+        return self.organise_category_list(category_data)
 
     def organise_category_list(self, category_data):
         full_category_dict={}

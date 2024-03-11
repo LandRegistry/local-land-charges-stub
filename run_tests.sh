@@ -1,17 +1,19 @@
 #!/bin/bash
 
-# Ensure virtual environment is set up
-if [ ! -d "venv" ]; then
-    echo "venv folder does not exist, creating it..."
-    python3 -m venv ./venv
+# Check to make sure that the venv folder is present, if not, create it
+if [ ! -d "venv" ] 
+then
+    echo "Folder does not exist, creating folder"
+    mkdir venv
 fi
 
-# Activate the virtual environment
+python3 -m venv ./venv 
 source venv/bin/activate
 
 # Install dependencies
 pip3 install -r requirements.txt
 pip3 install -r requirements_test.txt
+pip install --force-reinstall urllib3==2.2.1
 
 # Set environment variables necessary for testing
 export FLASK_APP=local_land_charges_api-stub/main.py

@@ -1,5 +1,5 @@
 # Set the base image to the base image
-FROM python:3.12-slim
+FROM hmlandregistry/dev_base_python_flask:3
 
 # ----
 # Put your app-specific stuff here (extra yum installs etc).
