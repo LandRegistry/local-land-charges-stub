@@ -1,7 +1,6 @@
 import json
-import time
 import requests
-import csv
+
 
 class Categories(object):
 
@@ -18,23 +17,23 @@ class Categories(object):
         return self.organise_category_list(category_data)
 
     def organise_category_list(self, category_data):
-        full_category_dict={}
+        full_category_dict = {}
 
         for category_type in category_data:
-            if category_type.get("name") != None:
-                category_dict={}
+            if category_type.get("name") is not None:
+                category_dict = {}
                 if category_type.get("sub-categories", []) != []:
                     category_dict["sub-categories"]={}
                     for sub_category in category_type.get("sub-categories", []):
-                        sub_categories={
+                        sub_categories = {
                             sub_category.get("name"):{}
-                        }                        
+                        }
                         if sub_category.get("instruments",[]) != []:
-                            
+
                             sub_categories[sub_category["name"]].update({
-                                    "instruments":sub_category.get("instruments",[])
+                                    "instruments": sub_category.get("instruments", [])
                                      })
-                    
+
                         category_dict["sub-categories"].update(sub_categories)
 
                 full_category_dict[category_type.get("name")]=category_dict

@@ -1,6 +1,5 @@
 from local_land_charges_api_stub.app import app
 from jsonschema import Draft4Validator, FormatChecker
-from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.extensions import schema_extension
 from local_land_charges_api_stub.validation.categories import Categories
 from local_land_charges_api_stub.validation.instruments import instruments_list

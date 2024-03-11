@@ -4,6 +4,7 @@ from local_land_charges_api_stub.main import app
 from unit_tests.static import test_data
 import unittest
 
+
 class TestMaintainCharge(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
