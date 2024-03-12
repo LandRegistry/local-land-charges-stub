@@ -1,0 +1,237 @@
+[
+    {
+       "name":"Planning",
+       "sub-categories":[
+          {
+             "name":"Conditional planning consent",
+             "instruments":[
+                "Planning permission"
+             ]
+          },
+          {
+             "name":"Conservation area",
+             "instruments":[
+                "Notice"
+             ]
+          },
+          {
+             "name":"Enforcement notice",
+             "instruments":[
+                "Notice"
+             ]
+          },
+          {
+             "name":"Modification / rectification orders",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"No permitted development / article 4",
+             "instruments":[
+                "Direction"
+             ]
+          },
+          {
+             "name":"Planning agreement",
+             "instruments":[
+                "Agreement"
+             ]
+          },
+          {
+             "name":"Planning notice",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Planning order",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Tree preservation order (TPO)",
+             "instruments":[
+                "Order"
+             ]
+          }
+       ]
+    },
+    {
+       "name":"Financial",
+       "sub-categories":[
+          
+       ]
+    },
+    {
+       "name":"Listed building",
+       "sub-categories":[
+          {
+             "name":"Enforcement notice",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Listed building",
+             "instruments":[
+                "List"
+             ]
+          }
+       ]
+    },
+    {
+       "name":"Land compensation",
+       "sub-categories":[
+          
+       ]
+    },
+    {
+       "name":"Housing / buildings",
+       "sub-categories":[
+          {
+             "name":"Grant",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Occupancy including house in multiple occupation (HMO)",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Right to buy / right to acquire",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Works, repairs or authority action",
+             "instruments":[
+                
+             ]
+          }
+       ]
+    },
+    {
+       "name":"Light obstruction notice",
+       "sub-categories":[
+          
+       ]
+    },
+    {
+       "name":"Other",
+       "sub-categories":[
+          {
+             "name":"Ancient monuments",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Assets of community value",
+             "instruments":[
+                "List"
+             ]
+          },
+          {
+             "name":"Civil aviation",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Compulsory purchase or acquisition",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Conservation covenant",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Highways and paths",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Licence",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Local acts",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"New towns",
+             "instruments":[
+                "Order"
+             ]
+          },
+          {
+             "name":"Opencast coal",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Other covenant",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Pipeline",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Protected areas / sites",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Smoke control order",
+             "instruments":[
+                "Order"
+             ]
+          },
+          {
+             "name":"Uncommon charges",
+             "instruments":[
+                
+             ]
+          },
+          {
+             "name":"Water / drainage / environmental",
+             "instruments":[
+                
+             ]
+          }
+       ]
+    },
+    {
+       "name":"For information only",
+       "sub-categories":[
+          {
+             "name":"This does not constitute a charge.",
+             "instruments":[
+                
+             ]
+          }
+       ]
+    }
+ ]

@@ -1,23 +1,20 @@
-from flask_script import Manager
-from local_land_charges_api_stub.main import app
-import os
-# Using Alembic?
-# See what extra lines are needed here:
-# http://192.168.249.38/gadgets/gadget-api/blob/master/manage.py
-
-manager = Manager(app)
+import subprocess  # nosec
+import sys
 
 
-@manager.command
-def runserver(port=9998):
-    """Run the app using flask server"""
-
-    os.environ["PYTHONUNBUFFERED"] = "yes"
-    os.environ["LOG_LEVEL"] = "DEBUG"
-    os.environ["COMMIT"] = "LOCAL"
-
-    app.run(debug=True, port=int(port))
-
+def run():
+    subprocess.call(["flask", "run"])  # nosec
 
 if __name__ == "__main__":
-    manager.run()
+    # This shim doesn't import anything from the application, so has no logger configuration.
+    # Print warnings to STDOUT.
+    print("WARNING: use of manage.py is deprecated")
+    if len(sys.argv) <= 1:
+        raise Exception("Please specify a command")
+
+    command = sys.argv[1]
+
+    if command == "runserver":
+        run()
+    else:
+        raise Exception("Command unknown")

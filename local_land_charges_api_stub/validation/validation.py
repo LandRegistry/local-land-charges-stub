@@ -1,6 +1,5 @@
 from local_land_charges_api_stub.app import app
 from jsonschema import Draft4Validator, FormatChecker
-from local_land_charges_api_stub.exceptions import ApplicationError
 from local_land_charges_api_stub.extensions import schema_extension
 from local_land_charges_api_stub.validation.categories import Categories
 from local_land_charges_api_stub.validation.instruments import instruments_list
@@ -117,7 +116,7 @@ def validate_category_instrument(charge):
     :return: a list of errors if any are present, an empty list if the category/sub-category/instrument are valid
     """
     errors = []
-    category, error = get_charge_category(charge["charge-type"])
+    category, error = get_charge_category(charge.get("charge-type", ""))
     if error:
         errors.append(error)
     else:
@@ -155,7 +154,6 @@ def get_charge_category(category):
     app.logger.info("Get category for {0}.".format(category))
 
     category_data=Categories().get_category_data()
-
     if category in category_data:
         category_obj = category_data[category]
     else:
