@@ -11,7 +11,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
 
-        hostname = '127.0.0.1:9998'
+        hostname = '127.0.0.1:5000'
         print(self.path)
         url = 'http://{}{}'.format(hostname, self.path)
         req_header = self.headers
@@ -30,7 +30,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
 
         print("Put received\n")
         # Parse request
-        hostname = '127.0.0.1:9998'
+        hostname = '127.0.0.1:5000'
         url = 'http://{}{}'.format(hostname, self.path)
         print(url)
         req_header = self.headers
@@ -49,7 +49,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
 
         print("delete received\n")
         # Parse request
-        hostname = '127.0.0.1:9998'
+        hostname = '127.0.0.1:5000'
         url = 'http://{}{}'.format(hostname, self.path)
         req_header = self.headers
 
@@ -65,7 +65,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         if 'local-land-charges' in self.path:
             print("GET recieved")
             # Parse request
-            hostname = '127.0.0.1:9998'
+            hostname = '127.0.0.1:5000'
             url = 'http://{}{}'.format(hostname, self.path)
             print(url)
             req_header = self.headers
