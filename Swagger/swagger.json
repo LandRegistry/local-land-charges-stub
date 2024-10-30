@@ -926,7 +926,7 @@
       "type": "string",
       "description": "Other information relating to the charge",
       "minLength": 1,
-      "maxLength": 475,
+      "maxLength": 1500,
       "example": "Application to vary condition 47 of planning permission reference number 123/123 dated 26.08.2011, enabling the addition of a split basement level"
     },
     "schema-version": {
