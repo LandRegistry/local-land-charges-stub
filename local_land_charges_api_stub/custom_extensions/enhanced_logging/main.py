@@ -1,6 +1,5 @@
 from flask import g
 from flask import request
-from flask_logconfig import LogConfig
 from pathlib import Path
 
 import logging
@@ -79,9 +78,5 @@ class EnhancedLogging(object):
         }
 
         app.config.update(LOGCONFIG=logconfig)
-
-        logger = LogConfig()
-
-        logger.init_app(app)
 
         app.audit_logger = logging.getLogger("audit")
