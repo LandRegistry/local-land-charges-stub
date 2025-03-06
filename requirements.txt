@@ -7,7 +7,7 @@ Flask-LogConfig==0.4.2
 Flask-Negotiate==0.1.0
 Flask-Script==2.0.6
 idna==3.10
-Jinja2==3.1.5
+Jinja2==3.1.6
 iniconfig==2.0.0
 itsdangerous==2.2.0
 jsonschema==4.23.0
