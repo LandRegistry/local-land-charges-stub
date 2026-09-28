@@ -1,5 +1,4 @@
 import json
-
 import geojson
 from shapely.errors import GeometryTypeError
 from shapely.geometry import shape
@@ -57,7 +56,6 @@ def validate_geometry(item):
                                 "error_message": "Geometry is invalid"})
 
     return errors
-
 
 validation_rules = [
     geometry_extent_count,

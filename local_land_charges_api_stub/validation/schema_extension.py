@@ -26,8 +26,7 @@ class SchemaExtension(object):
         path = os.path.split(os.path.realpath(__file__))
         app_dir = os.path.split(path[0])[0]
         pkgpath = os.path.dirname(schema_folder.__file__)
-        out_dated_pkgs = ["v1_0", "v2_0", "v3_0", "v4_0"]
-        for version in [name for _, name, _ in pkgutil.iter_modules([pkgpath]) if name not in out_dated_pkgs ]:
+        for version in [name for _, name, _ in pkgutil.iter_modules([pkgpath])]:
             schema_path = os.path.join(
                 app_dir, app.config["SCHEMA_RELATIVE_DIRECTORY"], version
             )
