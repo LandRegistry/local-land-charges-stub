@@ -539,13 +539,14 @@ components:
           properties:
             item:
               type: object
+              description: Example of a Financial charge with amount and interest, has charge-geographic-description
               properties:
                 charge-type:
                   $ref: '#/components/schemas/charge-type'
                 charge-sub-category:
                   "$ref": "#/components/schemas/charge-sub-category"
                 charge-geographic-description:
-                  "$ref": "#/components/schemas/charge-address"
+                  "$ref": "#/components/schemas/charge-geographic-description"
                 registration-date:
                   "$ref": "#/components/schemas/registration-date"
                 charge-creation-date:
