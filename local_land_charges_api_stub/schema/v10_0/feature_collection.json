@@ -4,7 +4,7 @@
   "type": "object",
   "description": "This is a limited subset of the GeoJSON specification. This object represents a collection of features.",
   "additionalProperties": true,
-  "required": ["type"],
+  "required": ["type", "features"],
   "properties": {
     "type": {
       "title": "Type",
@@ -17,8 +17,7 @@
     "crs": {
       "title": "Coordinate Reference System (CRS)",
       "description": "The coordinate reference system (CRS) of a GeoJSON object is determined by its `crs` member (referred to as the CRS object below). If an object has no crs member, then its parent or grandparent object's crs member may be acquired. If no crs member can be so acquired, the default CRS shall apply to the GeoJSON object.\n\n* The default CRS is a geographic coordinate reference system, using the WGS84 datum, and with longitude and latitude units of decimal degrees.\n\n* The value of a member named `crs` must be a JSON object (referred to as the CRS object below) or JSON null. If the value of CRS is null, no CRS can be assumed.\n\n* The crs member should be on the top-level GeoJSON object in a hierarchy (in feature collection, feature, geometry order) and should not be repeated or overridden on children or grandchildren of the object.\n\n* A non-null CRS object has two mandatory members: `type` and `properties`.\n\n* The value of the type member must be a string, indicating the type of CRS object.\n\n* The value of the properties member must be an object.\n\n* CRS shall not change coordinate ordering.",
-      "oneOf": [
-        {
+      "oneOf": [{
           "type": "null"
         },
         {
@@ -42,8 +41,7 @@
         }
       ],
       "not": {
-        "anyOf": [
-          {
+        "anyOf": [{
             "properties": {
               "type": {
                 "enum": [
@@ -113,7 +111,8 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/feature"
-      }
+      },
+      "minItems": 1
     }
   },
   "definitions": {
@@ -141,8 +140,7 @@
           ]
         },
         "coordinates": {
-          "allOf": [
-            {
+          "allOf": [{
               "$ref": "#/definitions/coordinates"
             },
             {
@@ -185,7 +183,7 @@
       }
     },
     "feature": {
-      "tittle": "Feature",
+      "title": "Feature",
       "description": "A GeoJSON object with the type `Feature` is a feature object.\n\n* A feature object must have a member with the name `geometry`. The value of the geometry member is a geometry object as defined above or a JSON null value.\n\n* A feature object must have a member with the name `properties`. The value of the properties member is an object (any JSON object or a JSON null value).\n\n* If a feature has a commonly used identifier, that identifier should be included as a member of the feature object with the name `id`.",
       "required": [
         "geometry",
@@ -194,8 +192,7 @@
       "properties": {
         "geometry": {
           "title": "Geometry",
-          "oneOf": [
-            {
+          "oneOf": [{
               "$ref": "#/definitions/point"
             },
             {
@@ -203,33 +200,31 @@
             },
             {
               "$ref": "#/definitions/polygon"
-            },
-            {
-              "type": "null"
             }
           ]
         },
         "properties": {
           "title": "Properties",
-          "oneOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "title": "Feature ID",
+              "description": "Unique (for the charge) identifier for the geometry feature",
+              "type": "integer",
+              "maximum": 9223372036854775807,
+              "minimum": 0
             }
-          ]
-        },
-        "id": {}
+          }
+        }
       }
-
-
     },
     "lineStringCoordinates": {
       "title": "Line String Coordinates",
       "description": "For type `LineString`, the `coordinates` member must be an array of two or more positions.",
-      "allOf": [
-        {
+      "allOf": [{
           "$ref": "#/definitions/coordinates"
         },
         {
@@ -243,8 +238,7 @@
     "linearRingCoordinates": {
       "title": "Linear Ring Coordinates",
       "description": "A LinearRing is closed LineString with 4 or more positions. The first and last positions are equivalent (they represent equivalent points). Though a LinearRing is not explicitly represented as a GeoJSON geometry type, it is referred to in the Polygon geometry type definition.",
-      "allOf": [
-        {
+      "allOf": [{
           "$ref": "#/definitions/lineStringCoordinates"
         },
         {
@@ -255,8 +249,7 @@
     "polygonCoordinates": {
       "title": "Polygon Coordinates",
       "description": "For type `Polygon`, the `coordinates` member must be an array of LinearRing coordinate arrays. For Polygons with multiple rings, the first must be the exterior ring and any others must be interior rings or holes.",
-      "allOf": [
-        {
+      "allOf": [{
           "$ref": "#/definitions/coordinates"
         },
         {
@@ -270,8 +263,7 @@
       "title": "Coordinates",
       "type": "array",
       "items": {
-        "oneOf": [
-          {
+        "oneOf": [{
             "type": "array"
           },
           {

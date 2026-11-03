@@ -118,7 +118,6 @@
                     "pattern": "^6\\.\\d+$"
                 },
                 "geometry": {
-                    "$ref": "file:feature_collection.json",
                     "description": "FeatureCollection identifying the Charge extent.",
                     "$comment": "Additional validation is performed on the geometry field by the validation service."
                 },

@@ -3,7 +3,9 @@ from jsonschema import Draft4Validator, FormatChecker
 from local_land_charges_api_stub.extensions import schema_extension
 from local_land_charges_api_stub.validation.categories import Categories
 from local_land_charges_api_stub.validation.instruments import instruments_list
+from fastjsonschema import JsonSchemaException
 import json
+import re
 
 
 def _format_path(error_path):
@@ -33,15 +35,14 @@ def _filter_errors(messages, discard_subschemas):
     return return_errors
 
 
-def _check_for_errors(data, schema, resolver):
+def _check_for_errors(data, schema):
     # Because the schema contains a number of subschemas, we'll discard error messages from
     # subschemas where it generates an error such as ' FOO is not one of [BAZ, BAR] or
     # 'FOO is not allowed for BAZ'
-    validator = Draft4Validator(schema, format_checker=FormatChecker(), resolver=resolver)
     messages = {}
     discard_subschemas = []
 
-    for error in validator.iter_errors(data):
+    for error in schema.iter_errors(data):
         for suberror in error.context:
             path = _format_path(suberror.path)
             subschema = str(suberror.schema_path[0])
@@ -81,8 +82,10 @@ def get_item_errors(data):
         }]
 
     app.logger.info("Validating against full schema " + json.dumps(data))
-    errors = _check_for_errors(data, schema_extension.schema[version],
-                               schema_extension.resolver[version])
+    errors = _check_for_errors(data, schema_extension.schema[version])
+    errors = errors + _check_geometry_for_errors(
+        data, schema_extension.geojson_schema[version]
+    )
 
     if data['schema-version'] >= '5.0':
         # from version 5, category validation moved out of the schema, so validate this now
@@ -94,6 +97,22 @@ def get_item_errors(data):
 
         for re in rule_errors:
             errors.append(re)
+    return errors
+
+
+def _check_geometry_for_errors(data, schema):
+    errors = []
+    try:
+        if "geometry" in data:
+            schema(data["geometry"])
+    except JsonSchemaException as exc:
+        errors = [
+            {
+                "error_message": "Geometry invalid: "
+                + re.sub(r"^data[/.]?\s?", "", exc.message),
+                "location": "$.geometry",
+            }
+        ]
     return errors
 
 
